@@ -18,6 +18,19 @@ css/* ==========================================================================
   padding: 0;
 }
 
+.site-header {
+  display: flex;
+  justify-content: space-between; /* Puts space between logo and buttons */
+  align-items: center;            /* Vertically centers them */
+  padding: 1rem 2rem;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 1rem;                      /* Space between multiple buttons */
+  margin-left: auto;              /* Forces the container to the right if no logo exists */
+}
+
 body {
   font-family: var(--font-stack);
   font-size: 16px;
