@@ -1,4 +1,7 @@
-\```css
+.logo images/better STL(1).jpg {
+    width: 100px;
+    height: auto;
+}
 * {
     box-sizing: border-box;
 }
@@ -122,7 +125,7 @@ p {
 .gallery {
     display: grid;
 
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat (3, 1);
 
     gap: 20px;
 }
