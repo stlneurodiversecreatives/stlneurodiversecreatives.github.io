@@ -104,6 +104,11 @@ p {
   border: 1px solid var(--border-color);
 }
 
+  .image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Creates flexible columns */
+  gap: 16px; /* Space between pictures */
+}
 /* ==========================================================================
    5. RESPONSIVE DESIGN (Mobile optimization)
    ========================================================================== */
