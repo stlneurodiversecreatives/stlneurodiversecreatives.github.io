@@ -1,102 +1,200 @@
-css/* Base Layout Configurations */
-:root {
-    --bg-color: #ffffff;
-    --text-color: #333333;
-    --accent-color: #24292e;
-    --card-bg: #f6f8fa;
-    --btn-text: #ffffff;
-}
+```css
+/* =========================
+   GENERAL
+========================= */
 
-[data-theme="dark"] {
-    --bg-color: #0d1117;
-    --text-color: #c9d1d9;
-    --accent-color: #58a6ff;
-    --card-bg: #161b22;
-    --btn-text: #0d1117;
+* {
+    box-sizing: border-box;
 }
 
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color 0.3s, color 0.3s;
-    line-height: 1.6;
+    background: #f4f1eb;
+    color: #171717;
+    font-family: Arial, sans-serif;
 }
 
-header {
-    background-color: var(--card-bg);
-    padding: 1rem 2rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+a {
+    color: inherit;
 }
+
+
+/* =========================
+   NAVIGATION
+========================= */
 
 nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    padding: 25px 35px;
+
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1100px;
-    margin: 0 auto;
+    justify-content: flex-end;
+    gap: 28px;
+
+    z-index: 100;
 }
 
-.logo {
-    font-weight: bold;
-    font-size: 1.25rem;
-}
-
-#theme-toggle {
-    background: transparent;
-    border: 1px solid var(--text-color);
-    color: var(--text-color);
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    border-radius: 6px;
-}
-
-main {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 2rem;
-}
-
-.hero {
-    text-align: center;
-    padding: 4rem 1rem;
-}
-
-.hero h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
-
-.btn {
-    display: inline-block;
-    background-color: var(--accent-color);
-    color: var(--btn-text);
-    padding: 0.75rem 1.5rem;
+nav a {
     text-decoration: none;
-    border-radius: 6px;
-    font-weight: bold;
-    margin-top: 1rem;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    transition: opacity 0.2s ease;
 }
 
-.features {
+nav a:hover {
+    opacity: 0.5;
+}
+
+
+/* =========================
+   PAGE LAYOUT
+========================= */
+
+.page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 140px 40px 80px;
+}
+
+h1 {
+    font-size: clamp(50px, 9vw, 120px);
+    font-weight: normal;
+    line-height: 0.9;
+    margin: 0 0 60px;
+}
+
+h2 {
+    font-size: 30px;
+    font-weight: normal;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+
+/* =========================
+   HOME
+========================= */
+
+.home {
+    min-height: 100vh;
+    padding: 160px 40px 60px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.home h1 {
+    margin: 0;
+}
+
+.home-subtitle {
+    font-size: 20px;
+    margin-top: 25px;
+    max-width: 500px;
+}
+
+
+/* =========================
+   GALLERY
+========================= */
+
+.gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
 }
 
-.card {
-    background-color: var(--card-bg);
-    padding: 2rem;
-    border-radius: 8px;
-    border: 1px solid rgba(0,0,0,0.05);
+.gallery img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+
+    transition: transform 0.3s ease;
 }
 
-footer {
-    text-align: center;
-    padding: 2rem;
-    margin-top: 4rem;
-    font-size: 0.9rem;
-    border-top: 1px solid var(--card-bg);
+.gallery img:hover {
+    transform: scale(1.02);
 }
+
+
+/* =========================
+   EVENTS
+========================= */
+
+.event {
+    border-top: 1px solid #999;
+    padding: 30px 0;
+    max-width: 800px;
+}
+
+.event:last-child {
+    border-bottom: 1px solid #999;
+}
+
+.event-date {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.event h2 {
+    margin: 12px 0;
+}
+
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact {
+    max-width: 650px;
+}
+
+.email {
+    display: inline-block;
+    margin-top: 20px;
+
+    font-size: 24px;
+    text-decoration: underline;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    nav {
+        padding: 20px;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    nav a {
+        font-size: 12px;
+    }
+
+    .page {
+        padding: 120px 20px 60px;
+    }
+
+    .home {
+        padding: 130px 20px 50px;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+}
+```
