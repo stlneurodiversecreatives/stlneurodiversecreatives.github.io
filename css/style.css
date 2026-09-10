@@ -102,8 +102,54 @@ p {
 /* ==========================================================================
    3. LAYOUT CONTAINERS
    ========================================================================== */
-/* 1. Reset box model sizing across elements */
-* {
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.gallery-item {
+  background: white;
+  overflow: hidden;
+}
+
+.gallery-item img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-description {
+  padding: 15px 5px;
+}
+
+.gallery-description h3 {
+  margin: 0 0 6px;
+  font-size: 20px;
+}
+
+.gallery-description p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* Smaller screens */
+@media (max-width: 800px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+}
   box-sizing: border-box;
   margin: 0;
   padding: 0;
