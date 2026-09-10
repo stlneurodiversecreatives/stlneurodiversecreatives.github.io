@@ -1,4 +1,7 @@
-.logo images/better STL(1).jpg {
+<header>
+    <a href="index.html" class="logo">
+        <img src="logo.jpg" alt="My logo">
+    </a>
     width: 100px;
     height: auto;
 }
