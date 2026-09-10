@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Anonymous+Pro');
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
 body {
     font-family: 'Anonymous Pro', monospace;
     font-size: 16px;
@@ -5,12 +15,6 @@ body {
     color: #24292e;
     background-color: #f6f8fa;
     padding: 20px;
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
 }
 
 
@@ -42,18 +46,20 @@ nav a:hover {
 /* GALLERY */
 
 .gallery {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
     gap: 30px;
     width: 90%;
     max-width: 1200px;
     margin: 40px auto;
 }
 
+
 .gallery-item {
     width: 100%;
     background: white;
 }
+
 
 .gallery-item img {
     width: 100%;
@@ -62,13 +68,16 @@ nav a:hover {
     display: block;
 }
 
+
 .gallery-description {
     padding: 15px;
 }
 
+
 .gallery-description h3 {
     margin-bottom: 5px;
 }
+
 
 .gallery-description p {
     margin-bottom: 0;
@@ -78,16 +87,18 @@ nav a:hover {
 /* MOBILE */
 
 @media (max-width: 768px) {
+
     .gallery {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr) !important;
     }
+
 }
 
+
 @media (max-width: 500px) {
+
     .gallery {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
     }
-.gallery {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr 1fr !important;
+
 }
