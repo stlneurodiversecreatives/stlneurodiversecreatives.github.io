@@ -26,7 +26,7 @@ body {
   --text-main: #2f363d;           /* Off-black body text */
   --text-muted: #586069;          /* Muted gray text */
   --border-color: #e1e4e6;        /* Light border line */
-  --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+
 }
 
 * {
