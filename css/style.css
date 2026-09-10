@@ -93,101 +93,28 @@ p {
    3. LAYOUT CONTAINERS
    ========================================================================== */
 .gallery {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
   gap: 30px;
+  width: 90%;
   max-width: 1200px;
   margin: 40px auto;
-  padding: 0 20px;
 }
 
 .gallery-item {
-  background: white;
-  overflow: hidden;
+  width: 100%;
 }
 
 .gallery-item img {
   width: 100%;
-  aspect-ratio: 1 / 1;
+  height: 300px;
   object-fit: cover;
   display: block;
 }
 
 .gallery-description {
-  padding: 15px 5px;
+  padding: 10px 0;
 }
-
-.gallery-description h3 {
-  margin: 0 0 6px;
-  font-size: 20px;
-}
-
-.gallery-description p {
-  margin: 0;
-  font-size: 15px;
-  line-height: 1.5;
-}
-
-/* Smaller screens */
-@media (max-width: 800px) {
-  .gallery {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 500px) {
-  .gallery {
-    grid-template-columns: 1fr;
-  }
-}
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-/* 2. Configure the Grid Container */
-.gallery-container {
-  display: grid; /* Enables CSS Grid */
-  /* Creates flexible columns that are at least 250px wide, scaling to fill extra space */
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-  grid-auto-rows: 250px; /* Sets a uniform height for every row */
-  gap: 15px; /* Spacing between grid cells */
-  padding: 15px;
-}
-
-/* 3. Style the Gallery Items */
-.gallery-item {
-  width: 100%;
-  height: 100%;
-  overflow: hidden; /* Clips any overflowing image parts */
-  border-radius: 8px; /* Optional: rounds image corners */
-}
-
-/* 4. Optimize the Images */
-.gallery-item img {
-  width: 100%;
-  height: 100%;
-  /* Crucial: prevents image distortion by cropping instead of stretching */
-  object-fit: cover; 
-  transition: transform 0.3s ease; /* Smooth hover effect preparation */
-}
-
-/* 5. Optional: Add a Hover Animation */
-.gallery-item img:hover {
-  transform: scale(1.05); /* Subtle zoom when hovering */
-}
-
-    
-    .container {
-  max-width: 800px;
-  margin: 0 auto;
-  background: var(--card-bg);
-  padding: 40px;
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
 /* ==========================================================================
    4. MEDIA EMBS (GIFs & Images)
    ========================================================================== */
