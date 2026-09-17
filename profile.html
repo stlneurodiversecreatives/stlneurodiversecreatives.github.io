@@ -123,11 +123,11 @@
 
       const profile = data[0];
 
-    document.getElementById('profile-name').textContent =
-  profile.display_name || 'STLNC Creative';
+document.getElementById('display-name').value =
+  profile.display_name || '';
 
-document.getElementById('profile-bio').textContent =
-  profile.bio || 'No bio added yet.';
+document.getElementById('bio').value =
+  profile.bio || '';
 
 document.getElementById('profile-content').hidden = false;
 
