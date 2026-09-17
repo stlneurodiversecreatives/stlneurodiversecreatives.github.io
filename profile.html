@@ -521,7 +521,7 @@
       );
 
 
-   async function loadMyProfile() {
+   async function loadMyProfile(session) {
 
   const status =
     document.getElementById('profile-status');
@@ -529,208 +529,153 @@
   const form =
     document.getElementById('profile-form');
 
+  if (!session || !session.user) {
+    status.textContent =
+      'You are not currently logged in.';
+    form.hidden = true;
+    return;
+  }
 
   const {
-    data: { session }
-  } = await supabaseClient.auth.getSession();
+    data,
+    error
+  } = await supabaseClient.rpc(
+    'get_my_profile'
+  );
 
-
-  if (!session) {
+  if (error) {
+    console.error(
+      'Profile error:',
+      error
+    );
 
     status.textContent =
-      'You are not logged in.';
-
-    window.location.href = 'login.html';
+      'Unable to load your profile.';
 
     return;
   }
 
-
-  const {
-    data: { user },
-    error: userError
-  } = await supabaseClient.auth.getUser();
-
-
-  if (userError || !user) {
-
+  if (!data || data.length === 0) {
     status.textContent =
-      'Unable to verify your login.';
-
+      'No profile was found.';
     return;
   }
 
-      const {
-        data,
-        error
-      } = await supabaseClient.rpc(
-        'get_my_profile'
-      );
+  const profile = data[0];
 
+  document.getElementById(
+    'directory-visible'
+  ).checked =
+    profile.directory_visible === true;
 
-      if (error) {
+  document.getElementById(
+    'display-name'
+  ).value =
+    profile.display_name || '';
 
-        console.error(
-          'Profile error:',
-          error
-        );
+  document.getElementById(
+    'bio'
+  ).value =
+    profile.bio || '';
 
-        status.textContent =
-          'Unable to load your profile.';
+  document.getElementById(
+    'bio-visibility'
+  ).value =
+    profile.bio_visibility || 'public';
 
-        return;
-      }
+  document.getElementById(
+    'creative-disciplines'
+  ).value =
+    profile.creative_disciplines || '';
 
+  document.getElementById(
+    'creative-disciplines-visibility'
+  ).value =
+    profile.creative_disciplines_visibility || 'public';
 
-      if (!data || data.length === 0) {
+  document.getElementById(
+    'pronouns'
+  ).value =
+    profile.pronouns || '';
 
-        status.textContent =
-          'No profile was found.';
+  document.getElementById(
+    'pronouns-visibility'
+  ).value =
+    profile.pronouns_visibility || 'private';
 
-        return;
-      }
+  document.getElementById(
+    'portfolio-url'
+  ).value =
+    profile.portfolio_url || '';
 
+  document.getElementById(
+    'portfolio-visibility'
+  ).value =
+    profile.portfolio_visibility || 'public';
 
-      const profile = data[0];
+  document.getElementById(
+    'social-links'
+  ).value =
+    profile.social_links || '';
 
+  document.getElementById(
+    'social-links-visibility'
+  ).value =
+    profile.social_links_visibility || 'public';
 
-      document.getElementById(
-        'directory-visible'
-      ).checked =
-        profile.directory_visible === true;
+  document.getElementById(
+    'profile-image-url'
+  ).value =
+    profile.profile_image_url || '';
 
+  document.getElementById(
+    'profile-image-visibility'
+  ).value =
+    profile.profile_image_visibility || 'public';
 
-      document.getElementById(
-        'display-name'
-      ).value =
-        profile.display_name || '';
+  document.getElementById(
+    'location'
+  ).value =
+    profile.location || '';
 
+  document.getElementById(
+    'location-visibility'
+  ).value =
+    profile.location_visibility || 'members';
 
-      document.getElementById(
-        'bio'
-      ).value =
-        profile.bio || '';
+  document.getElementById(
+    'looking-for'
+  ).value =
+    profile.looking_for || '';
 
+  document.getElementById(
+    'looking-for-visibility'
+  ).value =
+    profile.looking_for_visibility || 'members';
 
-      document.getElementById(
-        'bio-visibility'
-      ).value =
-        profile.bio_visibility || 'public';
+  document.getElementById(
+    'creative-statement'
+  ).value =
+    profile.creative_statement || '';
 
+  document.getElementById(
+    'creative-statement-visibility'
+  ).value =
+    profile.creative_statement_visibility || 'public';
 
-      document.getElementById(
-        'creative-disciplines'
-      ).value =
-        profile.creative_disciplines || '';
+  document.getElementById(
+    'communication-preferences'
+  ).value =
+    profile.communication_preferences || '';
 
+  document.getElementById(
+    'communication-preferences-visibility'
+  ).value =
+    profile.communication_preferences_visibility || 'private';
 
-      document.getElementById(
-        'creative-disciplines-visibility'
-      ).value =
-        profile.creative_disciplines_visibility || 'public';
-
-
-      document.getElementById(
-        'pronouns'
-      ).value =
-        profile.pronouns || '';
-
-
-      document.getElementById(
-        'pronouns-visibility'
-      ).value =
-        profile.pronouns_visibility || 'private';
-
-
-      document.getElementById(
-        'portfolio-url'
-      ).value =
-        profile.portfolio_url || '';
-
-
-      document.getElementById(
-        'portfolio-visibility'
-      ).value =
-        profile.portfolio_visibility || 'public';
-
-
-      document.getElementById(
-        'social-links'
-      ).value =
-        profile.social_links || '';
-
-
-      document.getElementById(
-        'social-links-visibility'
-      ).value =
-        profile.social_links_visibility || 'public';
-
-
-      document.getElementById(
-        'profile-image-url'
-      ).value =
-        profile.profile_image_url || '';
-
-
-      document.getElementById(
-        'profile-image-visibility'
-      ).value =
-        profile.profile_image_visibility || 'public';
-
-
-      document.getElementById(
-        'location'
-      ).value =
-        profile.location || '';
-
-
-      document.getElementById(
-        'location-visibility'
-      ).value =
-        profile.location_visibility || 'members';
-
-
-      document.getElementById(
-        'looking-for'
-      ).value =
-        profile.looking_for || '';
-
-
-      document.getElementById(
-        'looking-for-visibility'
-      ).value =
-        profile.looking_for_visibility || 'members';
-
-
-      document.getElementById(
-        'creative-statement'
-      ).value =
-        profile.creative_statement || '';
-
-
-      document.getElementById(
-        'creative-statement-visibility'
-      ).value =
-        profile.creative_statement_visibility || 'public';
-
-
-      document.getElementById(
-        'communication-preferences'
-      ).value =
-        profile.communication_preferences || '';
-
-
-      document.getElementById(
-        'communication-preferences-visibility'
-      ).value =
-        profile.communication_preferences_visibility || 'private';
-
-
-      status.textContent = '';
-
-      form.hidden = false;
-    }
-
+  status.textContent = '';
+  form.hidden = false;
+}
 
     document
       .getElementById('profile-form')
@@ -1025,7 +970,32 @@
       );
 
 
-    loadMyProfile();
+const {
+  data: {
+    subscription
+  }
+} = supabaseClient.auth.onAuthStateChange(
+  (event, session) => {
+
+    if (
+      event === 'INITIAL_SESSION' ||
+      event === 'SIGNED_IN'
+    ) {
+
+      if (session) {
+        setTimeout(() => {
+          loadMyProfile(session);
+        }, 0);
+      }
+
+    }
+
+    if (event === 'SIGNED_OUT') {
+      window.location.href = 'login.html';
+    }
+
+  }
+);
   </script>
 
 </body>
