@@ -13,7 +13,18 @@
   );
 </script>
   <script>
-  console.log("STLNC Supabase connection loaded:", !!supabaseClient);
+  async function testSTLNCConnection() {
+    const { data, error } = await supabaseClient.rpc('get_public_profiles');
+
+    if (error) {
+      console.error("STLNC database test failed:", error);
+      return;
+    }
+
+    console.log("STLNC database connection successful:", data);
+  }
+
+  testSTLNCConnection();
 </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
