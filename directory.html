@@ -102,6 +102,7 @@
     <div id="directory-list"></div>
  
     <script>
+  <script>
   async function loadDirectory() {
     const status = document.getElementById('directory-status');
     const directory = document.getElementById('directory-list');
@@ -121,7 +122,7 @@
       card.className = 'creative-card';
 
       card.innerHTML = `
-<div class="creative-card-content">
+        <div class="creative-card-content">
 
           ${
             profile.profile_image_url
@@ -136,17 +137,7 @@
                     : 'S'}
                 </div>`
           }
-    ? `<img
-        class="creative-profile-image"
-        src="${profile.profile_image_url}"
-        alt="${profile.display_name || 'STLNC Creative'}"
-      >`
-    : `<div class="creative-profile-placeholder">
-        ${profile.display_name
-          ? profile.display_name.charAt(0).toUpperCase()
-          : 'S'}
-      </div>`
-}
+
           <h2>${profile.display_name || 'STLNC Creative'}</h2>
 
           ${
@@ -175,14 +166,20 @@
 
           ${
             profile.looking_for
-              ? `<p><strong>Looking for:</strong> ${profile.looking_for}</p>`
+              ? `<p>
+                  <strong>Looking for:</strong> ${profile.looking_for}
+                </p>`
               : ''
           }
 
           ${
             profile.portfolio_url
               ? `<p>
-                  <a href="${profile.portfolio_url}" target="_blank" rel="noopener noreferrer">
+                  <a
+                    href="${profile.portfolio_url}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     View Portfolio
                   </a>
                 </p>`
