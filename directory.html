@@ -153,13 +153,18 @@
 
   <main>
 
-    <p>STLNC DIRECTORY TEST</p>
-
     <h1>STLNC Creative Directory</h1>
 
     <p>
-      Explore creatives connected to St. Louis Neurodiverse Creatives.
+      Explore the STLNC Creative Database
     </p>
+    
+    <input
+  type="search"
+  id="directory-search"
+  placeholder="Search creatives..."
+  aria-label="Search creatives"
+>
 
     <div id="directory-status">
       Loading creatives...
@@ -258,17 +263,18 @@ ${
         `
         : ''
     }
-
-    ${
-      profile.looking_for
-        ? `
-          <p>
-            <strong>Looking for:</strong>
-            ${profile.looking_for}
-          </p>
-        `
-        : ''
-    }
+${
+  profile.looking_for
+    ? `
+      <div class="profile-section">
+        <h3>Looking For</h3>
+        <p>
+          ${profile.looking_for}
+        </p>
+      </div>
+    `
+    : ''
+}
 <div class="profile-links">
     ${
       profile.portfolio_url
@@ -306,11 +312,29 @@ ${
 </div>
 `;
 
-        directory.appendChild(card);
-      });
-    }
+       directory.appendChild(card);
+    });
 
-    loadDirectory();
+    const search = document.getElementById('directory-search');
+
+    search.addEventListener('input', () => {
+      const searchTerm = search.value.toLowerCase().trim();
+
+      const cards = document.querySelectorAll('.creative-card');
+
+      cards.forEach(card => {
+        const cardText = card.textContent.toLowerCase();
+
+        if (cardText.includes(searchTerm)) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  }
+
+  loadDirectory();
   </script>
 
 </body>
