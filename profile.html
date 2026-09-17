@@ -133,7 +133,42 @@ document.getElementById('profile-content').hidden = false;
 
 status.textContent = '';
     }
+document.getElementById('save-profile').addEventListener('click', async () => {
+  const saveStatus = document.getElementById('save-status');
 
+  saveStatus.textContent = 'Saving...';
+
+  const {
+    data: { user }
+  } = await supabaseClient.auth.getUser();
+
+  if (!user) {
+    saveStatus.textContent = 'Please log in first.';
+    return;
+  }
+
+  const displayName =
+    document.getElementById('display-name').value.trim();
+
+  const bio =
+    document.getElementById('bio').value.trim();
+
+  const { error } = await supabaseClient
+    .from('profiles')
+    .update({
+      display_name: displayName,
+      bio: bio
+    })
+    .eq('user_id', user.id);
+
+  if (error) {
+    console.error('Save profile error:', error);
+    saveStatus.textContent = 'Unable to save your profile.';
+    return;
+  }
+
+  saveStatus.textContent = 'Profile saved!';
+});
     loadMyProfile();
   </script>
 
