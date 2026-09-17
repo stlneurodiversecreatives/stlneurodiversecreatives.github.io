@@ -226,16 +226,18 @@ card.innerHTML = `
     `
     : ''
 }
-
-    ${
-      profile.bio
-        ? `
-          <p class="creative-bio">
-            ${profile.bio}
-          </p>
-        `
-        : ''
-    }
+${
+  profile.bio
+    ? `
+      <div class="profile-section">
+        <h3>About</h3>
+        <p class="creative-bio">
+          ${profile.bio}
+        </p>
+      </div>
+    `
+    : ''
+}
 
     ${
       profile.creative_statement
