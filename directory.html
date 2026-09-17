@@ -254,7 +254,22 @@ card.innerHTML = `
         `
         : ''
     }
-
+${
+  profile.social_links
+    ? `
+      <p>
+        <a
+          class="profile-button"
+          href="${profile.social_links}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Social / Website
+        </a>
+      </p>
+    `
+    : ''
+}
   </div>
 `;
 
