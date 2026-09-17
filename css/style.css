@@ -41,7 +41,28 @@ nav a:hover {
     background: black;
     color: white;
 }
+.account-nav {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 12px 20px 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
 
+.account-nav a {
+  text-decoration: none;
+  color: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.account-nav a:hover,
+.account-nav a:focus {
+  text-decoration: underline;
+}
 
 /* GALLERY */
 
