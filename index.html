@@ -26,9 +26,97 @@
 
 <body>
 
-  <div class="account-nav" id="account-nav" aria-label="Account navigation">
-    Loading account...
-  </div>
+async function updateAccountNav() {
+
+  const accountNav = document.getElementById('account-nav');
+
+  if (!accountNav) {
+    return;
+  }
+
+  // Make sure the Supabase client exists
+  if (typeof supabaseClient === 'undefined') {
+    console.error('STLNC: supabaseClient was not found.');
+
+    accountNav.innerHTML = `
+      <a href="signup.html">Join STLNC</a>
+      <a href="login.html">Log In</a>
+    `;
+
+    return;
+  }
+
+  try {
+
+    const {
+      data,
+      error
+    } = await supabaseClient.auth.getSession();
+
+    if (error) {
+      throw error;
+    }
+
+    const session = data.session;
+
+    accountNav.innerHTML = '';
+
+    if (session) {
+
+      accountNav.innerHTML = `
+        <a href="profile.html">My Profile</a>
+        <a href="#" id="logout-link">Log Out</a>
+      `;
+
+      document
+        .getElementById('logout-link')
+        .addEventListener('click', async function(event) {
+
+          event.preventDefault();
+
+          const { error } =
+            await supabaseClient.auth.signOut();
+
+          if (error) {
+            console.error('Logout error:', error);
+            return;
+          }
+
+          window.location.href = 'index.html';
+
+        });
+
+    } else {
+
+      accountNav.innerHTML = `
+        <a href="signup.html">Join STLNC</a>
+        <a href="login.html">Log In</a>
+      `;
+
+    }
+
+  } catch (error) {
+
+    console.error(
+      'STLNC account navigation error:',
+      error
+    );
+
+    // If Supabase fails, don't leave the user staring at
+    // "Loading account..."
+    accountNav.innerHTML = `
+      <a href="signup.html">Join STLNC</a>
+      <a href="login.html">Log In</a>
+    `;
+
+  }
+}
+
+
+// Start account navigation
+document.addEventListener('DOMContentLoaded', function() {
+  updateAccountNav();
+});
 
   <nav class="main-nav" aria-label="Main navigation">
     <div class="main-nav-inner">
