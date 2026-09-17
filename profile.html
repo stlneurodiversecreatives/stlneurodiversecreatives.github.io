@@ -45,6 +45,42 @@
       margin-top: 20px;
       line-height: 1.6;
     }
+    label {
+  display: block;
+  margin-top: 22px;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-family: inherit;
+}
+
+textarea {
+  resize: vertical;
+}
+
+select {
+  background: white;
+}
+
+button {
+  margin-top: 28px;
+  padding: 12px 22px;
+  border: none;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
   </style>
 </head>
 
@@ -488,11 +524,27 @@ const communicationPreferencesVisibility =
 
   const { error } = await supabaseClient
     .from('profiles')
- .update({
+.update({
   display_name: displayName,
   bio: bio,
   creative_disciplines: creativeDisciplines,
-  creative_disciplines_visibility: creativeDisciplinesVisibility
+  creative_disciplines_visibility: creativeDisciplinesVisibility,
+  portfolio_url: portfolioUrl,
+  portfolio_visibility: portfolioVisibility,
+  location: location,
+  location_visibility: locationVisibility,
+  social_links: socialLinks,
+  social_links_visibility: socialLinksVisibility,
+  looking_for: lookingFor,
+  looking_for_visibility: lookingForVisibility,
+  creative_statement: creativeStatement,
+  creative_statement_visibility: creativeStatementVisibility,
+  pronouns: pronouns,
+  pronouns_visibility: pronounsVisibility,
+  profile_image_url: profileImageUrl,
+  profile_image_visibility: profileImageVisibility,
+  communication_preferences: communicationPreferences,
+  communication_preferences_visibility: communicationPreferencesVisibility
 })
     .eq('user_id', user.id);
 
