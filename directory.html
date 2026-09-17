@@ -109,7 +109,7 @@
       font-style: italic;
     }
 
- .creative-card a {
+ .profile-button {
   display: inline-block;
   margin-top: 14px;
   padding: 10px 18px;
@@ -173,22 +173,22 @@
         card.innerHTML = `
           <div class="creative-card-content">
 
-            ${
-              profile.profile_image_url
-                ? `
-                  <img
-                    class="creative-profile-image"
-                    src="${profile.profile_image_url}"
-                    alt="${profile.display_name || 'STLNC Creative'}"
-                  >
-                `
-                : `
-                  <div class="creative-profile-placeholder">
-                    ${
-                      profile.display_name
-                        ? profile.display_name.charAt(0).toUpperCase()
-                        : 'S'
-                    }
+           ${
+  profile.portfolio_url
+    ? `
+      <p>
+        <a
+          class="profile-button"
+          href="${profile.portfolio_url}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View Portfolio
+        </a>
+      </p>
+    `
+    : ''
+}
                   </div>
                 `
             }
