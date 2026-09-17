@@ -1,19 +1,48 @@
+```css
+/* =========================================================
+   STLNC — SHARED SITE STYLESHEET
+   St. Louis Neurodiverse Creatives
+   ========================================================= */
+
+
+/* =========================================================
+   1. DESIGN SYSTEM
+   ========================================================= */
+
 :root {
   --stlnc-bg: #f7f4f0;
   --stlnc-surface: #ffffff;
-  --stlnc-text: #222222;
-  --stlnc-muted: #5f5a55;
-  --stlnc-border: #d8d1ca;
-  --stlnc-soft: #f1ece6;
-  --stlnc-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
-  --stlnc-shadow-small: 0 4px 16px rgba(0, 0, 0, 0.06);
-  --stlnc-radius: 20px;
-  --stlnc-pill: 999px;
+  --stlnc-surface-soft: #f1ece6;
 
-  /* Change these two variables later if your existing site uses a specific font. */
-  --stlnc-body-font: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
-  --stlnc-heading-font: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+  --stlnc-text: #222222;
+  --stlnc-text-soft: #555555;
+  --stlnc-text-muted: #777777;
+
+  --stlnc-border: #cccccc;
+  --stlnc-border-soft: #e4dfd9;
+
+  --stlnc-accent: #222222;
+  --stlnc-accent-soft: #e8e1d9;
+
+  --stlnc-body-font: Arial, sans-serif;
+  --stlnc-heading-font: Arial, sans-serif;
+
+  --stlnc-max-width: 1100px;
+
+  --stlnc-radius-small: 8px;
+  --stlnc-radius-medium: 14px;
+  --stlnc-radius-large: 20px;
+  --stlnc-radius-pill: 999px;
+
+  --stlnc-shadow-small: 0 3px 10px rgba(0, 0, 0, 0.06);
+  --stlnc-shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --stlnc-shadow-large: 0 6px 24px rgba(0, 0, 0, 0.08);
 }
+
+
+/* =========================================================
+   2. GLOBAL
+   ========================================================= */
 
 * {
   box-sizing: border-box;
@@ -24,508 +53,697 @@ html {
 }
 
 body {
+  font-family: var(--stlnc-body-font);
   margin: 0;
   padding: 0 20px 50px;
   background: var(--stlnc-bg);
   color: var(--stlnc-text);
-  font-family: var(--stlnc-body-font);
-  font-size: 16px;
   line-height: 1.6;
 }
 
 img {
   max-width: 100%;
-}
-
-button,
-input,
-textarea,
-select {
-  font: inherit;
-}
-
-button,
-a,
-input,
-textarea,
-select {
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* ==============================
-   HEADER / ACCOUNT AREA
-   ============================== */
-
-.account-nav {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 12px 0 10px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.account-nav a {
-  display: inline-block;
-  padding: 9px 16px;
-  border: 1px solid var(--stlnc-border);
-  border-radius: var(--stlnc-pill);
-  background: var(--stlnc-surface);
-  color: var(--stlnc-text);
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 700;
-  line-height: 1.2;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-}
-
-.account-nav a:hover,
-.account-nav a:focus-visible {
-  background: var(--stlnc-soft);
-  transform: translateY(-1px);
-  box-shadow: var(--stlnc-shadow-small);
-}
-
-/* ==============================
-   MAIN NAVIGATION
-   ============================== */
-
-.main-nav {
-  max-width: 1100px;
-  margin: 0 auto 35px;
-  padding: 16px 20px;
-  background: var(--stlnc-surface);
-  border-radius: 14px;
-  box-shadow: var(--stlnc-shadow-small);
-}
-
-.main-nav-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.site-name {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  min-height: 46px;
-  min-width: 90px;
-  color: var(--stlnc-text);
-  font-family: var(--stlnc-heading-font);
-  font-size: 1.25rem;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  text-decoration: none;
-
-  /* Logo location: /images/stlnc-logo.png */
-  background-image: url("../images/stlnc-logo.png");
-  background-repeat: no-repeat;
-  background-position: left center;
-  background-size: contain;
-  padding-left: 0;
-}
-
-/* When the logo file exists, keep the text as a gentle fallback behind it.
-   Add class="site-name has-logo" to the STLNC header link to hide the text. */
-.site-name.has-logo {
-  width: 150px;
-  font-size: 0;
-}
-
-.main-nav-links {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.main-nav-links a {
-  padding: 8px 10px;
-  border-radius: 8px;
-  color: var(--stlnc-text);
-  text-decoration: none;
-}
-
-.main-nav-links a:hover,
-.main-nav-links a:focus-visible {
-  background: var(--stlnc-soft);
-}
-
-.main-nav-links a.current,
-.main-nav-links a[aria-current="page"] {
-  font-weight: 800;
-}
-
-/* ==============================
-   GENERAL PAGE CONTAINERS
-   ============================== */
-
-main {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-main.form-page,
-main.profile-page,
-main.auth-page {
-  max-width: 850px;
-  background: var(--stlnc-surface);
-  padding: 32px;
-  border-radius: var(--stlnc-radius);
-  box-shadow: var(--stlnc-shadow);
-}
-
-h1,
-h2,
-h3 {
-  font-family: var(--stlnc-heading-font);
-  color: var(--stlnc-text);
-  line-height: 1.2;
-}
-
-h1 {
-  margin-top: 0;
-  margin-bottom: 10px;
-  font-size: clamp(2rem, 4vw, 3rem);
-}
-
-h2 {
-  margin-top: 40px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #e5e0da;
+  height: auto;
 }
 
 a {
   color: inherit;
 }
 
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible,
-select:focus-visible {
-  outline: 3px solid rgba(34, 34, 34, 0.25);
-  outline-offset: 2px;
-}
-
-/* ==============================
-   FORMS
-   ============================== */
-
-label {
-  display: block;
-  margin-top: 22px;
-  margin-bottom: 8px;
-  font-weight: 700;
-}
-
+button,
 input,
 textarea,
 select {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid var(--stlnc-border);
-  border-radius: 10px;
-  background: var(--stlnc-surface);
+  font-family: inherit;
+}
+
+
+/* =========================================================
+   3. SHARED PAGE CONTAINER
+   ========================================================= */
+
+main {
+  max-width: var(--stlnc-max-width);
+  margin: 0 auto;
+}
+
+.page-container {
+  max-width: var(--stlnc-max-width);
+  margin: 0 auto;
+}
+
+.content-container {
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+
+/* =========================================================
+   4. TYPOGRAPHY
+   ========================================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--stlnc-heading-font);
   color: var(--stlnc-text);
-  line-height: 1.4;
+  line-height: 1.25;
 }
 
-textarea {
-  min-height: 120px;
-  resize: vertical;
+h1 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 2.2rem;
 }
 
-select {
-  cursor: pointer;
+h2 {
+  margin-top: 0;
 }
 
-button {
-  padding: 12px 22px;
-  border: 0;
-  border-radius: var(--stlnc-pill);
-  background: var(--stlnc-text);
-  color: #ffffff;
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+h3 {
+  margin-top: 0;
 }
 
-button:hover,
-button:focus-visible {
-  opacity: 0.88;
+p {
+  margin-top: 0;
+}
+
+.intro {
+  line-height: 1.7;
+  margin-bottom: 30px;
+  color: var(--stlnc-text-soft);
+}
+
+
+/* =========================================================
+   5. TOP-RIGHT ACCOUNT AREA
+   ========================================================= */
+
+.account-nav {
+  max-width: var(--stlnc-max-width);
+  margin: 0 auto;
+  padding: 12px 0 10px;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.account-nav a {
+  display: inline-block;
+
+  padding: 9px 16px;
+
+  border-radius: var(--stlnc-radius-pill);
+  border: 1px solid var(--stlnc-border);
+
+  text-decoration: none;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  color: var(--stlnc-text);
+  background: var(--stlnc-surface);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.account-nav a:hover,
+.account-nav a:focus {
   transform: translateY(-1px);
   box-shadow: var(--stlnc-shadow-small);
 }
 
-/* ==============================
-   SEARCH
-   ============================== */
+
+/* =========================================================
+   6. MAIN SITE NAVIGATION
+   ========================================================= */
+
+.main-nav {
+  max-width: var(--stlnc-max-width);
+
+  margin: 0 auto 35px;
+  padding: 16px 20px;
+
+  background: var(--stlnc-surface);
+  border-radius: var(--stlnc-radius-medium);
+
+  box-shadow: var(--stlnc-shadow-medium);
+}
+
+.main-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+
+/* SITE NAME / LOGO */
+
+.site-name {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 10px;
+
+  font-size: 1.1rem;
+  font-weight: bold;
+
+  text-decoration: none;
+  color: inherit;
+}
+
+.site-name img {
+  width: 42px;
+  height: 42px;
+
+  object-fit: contain;
+}
+
+.site-name.has-logo {
+  font-size: 1.05rem;
+}
+
+
+/* NAVIGATION LINKS */
+
+.main-nav-links {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.main-nav-links a {
+  text-decoration: none;
+  color: inherit;
+
+  padding: 8px 10px;
+
+  border-radius: var(--stlnc-radius-small);
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.main-nav-links a:hover,
+.main-nav-links a:focus {
+  background: var(--stlnc-surface-soft);
+}
+
+.main-nav-links a.current {
+  font-weight: bold;
+}
+
+
+/* =========================================================
+   7. GENERAL CARDS / SECTIONS
+   ========================================================= */
+
+.card {
+  background: var(--stlnc-surface);
+
+  border-radius: var(--stlnc-radius-large);
+
+  padding: 28px;
+
+  box-shadow: var(--stlnc-shadow-large);
+}
+
+.section {
+  margin-bottom: 40px;
+}
+
+.section-card {
+  background: var(--stlnc-surface);
+
+  padding: 28px;
+
+  margin-bottom: 24px;
+
+  border-radius: var(--stlnc-radius-large);
+
+  box-shadow: var(--stlnc-shadow-medium);
+}
+
+
+/* =========================================================
+   8. BUTTONS
+   ========================================================= */
+
+.button,
+.btn,
+.profile-button {
+  display: inline-block;
+
+  padding: 10px 18px;
+
+  border: none;
+  border-radius: var(--stlnc-radius-pill);
+
+  text-decoration: none;
+
+  font-weight: bold;
+
+  background: var(--stlnc-accent);
+  color: white;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.button:hover,
+.button:focus,
+.btn:hover,
+.btn:focus,
+.profile-button:hover,
+.profile-button:focus {
+  transform: translateY(-2px);
+  opacity: 0.85;
+}
+
+.button.secondary,
+.btn.secondary {
+  background: var(--stlnc-surface);
+  color: var(--stlnc-text);
+
+  border: 1px solid var(--stlnc-border);
+}
+
+
+/* =========================================================
+   9. SEARCH
+   ========================================================= */
 
 #directory-search-form {
-  margin-bottom: 30px;
-  padding: 20px;
   background: var(--stlnc-surface);
+
+  padding: 20px;
+
   border-radius: 16px;
-  box-shadow: var(--stlnc-shadow-small);
+
+  margin-bottom: 30px;
+
+  box-shadow: var(--stlnc-shadow-medium);
 }
 
 #directory-search-form label {
-  margin-top: 0;
+  display: block;
+
+  margin-bottom: 10px;
+
+  font-weight: bold;
 }
 
 .search-row {
   display: flex;
+
   align-items: stretch;
+
   gap: 10px;
 }
 
 .search-row input {
-  min-width: 0;
   flex: 1;
+  min-width: 0;
+
+  padding: 12px;
+
+  font-size: 16px;
+
+  border: 1px solid var(--stlnc-border);
+  border-radius: 10px;
+
+  font-family: inherit;
+}
+
+.search-row input:focus {
+  outline: 2px solid var(--stlnc-accent-soft);
+  outline-offset: 2px;
 }
 
 .search-row button {
-  flex: 0 0 auto;
+  padding: 12px 20px;
+
+  border: none;
+  border-radius: var(--stlnc-radius-pill);
+
+  background: var(--stlnc-accent);
+  color: white;
+
+  font-size: 16px;
+  font-weight: bold;
+
+  cursor: pointer;
 }
 
-/* ==============================
-   DIRECTORY CARDS
-   ============================== */
+.search-row button:hover,
+.search-row button:focus {
+  opacity: 0.85;
+}
+
+
+/* =========================================================
+   10. DIRECTORY
+   ========================================================= */
 
 #directory-status {
   margin: 30px 0;
+
   line-height: 1.5;
 }
 
 #directory-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(280px, 1fr));
+
   gap: 24px;
 }
 
+
+/* CREATIVE CARD */
+
 .creative-card {
   background: var(--stlnc-surface);
-  border-radius: var(--stlnc-radius);
+
+  border-radius: var(--stlnc-radius-large);
+
   padding: 28px;
-  box-shadow: var(--stlnc-shadow);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  box-shadow: var(--stlnc-shadow-large);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .creative-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.12);
 }
 
 .creative-card-content {
   text-align: center;
 }
 
+
+/* PROFILE IMAGE */
+
 .creative-profile-image,
 .creative-profile-placeholder {
   width: 110px;
   height: 110px;
-  margin: 0 auto 18px;
+
   border-radius: 50%;
+
+  display: block;
+
+  margin: 0 auto 18px;
 }
 
 .creative-profile-image {
-  display: block;
   object-fit: cover;
 }
 
 .creative-profile-placeholder {
   display: flex;
+
   align-items: center;
   justify-content: center;
-  background: #e8e1d9;
+
   font-size: 40px;
-  font-weight: 800;
+  font-weight: bold;
+
+  background: var(--stlnc-accent-soft);
 }
 
+
+/* PROFILE TEXT */
+
 .creative-card h2 {
-  margin: 0 0 10px;
-  padding: 0;
-  border-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 10px;
+
   text-align: center;
-  font-size: 1.4rem;
 }
 
 .creative-disciplines {
+  font-weight: bold;
+
   margin-bottom: 18px;
-  font-weight: 700;
+
   line-height: 1.5;
 }
 
 .creative-location {
   margin-bottom: 18px;
-  color: var(--stlnc-muted);
+
+  color: var(--stlnc-text-soft);
 }
 
 .creative-bio,
 .creative-statement {
-  text-align: left;
   line-height: 1.7;
+
+  text-align: left;
 }
 
 .creative-statement {
   font-style: italic;
 }
 
+
+/* PROFILE SECTIONS */
+
 .profile-section {
   margin-top: 18px;
+
   text-align: left;
 }
 
 .profile-section h3 {
   margin-bottom: 6px;
+
   font-size: 0.9rem;
+
   text-transform: uppercase;
+
   letter-spacing: 0.08em;
 }
 
+
+/* PROFILE LINKS */
+
 .profile-links {
   display: flex;
+
   justify-content: center;
+
   gap: 10px;
+
   flex-wrap: wrap;
+
   margin-top: 20px;
 }
 
-.profile-button {
-  display: inline-block;
-  padding: 10px 18px;
-  border-radius: var(--stlnc-pill);
-  background: var(--stlnc-text);
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: 700;
-  transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+
+/* =========================================================
+   11. FORMS
+   ========================================================= */
+
+.form-group {
+  margin-bottom: 20px;
 }
 
-.profile-button:hover,
-.profile-button:focus-visible {
-  transform: translateY(-2px);
-  opacity: 0.88;
+.form-group label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+
+  padding: 12px;
+
+  border: 1px solid var(--stlnc-border);
+
+  border-radius: 10px;
+
+  background: white;
+
+  color: var(--stlnc-text);
+
+  font-size: 16px;
+}
+
+.form-group textarea {
+  min-height: 140px;
+
+  resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: 2px solid var(--stlnc-accent-soft);
+  outline-offset: 2px;
+}
+
+
+/* =========================================================
+   12. ALERT / INFORMATION BOXES
+   ========================================================= */
+
+.info-box {
+  padding: 18px 20px;
+
+  margin: 20px 0;
+
+  background: var(--stlnc-surface);
+
+  border-left: 4px solid var(--stlnc-accent);
+
+  border-radius: 10px;
+
   box-shadow: var(--stlnc-shadow-small);
 }
 
-/* ==============================
-   PROFILE EDITOR
-   ============================== */
+.notice {
+  padding: 16px 18px;
 
-.privacy-note,
-.directory-setting {
-  background: var(--stlnc-bg);
-  border-radius: 14px;
-  border: 1px solid #e2dbd4;
-}
+  background: var(--stlnc-surface-soft);
 
-.privacy-note {
-  margin: 20px 0 28px;
-  padding: 16px;
+  border-radius: 10px;
+
   line-height: 1.6;
 }
 
-.directory-setting {
-  margin-bottom: 30px;
-  padding: 18px;
+
+/* =========================================================
+   13. GRID UTILITIES
+   ========================================================= */
+
+.card-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(280px, 1fr));
+
+  gap: 24px;
 }
 
-.checkbox-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
+.two-column {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 24px;
 }
 
-.checkbox-row input {
-  width: auto;
-  margin-top: 5px;
-}
 
-.checkbox-row label {
-  margin: 0;
-}
+/* =========================================================
+   14. FOOTER
+   ========================================================= */
 
-.directory-setting p {
-  margin-bottom: 0;
-}
+.site-footer {
+  max-width: var(--stlnc-max-width);
 
-.privacy-label {
-  margin-top: 10px;
+  margin: 50px auto 0;
+
+  padding: 30px 20px;
+
+  border-top: 1px solid var(--stlnc-border-soft);
+
+  color: var(--stlnc-text-soft);
+
+  text-align: center;
+
   font-size: 0.9rem;
-  font-weight: 400;
 }
 
-.help-text {
-  margin-top: 6px;
-  color: var(--stlnc-muted);
-  font-size: 0.9rem;
-  line-height: 1.4;
+.site-footer a {
+  text-decoration: none;
 }
 
-.profile-actions {
-  margin-top: 35px;
-  padding-top: 25px;
-  border-top: 1px solid #e5e0da;
+.site-footer a:hover,
+.site-footer a:focus {
+  text-decoration: underline;
 }
 
-.profile-actions a {
-  font-weight: 700;
+
+/* =========================================================
+   15. ACCESSIBILITY
+   ========================================================= */
+
+:focus-visible {
+  outline: 2px solid var(--stlnc-text);
+  outline-offset: 3px;
 }
 
-#save-status,
-#profile-status,
-#login-status,
-#signup-status {
-  margin-top: 20px;
-  line-height: 1.5;
+.sr-only {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  padding: 0;
+  margin: -1px;
+
+  overflow: hidden;
+
+  clip: rect(0, 0, 0, 0);
+
+  white-space: nowrap;
+
+  border: 0;
 }
 
-/* ==============================
-   AUTH PAGES
-   ============================== */
 
-.auth-page {
-  margin: 40px auto;
-}
-
-.login-link {
-  margin-top: 24px;
-}
-
-/* ==============================
-   REDUCED MOTION
-   ============================== */
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-  }
-}
-
-/* ==============================
-   MOBILE
-   ============================== */
+/* =========================================================
+   16. MOBILE
+   ========================================================= */
 
 @media (max-width: 700px) {
+
   body {
-    padding-right: 15px;
     padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .main-nav {
+    padding: 15px;
   }
 
   .main-nav-inner {
@@ -534,12 +752,12 @@ button:focus-visible {
 
   .main-nav-links {
     width: 100%;
-    justify-content: flex-start;
+
+    gap: 6px;
   }
 
   .account-nav {
-    padding-right: 0;
-    padding-left: 0;
+    justify-content: center;
   }
 
   .search-row {
@@ -550,13 +768,54 @@ button:focus-visible {
     width: 100%;
   }
 
-  main.form-page,
-  main.profile-page,
-  main.auth-page {
-    padding: 22px;
-  }
-
   .creative-card {
     padding: 22px;
   }
+
+  .card,
+  .section-card {
+    padding: 22px;
+  }
+
+  .two-column {
+    grid-template-columns: 1fr;
+  }
+
+  .site-name {
+    width: 100%;
+  }
+
 }
+
+
+/* =========================================================
+   17. SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+  body {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .main-nav-links {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .main-nav-links a {
+    width: 100%;
+  }
+
+  .account-nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .account-nav a {
+    text-align: center;
+  }
+
+}
+```
