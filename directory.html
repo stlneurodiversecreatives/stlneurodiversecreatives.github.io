@@ -124,14 +124,19 @@
         <div class="creative-card-content">
         ${
   profile.profile_image_url
+   ${
+  profile.profile_image_url
     ? `<img
         class="creative-profile-image"
         src="${profile.profile_image_url}"
         alt="${profile.display_name || 'STLNC Creative'}"
       >`
-    : ''
+    : `<div class="creative-profile-placeholder">
+        ${profile.display_name
+          ? profile.display_name.charAt(0).toUpperCase()
+          : 'S'}
+      </div>`
 }
-
           <h2>${profile.display_name || 'STLNC Creative'}</h2>
 
           ${
