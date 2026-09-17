@@ -217,6 +217,15 @@ card.innerHTML = `
         `
         : ''
     }
+    ${
+  profile.location
+    ? `
+      <p class="creative-location">
+        📍 ${profile.location}
+      </p>
+    `
+    : ''
+}
 
     ${
       profile.bio
