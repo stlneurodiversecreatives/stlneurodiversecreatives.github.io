@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>STLNC Member Login</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 40px 20px;
+      background: #f7f4f0;
+      color: #222;
+    }
+
+    main {
+      max-width: 500px;
+      margin: 60px auto;
+      background: white;
+      padding: 32px;
+      border-radius: 20px;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 24px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #login-status {
+      margin-top: 20px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main>
+
+    <h1>STLNC Member Login</h1>
+
+    <p>
+      Log in to access your STLNC member profile.
+    </p>
+
+    <form id="login-form">
+
+      <label for="email">
+        Email address
+      </label>
+
+      <input
+        type="email"
+        id="email"
+        name="email"
+        autocomplete="email"
+        required
+      >
+
+      <label for="password">
+        Password
+      </label>
+
+      <input
+        type="password"
+        id="password"
+        name="password"
+        autocomplete="current-password"
+        required
+      >
+
+      <button type="submit">
+        Log In
+      </button>
+
+    </form>
+
+    <div
+      id="login-status"
+      aria-live="polite"
+    ></div>
+
+  </main>
+
+  <script>
+    const SUPABASE_URL =
+      'https://nwmnamevyasyruygapeb.supabase.co';
+
+    const SUPABASE_ANON_KEY =
+      'PASTE_YOUR_KEY_HERE';
+
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+      );
+
+    const loginForm =
+      document.getElementById('login-form');
+
+    const status =
+      document.getElementById('login-status');
+
+    loginForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      status.textContent = 'Logging in...';
+
+      const email =
+        document.getElementById('email').value.trim();
+
+      const password =
+        document.getElementById('password').value;
+
+      const { error } =
+        await supabaseClient.auth.signInWithPassword({
+          email,
+          password
+        });
+
+      if (error) {
+        console.error('Login error:', error);
+        status.textContent =
+          'Unable to log in. Please check your email and password.';
+        return;
+      }
+
+      status.textContent =
+        'Login successful!';
+
+      window.location.href = 'profile.html';
+    });
+  </script>
+
+</body>
+</html>
