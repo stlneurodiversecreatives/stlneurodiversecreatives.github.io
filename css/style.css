@@ -40,28 +40,38 @@ nav a {
 nav a:hover {
     background: black;
     color: white;
-}
 .account-nav {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 12px 20px 0;
+  padding: 12px 20px 10px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
 .account-nav a {
+  display: inline-block;
+  padding: 9px 16px;
+  border-radius: 999px;
   text-decoration: none;
-  color: inherit;
   font-size: 0.9rem;
   font-weight: 600;
+  border: 1px solid #ccc;
+  color: inherit;
+  background: white;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .account-nav a:hover,
 .account-nav a:focus {
-  text-decoration: underline;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.account-nav a.primary {
+  border: none;
 }
 
 /* GALLERY */
