@@ -20,7 +20,8 @@ if (currentTheme) {
 
 if (themeToggle) {
     themeToggle.addEventListener('click', () => {
-        let theme = document.documentElement.getAttribute('data-theme');
+        const theme =
+            document.documentElement.getAttribute('data-theme');
 
         if (theme === 'dark') {
             document.documentElement.removeAttribute('data-theme');
@@ -41,35 +42,45 @@ if (themeToggle) {
 
 async function updateAccountNav() {
 
-    // Make sure Supabase has loaded
-    if (!window.supabaseClient) {
-        return;
-    }
-
-    // Find the account navigation
     const accountNav = document.querySelector('.account-nav');
 
     if (!accountNav) {
         return;
     }
 
-    // Check whether someone is currently logged in
-    const { data: { session } } = await supabaseClient.auth.getSession();
+    // Make sure Supabase exists on this page
+    if (!window.supabase || !window.supabaseClient) {
+        console.error('Supabase client was not found.');
+        return;
+    }
+
+    const { data, error } =
+        await window.supabaseClient.auth.getSession();
+
+    if (error) {
+        console.error('Could not check login session:', error);
+        return;
+    }
+
+    const session = data.session;
 
     if (session) {
 
-        // LOGGED IN
+        // USER IS LOGGED IN
         accountNav.innerHTML = `
             <a href="profile.html">My Profile</a>
             <a href="#" id="logout-link">Log Out</a>
         `;
 
-        const logoutLink = document.getElementById('logout-link');
+        const logoutLink =
+            document.getElementById('logout-link');
 
         logoutLink.addEventListener('click', async (event) => {
+
             event.preventDefault();
 
-            const { error } = await supabaseClient.auth.signOut();
+            const { error } =
+                await window.supabaseClient.auth.signOut();
 
             if (error) {
                 console.error('Logout error:', error);
@@ -82,7 +93,7 @@ async function updateAccountNav() {
 
     } else {
 
-        // LOGGED OUT
+        // USER IS LOGGED OUT
         accountNav.innerHTML = `
             <a href="signup.html">Join STLNC</a>
             <a href="login.html">Log In</a>
@@ -91,5 +102,5 @@ async function updateAccountNav() {
 }
 
 
-// Run account navigation when the page loads
+// Run when the page loads
 updateAccountNav();
