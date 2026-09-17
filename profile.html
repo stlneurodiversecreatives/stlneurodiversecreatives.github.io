@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>My STLNC Profile</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    const SUPABASE_URL = 'https://nwmnamevyasyruygapeb.supabase.co';
+
+    const SUPABASE_ANON_KEY = 'sb_publishable_OWaZPpZTVGK6FYETNa0VLQ_-1gAz1qQ';
+
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_ANON_KEY
+    );
+  </script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 40px 20px;
+      background: #f7f4f0;
+      color: #222;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 32px;
+      border-radius: 20px;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    #profile-status {
+      margin-top: 20px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main>
+
+    <h1>My STLNC Profile</h1>
+
+    <p>
+      Manage the information you choose to share with the STLNC community.
+    </p>
+
+    <div id="profile-status">
+      Loading your profile...
+    </div>
+
+  </main>
+
+  <script>
+    async function loadMyProfile() {
+      const status = document.getElementById('profile-status');
+
+      const {
+        data: { user }
+      } = await supabaseClient.auth.getUser();
+
+      if (!user) {
+        status.textContent = 'Please log in to manage your profile.';
+        return;
+      }
+
+      const { data, error } =
+        await supabaseClient.rpc('get_my_profile');
+
+      if (error) {
+        console.error('Profile error:', error);
+        status.textContent = 'Unable to load your profile.';
+        return;
+      }
+
+      if (!data || data.length === 0) {
+        status.textContent = 'No profile was found.';
+        return;
+      }
+
+      const profile = data[0];
+
+      status.textContent =
+        'Your STLNC profile is connected and ready to edit.';
+      
+      console.log('My STLNC profile:', profile);
+    }
+
+    loadMyProfile();
+  </script>
+
+</body>
+</html>
