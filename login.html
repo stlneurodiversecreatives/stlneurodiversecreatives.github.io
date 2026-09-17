@@ -147,10 +147,10 @@
           email,
           password
         });
-
 if (error) {
   console.error('Login error:', error);
-  status.textContent = 'Login error: ' + error.message;
+  status.textContent =
+    'Unable to log in. Please check your email and password. Email contact@stlneurodiversecreatives.org if you need help.';
   return;
 }
 
