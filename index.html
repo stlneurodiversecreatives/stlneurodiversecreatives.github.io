@@ -22,6 +22,124 @@
         SUPABASE_URL,
         SUPABASE_ANON_KEY
       );
+
+     /*
+      ACCOUNT NAVIGATION
+    */
+
+    async function updateAccountNav() {
+
+      const accountNav =
+        document.getElementById('account-nav');
+
+      if (!accountNav) {
+        return;
+      }
+
+
+      const {
+        data: {
+          session
+        }
+      } =
+        await supabaseClient.auth.getSession();
+
+
+      accountNav.innerHTML = '';
+
+
+      if (session) {
+
+        const profileLink =
+          document.createElement('a');
+
+        profileLink.href =
+          'profile.html';
+
+        profileLink.textContent =
+          'My Profile';
+
+
+        const logoutLink =
+          document.createElement('a');
+
+        logoutLink.href =
+          '#';
+
+        logoutLink.textContent =
+          'Log Out';
+
+        logoutLink.addEventListener(
+          'click',
+          async (event) => {
+
+            event.preventDefault();
+
+            const {
+              error
+            } =
+              await supabaseClient.auth.signOut();
+
+
+            if (error) {
+
+              console.error(
+                'Logout error:',
+                error
+              );
+
+              return;
+            }
+
+            window.location.href =
+              'index.html';
+
+          }
+        );
+
+
+        accountNav.appendChild(
+          profileLink
+        );
+
+        accountNav.appendChild(
+          logoutLink
+        );
+
+
+      } else {
+
+        const joinLink =
+          document.createElement('a');
+
+        joinLink.href =
+          'signup.html';
+
+        joinLink.textContent =
+          'Join STLNC';
+
+
+        const loginLink =
+          document.createElement('a');
+
+        loginLink.href =
+          'login.html';
+
+        loginLink.textContent =
+          'Log In';
+
+
+        accountNav.appendChild(
+          joinLink
+        );
+
+        accountNav.appendChild(
+          loginLink
+        );
+
+      }
+    }
+
   </script>
 
   <!-- Shared CSS -->
