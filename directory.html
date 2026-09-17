@@ -115,6 +115,15 @@
 
       card.innerHTML = `
         <div class="creative-card-content">
+        ${
+  profile.profile_image_url
+    ? `<img
+        class="creative-profile-image"
+        src="${profile.profile_image_url}"
+        alt="${profile.display_name || 'STLNC Creative'}"
+      >`
+    : ''
+}
 
           <h2>${profile.display_name || 'STLNC Creative'}</h2>
 
