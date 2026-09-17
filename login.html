@@ -148,12 +148,11 @@
           password
         });
 
-      if (error) {
-        console.error('Login error:', error);
-        status.textContent =
-          'Unable to log in. Please check your email and password.';
-        return;
-      }
+if (error) {
+  console.error('Login error:', error);
+  status.textContent = 'Login error: ' + error.message;
+  return;
+}
 
       status.textContent =
         'Login successful!';
