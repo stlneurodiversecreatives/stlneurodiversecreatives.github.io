@@ -93,22 +93,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
 async function updateAccountNav() {
 
-  const accountNav =
-    document.getElementById('account-nav');
-
+  const accountNav = document.getElementById('account-nav');
 
   if (!accountNav) {
     return;
   }
 
-
-  // Make sure Supabase loaded
-
-  if (!window.supabase) {
-
-    console.error(
-      'STLNC: Supabase library was not loaded.'
-    );
+  // Make sure the Supabase client exists
+  if (typeof supabaseClient === 'undefined') {
+    console.error('STLNC: supabaseClient was not found.');
 
     accountNav.innerHTML = `
       <a href="signup.html">Join STLNC</a>
@@ -118,115 +111,77 @@ async function updateAccountNav() {
     return;
   }
 
+  try {
 
-  // Create Supabase client
+    const {
+      data,
+      error
+    } = await supabaseClient.auth.getSession();
 
-  const supabaseClient =
-    window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_ANON_KEY
-    );
+    if (error) {
+      throw error;
+    }
 
+    const session = data.session;
 
-  // Check current login session
+    accountNav.innerHTML = '';
 
-  const {
-    data: {
-      session
-    },
-    error
-  } =
-    await supabaseClient.auth.getSession();
+    if (session) {
 
+      accountNav.innerHTML = `
+        <a href="profile.html">My Profile</a>
+        <a href="#" id="logout-link">Log Out</a>
+      `;
 
-  if (error) {
+      document
+        .getElementById('logout-link')
+        .addEventListener('click', async function(event) {
+
+          event.preventDefault();
+
+          const { error } =
+            await supabaseClient.auth.signOut();
+
+          if (error) {
+            console.error('Logout error:', error);
+            return;
+          }
+
+          window.location.href = 'index.html';
+
+        });
+
+    } else {
+
+      accountNav.innerHTML = `
+        <a href="signup.html">Join STLNC</a>
+        <a href="login.html">Log In</a>
+      `;
+
+    }
+
+  } catch (error) {
 
     console.error(
-      'STLNC: Could not check login status:',
+      'STLNC account navigation error:',
       error
     );
 
+    // If Supabase fails, don't leave the user staring at
+    // "Loading account..."
     accountNav.innerHTML = `
       <a href="signup.html">Join STLNC</a>
       <a href="login.html">Log In</a>
     `;
 
-    return;
   }
+}
 
 
-  // Remove "Loading account..."
-
-  accountNav.innerHTML = '';
-
-
-  // =======================================================
-  // LOGGED IN
-  // =======================================================
-
-  if (session) {
-
-    const profileLink =
-      document.createElement('a');
-
-    profileLink.href =
-      'profile.html';
-
-    profileLink.textContent =
-      'My Profile';
-
-
-    const logoutLink =
-      document.createElement('a');
-
-    logoutLink.href =
-      '#';
-
-    logoutLink.textContent =
-      'Log Out';
-
-
-    logoutLink.addEventListener(
-      'click',
-      async function (event) {
-
-        event.preventDefault();
-
-
-        const {
-          error
-        } =
-          await supabaseClient.auth.signOut();
-
-
-        if (error) {
-
-          console.error(
-            'STLNC: Logout error:',
-            error
-          );
-
-          return;
-        }
-
-
-        window.location.href =
-          'index.html';
-
-      }
-    );
-
-
-    accountNav.appendChild(
-      profileLink
-    );
-
-    accountNav.appendChild(
-      logoutLink
-    );
-
-  }
-
+// Start account navigation
+document.addEventListener('DOMContentLoaded', function() {
+  updateAccountNav();
+});
 
   // =======================================================
   // LOGGED OUT
