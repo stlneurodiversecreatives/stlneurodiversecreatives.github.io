@@ -179,13 +179,16 @@
           return;
         }
 
-        const {
-          data,
-          error
-        } = await supabaseClient.auth.signUp({
-          email: email,
-          password: password
-        });
+const {
+  data,
+  error
+} = await supabaseClient.auth.signUp({
+  email: email,
+  password: password,
+  options: {
+    emailRedirectTo: 'https://stlneurodiversecreatives.org/profile.html'
+  }
+});
 
         if (error) {
           console.error(
