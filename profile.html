@@ -534,7 +534,90 @@
         SUPABASE_URL,
         SUPABASE_ANON_KEY
       );
+<script>
+  async function updateAccountNav() {
 
+    const accountNav =
+      document.getElementById('account-nav');
+
+    if (!accountNav) {
+      return;
+    }
+
+    const {
+      data: { session }
+    } = await supabaseClient.auth.getSession();
+
+
+    if (session) {
+
+      accountNav.innerHTML = `
+        <a href="profile.html">
+          My Profile
+        </a>
+
+        <a
+          href="#"
+          id="account-logout"
+          class="primary"
+        >
+          Log Out
+        </a>
+      `;
+
+
+      const logoutButton =
+        document.getElementById('account-logout');
+
+
+      logoutButton.addEventListener(
+        'click',
+        async (event) => {
+
+          event.preventDefault();
+
+          const { error } =
+            await supabaseClient.auth.signOut();
+
+          if (error) {
+
+            console.error(
+              'Logout error:',
+              error
+            );
+
+            return;
+          }
+
+          window.location.reload();
+        }
+      );
+
+    } else {
+
+      accountNav.innerHTML = `
+        <a href="signup.html" class="primary">
+          Join STLNC
+        </a>
+
+        <a href="login.html">
+          Log In
+        </a>
+      `;
+
+    }
+  }
+
+
+  updateAccountNav();
+
+
+  supabaseClient.auth.onAuthStateChange(
+    () => {
+      updateAccountNav();
+    }
+  );
+</script>
 
    async function loadMyProfile(session) {
 
