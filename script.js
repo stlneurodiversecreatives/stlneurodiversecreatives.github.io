@@ -5,8 +5,7 @@
 
 // -------------------------------
 // DARK MODE
-alert("STLNC JavaScript is working!");
-console.log("STLNC script.js is loading!");
+
 const themeToggle = document.getElementById('theme-toggle');
 const currentTheme = localStorage.getItem('theme');
 
@@ -39,6 +38,21 @@ if (themeToggle) {
 // -------------------------------
 // ACCOUNT NAVIGATION
 // -------------------------------
+document.addEventListener('DOMContentLoaded', function () {
+
+  const accountNav = document.getElementById('account-nav');
+
+  if (!accountNav) {
+    console.error('STLNC: account-nav was not found.');
+    return;
+  }
+
+  accountNav.innerHTML = `
+    <a href="signup.html">Join STLNC</a>
+    <a href="login.html">Log In</a>
+  `;
+
+});
 
 async function updateAccountNav() {
 
