@@ -1,13 +1,4 @@
-/*
-  STLNC SHARED SITE STYLES
-  Place this file at: /css/style.css
-
-  Logo:
-  Put your logo image at /images/stlnc-logo.png
-  and the header will use it automatically.
-  If you do not have the logo there yet, the text STLNC remains visible.
-*/
-
+@charset "UTF-8";
 :root {
   --stlnc-bg: #f7f4f0;
   --stlnc-surface: #ffffff;
