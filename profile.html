@@ -58,9 +58,17 @@
       Manage the information you choose to share with the STLNC community.
     </p>
 
-    <div id="profile-status">
-      Loading your profile...
-    </div>
+<div id="profile-status">
+  Loading your profile...
+</div>
+
+<div id="profile-content" hidden>
+
+  <h2 id="profile-name"></h2>
+
+  <p id="profile-bio"></p>
+
+</div>
 
   </main>
 
@@ -93,10 +101,15 @@
 
       const profile = data[0];
 
-      status.textContent =
-        'Your STLNC profile is connected and ready to edit.';
-      
-      console.log('My STLNC profile:', profile);
+    document.getElementById('profile-name').textContent =
+  profile.display_name || 'STLNC Creative';
+
+document.getElementById('profile-bio').textContent =
+  profile.bio || 'No bio added yet.';
+
+document.getElementById('profile-content').hidden = false;
+
+status.textContent = '';
     }
 
     loadMyProfile();
