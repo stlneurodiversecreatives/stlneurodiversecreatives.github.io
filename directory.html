@@ -330,9 +330,26 @@ ${
        directory.appendChild(card);
     });
 
-    const search = document.getElementById('directory-search');
+ const searchForm = document.getElementById('directory-search-form');
+const search = document.getElementById('directory-search');
 
-    search.addEventListener('input', () => {
+searchForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+
+  const searchTerm = search.value.toLowerCase().trim();
+
+  const cards = document.querySelectorAll('.creative-card');
+
+  cards.forEach(card => {
+    const cardText = card.textContent.toLowerCase();
+
+    if (searchTerm === '' || cardText.includes(searchTerm)) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+});
       const searchTerm = search.value.toLowerCase().trim();
 
       const cards = document.querySelectorAll('.creative-card');
