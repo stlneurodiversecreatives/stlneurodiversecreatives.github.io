@@ -427,15 +427,64 @@ document.getElementById('save-profile').addEventListener('click', async () => {
   }
 
   const displayName =
-    document.getElementById('display-name').value.trim();
-  const creativeDisciplines =
+  document.getElementById('display-name').value.trim();
+
+const bio =
+  document.getElementById('bio').value.trim();
+
+const creativeDisciplines =
   document.getElementById('creative-disciplines').value.trim();
 
 const creativeDisciplinesVisibility =
   document.getElementById('creative-disciplines-visibility').value;
 
-  const bio =
-    document.getElementById('bio').value.trim();
+const portfolioUrl =
+  document.getElementById('portfolio-url').value.trim();
+
+const portfolioVisibility =
+  document.getElementById('portfolio-visibility').value;
+
+const location =
+  document.getElementById('location').value.trim();
+
+const locationVisibility =
+  document.getElementById('location-visibility').value;
+
+const socialLinks =
+  document.getElementById('social-links').value.trim();
+
+const socialLinksVisibility =
+  document.getElementById('social-links-visibility').value;
+
+const lookingFor =
+  document.getElementById('looking-for').value.trim();
+
+const lookingForVisibility =
+  document.getElementById('looking-for-visibility').value;
+
+const creativeStatement =
+  document.getElementById('creative-statement').value.trim();
+
+const creativeStatementVisibility =
+  document.getElementById('creative-statement-visibility').value;
+
+const pronouns =
+  document.getElementById('pronouns').value.trim();
+
+const pronounsVisibility =
+  document.getElementById('pronouns-visibility').value;
+
+const profileImageUrl =
+  document.getElementById('profile-image-url').value.trim();
+
+const profileImageVisibility =
+  document.getElementById('profile-image-visibility').value;
+
+const communicationPreferences =
+  document.getElementById('communication-preferences').value.trim();
+
+const communicationPreferencesVisibility =
+  document.getElementById('communication-preferences-visibility').value;
 
   const { error } = await supabaseClient
     .from('profiles')
