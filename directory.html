@@ -121,11 +121,21 @@
       card.className = 'creative-card';
 
       card.innerHTML = `
-        <div class="creative-card-content">
-        ${
-  profile.profile_image_url
-   ${
-  profile.profile_image_url
+<div class="creative-card-content">
+
+          ${
+            profile.profile_image_url
+              ? `<img
+                  class="creative-profile-image"
+                  src="${profile.profile_image_url}"
+                  alt="${profile.display_name || 'STLNC Creative'}"
+                >`
+              : `<div class="creative-profile-placeholder">
+                  ${profile.display_name
+                    ? profile.display_name.charAt(0).toUpperCase()
+                    : 'S'}
+                </div>`
+          }
     ? `<img
         class="creative-profile-image"
         src="${profile.profile_image_url}"
@@ -187,7 +197,6 @@
   }
 
   loadDirectory();
-</script>
 </script>
   </main>
 
