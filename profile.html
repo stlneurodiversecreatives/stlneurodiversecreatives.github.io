@@ -8,17 +8,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <script>
-    const SUPABASE_URL = 'https://nwmnamevyasyruygapeb.supabase.co';
-
-    const SUPABASE_ANON_KEY = 'sb_publishable_OWaZPpZTVGK6FYETNa0VLQ_-1gAz1qQ';
-
-    const supabaseClient = window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_ANON_KEY
-    );
-  </script>
-
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -29,8 +18,8 @@
     }
 
     main {
-      max-width: 800px;
-      margin: 0 auto;
+      max-width: 850px;
+      margin: 40px auto;
       background: white;
       padding: 32px;
       border-radius: 20px;
@@ -39,48 +28,136 @@
 
     h1 {
       margin-top: 0;
+      margin-bottom: 10px;
     }
 
-    #profile-status {
-      margin-top: 20px;
+    h2 {
+      margin-top: 40px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e5e0da;
+    }
+
+    .intro {
       line-height: 1.6;
     }
+
+    .privacy-note {
+      background: #f7f4f0;
+      padding: 16px;
+      border-radius: 12px;
+      line-height: 1.6;
+      margin: 20px 0 28px;
+    }
+
+    .directory-setting {
+      background: #fafafa;
+      border: 1px solid #ddd;
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 30px;
+    }
+
+    .directory-setting label {
+      margin: 0;
+    }
+
+    .directory-setting p {
+      margin-bottom: 0;
+      line-height: 1.5;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .checkbox-row input {
+      width: auto;
+      margin-top: 4px;
+    }
+
     label {
-  display: block;
-  margin-top: 22px;
-  margin-bottom: 8px;
-  font-weight: bold;
-}
+      display: block;
+      margin-top: 22px;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
 
-input,
-textarea,
-select {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 12px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  font-family: inherit;
-}
+    input,
+    textarea,
+    select {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-family: inherit;
+    }
 
-textarea {
-  resize: vertical;
-}
+    textarea {
+      resize: vertical;
+    }
 
-select {
-  background: white;
-}
+    select {
+      background: white;
+    }
 
-button {
-  margin-top: 28px;
-  padding: 12px 22px;
-  border: none;
-  border-radius: 999px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-}
+    .privacy-label {
+      font-size: 0.9rem;
+      font-weight: normal;
+      margin-top: 10px;
+    }
+
+    .privacy-help {
+      font-size: 0.9rem;
+      color: #555;
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    button {
+      margin-top: 28px;
+      padding: 12px 22px;
+      border: none;
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #save-profile {
+      margin-right: 10px;
+    }
+
+    #logout-button {
+      background: transparent;
+      border: 1px solid #aaa;
+    }
+
+    .profile-actions {
+      margin-top: 35px;
+      padding-top: 25px;
+      border-top: 1px solid #e5e0da;
+    }
+
+    .profile-actions a {
+      display: inline-block;
+      margin-right: 15px;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    #profile-status,
+    #save-status {
+      margin-top: 20px;
+      line-height: 1.5;
+    }
+
+    #save-status {
+      font-weight: bold;
+    }
   </style>
 </head>
 
@@ -90,472 +167,852 @@ button {
 
     <h1>My STLNC Profile</h1>
 
-    <p>
+    <p class="intro">
       Manage the information you choose to share with the STLNC community.
     </p>
 
-<div id="profile-status">
-  Loading your profile...
-</div>
+    <div class="privacy-note">
+      <strong>About privacy:</strong>
+      Each field has its own visibility setting.
+      <strong>Public</strong> means anyone can see it.
+      <strong>Members only</strong> means it can be shown to logged-in STLNC members.
+      <strong>Private</strong> keeps it out of the directories.
+    </div>
 
-<div id="profile-content" hidden>
+    <div id="profile-status">
+      Loading your profile...
+    </div>
 
-  <label for="display-name">
-    Display Name
-  </label>
+    <form id="profile-form" hidden>
 
-  <input
-    type="text"
-    id="display-name"
-    name="display-name"
-  >
+      <div class="directory-setting">
 
-  <label for="bio">
-    Bio
-  </label>
+        <div class="checkbox-row">
 
-  <textarea
-    id="bio"
-    name="bio"
-    rows="6"
-  ></textarea>
-  <label for="creative-disciplines">
-  Creative Disciplines
-</label>
+          <input
+            type="checkbox"
+            id="directory-visible"
+            name="directory-visible"
+          >
 
-<input
-  type="text"
-  id="creative-disciplines"
-  name="creative-disciplines"
-  placeholder="Painting, music, photography, performance..."
->
+          <div>
 
-<label for="creative-disciplines-visibility">
-  Who can see your creative disciplines?
-</label>
+            <label for="directory-visible">
+              Show my profile in the STLNC directory
+            </label>
 
-<select
-  id="creative-disciplines-visibility"
-  name="creative-disciplines-visibility"
->
-  <option value="public">Public</option>
-  <option value="members">Members only</option>
-  <option value="private">Private</option>
-</select>
-  <label for="portfolio-url">
-  Portfolio URL
-</label>
+            <p>
+              Turn this off if you do not want your profile included in the directory.
+            </p>
 
-<label for="portfolio-url">
-  Portfolio URL
-</label>
+          </div>
 
-<input
-  type="url"
-  id="portfolio-url"
-  name="portfolio-url"
-  placeholder="https://yourportfolio.com"
->
+        </div>
 
-<label for="portfolio-visibility">
-  Who can see your portfolio?
-</label>
-
-<select
-  id="portfolio-visibility"
-  name="portfolio-visibility"
->
-  <option value="public">Public</option>
-  <option value="members">Members only</option>
-  <option value="private">Private</option>
-</select>
+      </div>
 
 
-<label for="location">
-  Location
-</label>
+      <h2>Basic Information</h2>
 
-<input
-  type="text"
-  id="location"
-  name="location"
-  placeholder="St. Louis, MO"
->
+      <label for="display-name">
+        Display Name
+      </label>
 
-<label for="location-visibility">
-  Who can see your location?
-</label>
-
-<select
-  id="location-visibility"
-  name="location-visibility"
->
-  <option value="public">Public</option>
-  <option value="members">Members only</option>
-  <option value="private">Private</option>
-</select>
+      <input
+        type="text"
+        id="display-name"
+        name="display-name"
+      >
 
 
-<label for="social-links">
-  Social Links
-</label>
+      <label for="bio">
+        Bio
+      </label>
 
-<input
-  type="url"
-  id="social-links"
-  name="social-links"
-  placeholder="https://instagram.com/yourname"
->
+      <textarea
+        id="bio"
+        name="bio"
+        rows="6"
+      ></textarea>
 
-<label for="social-links-visibility">
-  Who can see your social links?
-</label>
+      <label class="privacy-label" for="bio-visibility">
+        Who can see your bio?
+      </label>
 
-<select
-  id="social-links-visibility"
-  name="social-links-visibility"
->
-  <option value="public">Public</option>
-  <option value="members">Members only</option>
-  <option value="private">Private</option>
-</select>
-
-
-<label for="looking-for">
-  What are you looking for?
-</label>
-
-<textarea
-  id="looking-for"
-  name="looking-for"
-  rows="4"
-  placeholder="Collaborators, artists, events, commissions..."
-></textarea>
-
-<label for="looking-for-visibility">
-  Who can see what you're looking for?
-</label>
-
-<select
-  id="looking-for-visibility"
-  name="looking-for-visibility"
->
-  <option value="public">Public</option>
-  <option value="members">Members only</option>
-  <option value="private">Private</option>
-</select>
+      <select
+        id="bio-visibility"
+        name="bio-visibility"
+      >
+        <option value="public">Public</option>
+        <option value="members">Members only</option>
+        <option value="private">Private</option>
+      </select>
 
 
-<label for="creative-statement">
-  Creative Statement
-</label>
+      <label for="creative-disciplines">
+        Creative Disciplines
+      </label>
 
-<textarea
-  id="creative-statement"
-  name="creative-statement"
-  rows="6"
-  placeholder="Tell people about your creative perspective..."
-></textarea>
+      <input
+        type="text"
+        id="creative-disciplines"
+        name="creative-disciplines"
+        placeholder="Painting, music, photography, performance..."
+      >
 
-<label for="creative-statement-visibility">
-  Who can see your creative statement?
-</label>
+      <label class="privacy-label" for="creative-disciplines-visibility">
+        Who can see your creative disciplines?
+      </label>
 
-<select
-  id="creative-statement-visibility"
-  name="creative-statement-visibility"
->
-  <option value="public">Public</option>
-  <option value="members">Members only</option>
-  <option value="private">Private</option>
-</select>
-
-
-<label for="pronouns">
-  Pronouns
-</label>
-
-<input
-  type="text"
-  id="pronouns"
-  name="pronouns"
-  placeholder="they/them"
->
-
-<label for="pronouns-visibility">
-  Who can see your pronouns?
-</label>
-
-<select
-  id="pronouns-visibility"
-  name="pronouns-visibility"
->
-  <option value="public">Public</option>
-  <option value="members">Members only</option>
-  <option value="private">Private</option>
-</select>
+      <select
+        id="creative-disciplines-visibility"
+        name="creative-disciplines-visibility"
+      >
+        <option value="public">Public</option>
+        <option value="members">Members only</option>
+        <option value="private">Private</option>
+      </select>
 
 
-<label for="profile-image-url">
-  Profile Image URL
-</label>
+      <label for="pronouns">
+        Pronouns
+      </label>
 
-<input
-  type="url"
-  id="profile-image-url"
-  name="profile-image-url"
-  placeholder="https://example.com/image.jpg"
->
+      <input
+        type="text"
+        id="pronouns"
+        name="pronouns"
+        placeholder="they/them"
+      >
 
-<label for="profile-image-visibility">
-  Who can see your profile image?
-</label>
+      <label class="privacy-label" for="pronouns-visibility">
+        Who can see your pronouns?
+      </label>
 
-<select
-  id="profile-image-visibility"
-  name="profile-image-visibility"
->
-  <option value="public">Public</option>
-  <option value="members">Members only</option>
-  <option value="private">Private</option>
-</select>
+      <select
+        id="pronouns-visibility"
+        name="pronouns-visibility"
+      >
+        <option value="public">Public</option>
+        <option value="members">Members only</option>
+        <option value="private">Private</option>
+      </select>
 
 
-<label for="communication-preferences">
-  Communication Preferences
-</label>
+      <h2>Creative Presence</h2>
 
-<textarea
-  id="communication-preferences"
-  name="communication-preferences"
-  rows="4"
-  placeholder="Preferred ways to communicate..."
-></textarea>
+      <label for="portfolio-url">
+        Portfolio URL
+      </label>
 
-<label for="communication-preferences-visibility">
-  Who can see your communication preferences?
-</label>
+      <input
+        type="url"
+        id="portfolio-url"
+        name="portfolio-url"
+        placeholder="https://yourportfolio.com"
+      >
 
-<select
-  id="communication-preferences-visibility"
-  name="communication-preferences-visibility"
->
-  <option value="public">Public</option>
-  <option value="members">Members only</option>
-  <option value="private">Private</option>
-</select>
+      <label class="privacy-label" for="portfolio-visibility">
+        Who can see your portfolio?
+      </label>
 
-  <button type="button" id="save-profile">
-    Save Profile
-  </button>
+      <select
+        id="portfolio-visibility"
+        name="portfolio-visibility"
+      >
+        <option value="public">Public</option>
+        <option value="members">Members only</option>
+        <option value="private">Private</option>
+      </select>
 
-  <div id="save-status" aria-live="polite"></div>
 
-</div>
+      <label for="social-links">
+        Social Links
+      </label>
+
+      <input
+        type="url"
+        id="social-links"
+        name="social-links"
+        placeholder="https://instagram.com/yourname"
+      >
+
+      <label class="privacy-label" for="social-links-visibility">
+        Who can see your social links?
+      </label>
+
+      <select
+        id="social-links-visibility"
+        name="social-links-visibility"
+      >
+        <option value="public">Public</option>
+        <option value="members">Members only</option>
+        <option value="private">Private</option>
+      </select>
+
+
+      <label for="profile-image-url">
+        Profile Image URL
+      </label>
+
+      <input
+        type="url"
+        id="profile-image-url"
+        name="profile-image-url"
+        placeholder="https://example.com/image.jpg"
+      >
+
+      <label class="privacy-label" for="profile-image-visibility">
+        Who can see your profile image?
+      </label>
+
+      <select
+        id="profile-image-visibility"
+        name="profile-image-visibility"
+      >
+        <option value="public">Public</option>
+        <option value="members">Members only</option>
+        <option value="private">Private</option>
+      </select>
+
+
+      <label for="location">
+        Location
+      </label>
+
+      <input
+        type="text"
+        id="location"
+        name="location"
+        placeholder="St. Louis, MO"
+      >
+
+      <label class="privacy-label" for="location-visibility">
+        Who can see your location?
+      </label>
+
+      <select
+        id="location-visibility"
+        name="location-visibility"
+      >
+        <option value="public">Public</option>
+        <option value="members">Members only</option>
+        <option value="private">Private</option>
+      </select>
+
+
+      <h2>Community & Collaboration</h2>
+
+      <label for="looking-for">
+        What are you looking for?
+      </label>
+
+      <textarea
+        id="looking-for"
+        name="looking-for"
+        rows="4"
+        placeholder="Collaborators, artists, events, commissions..."
+      ></textarea>
+
+      <label class="privacy-label" for="looking-for-visibility">
+        Who can see what you're looking for?
+      </label>
+
+      <select
+        id="looking-for-visibility"
+        name="looking-for-visibility"
+      >
+        <option value="public">Public</option>
+        <option value="members">Members only</option>
+        <option value="private">Private</option>
+      </select>
+
+
+      <label for="creative-statement">
+        Creative Statement
+      </label>
+
+      <textarea
+        id="creative-statement"
+        name="creative-statement"
+        rows="6"
+        placeholder="Tell people about your creative perspective..."
+      ></textarea>
+
+      <label class="privacy-label" for="creative-statement-visibility">
+        Who can see your creative statement?
+      </label>
+
+      <select
+        id="creative-statement-visibility"
+        name="creative-statement-visibility"
+      >
+        <option value="public">Public</option>
+        <option value="members">Members only</option>
+        <option value="private">Private</option>
+      </select>
+
+
+      <label for="communication-preferences">
+        Communication Preferences
+      </label>
+
+      <textarea
+        id="communication-preferences"
+        name="communication-preferences"
+        rows="4"
+        placeholder="Preferred ways to communicate..."
+      ></textarea>
+
+      <label class="privacy-label" for="communication-preferences-visibility">
+        Who can see your communication preferences?
+      </label>
+
+      <select
+        id="communication-preferences-visibility"
+        name="communication-preferences-visibility"
+      >
+        <option value="public">Public</option>
+        <option value="members">Members only</option>
+        <option value="private">Private</option>
+      </select>
+
+
+      <button type="submit" id="save-profile">
+        Save Profile
+      </button>
+
+      <div
+        id="save-status"
+        aria-live="polite"
+      ></div>
+
+    </form>
+
+
+    <div class="profile-actions">
+
+      <a href="directory.html">
+        View Public Directory
+      </a>
+
+      <br>
+
+      <button type="button" id="logout-button">
+        Log Out
+      </button>
+
+    </div>
 
   </main>
 
+
   <script>
+    const SUPABASE_URL =
+      'https://nwmnamevyasyruygapeb.supabase.co';
+
+    const SUPABASE_ANON_KEY =
+      'PASTE_YOUR_KEY_HERE';
+
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+      );
+
+
     async function loadMyProfile() {
-      const status = document.getElementById('profile-status');
+
+      const status =
+        document.getElementById('profile-status');
+
+      const form =
+        document.getElementById('profile-form');
+
 
       const {
         data: { user }
       } = await supabaseClient.auth.getUser();
 
+
       if (!user) {
-        status.textContent = 'Please log in to manage your profile.';
+
+        status.textContent =
+          'You are not logged in.';
+
+        setTimeout(() => {
+          window.location.href = 'login.html';
+        }, 1000);
+
         return;
       }
 
-      const { data, error } =
-        await supabaseClient.rpc('get_my_profile');
+
+      const {
+        data,
+        error
+      } = await supabaseClient.rpc(
+        'get_my_profile'
+      );
+
 
       if (error) {
-        console.error('Profile error:', error);
-        status.textContent = 'Unable to load your profile.';
+
+        console.error(
+          'Profile error:',
+          error
+        );
+
+        status.textContent =
+          'Unable to load your profile.';
+
         return;
       }
 
+
       if (!data || data.length === 0) {
-        status.textContent = 'No profile was found.';
+
+        status.textContent =
+          'No profile was found.';
+
         return;
       }
+
 
       const profile = data[0];
 
-document.getElementById('display-name').value =
-  profile.display_name || '';
 
-document.getElementById('bio').value =
-  profile.bio || '';
+      document.getElementById(
+        'directory-visible'
+      ).checked =
+        profile.directory_visible === true;
 
-document.getElementById('creative-disciplines').value =
-  profile.creative_disciplines || '';
 
-document.getElementById('creative-disciplines-visibility').value =
-  profile.creative_disciplines_visibility || 'public';
+      document.getElementById(
+        'display-name'
+      ).value =
+        profile.display_name || '';
 
-document.getElementById('portfolio-url').value =
-  profile.portfolio_url || '';
 
-document.getElementById('portfolio-visibility').value =
-  profile.portfolio_visibility || 'public';
+      document.getElementById(
+        'bio'
+      ).value =
+        profile.bio || '';
 
-document.getElementById('location').value =
-  profile.location || '';
 
-document.getElementById('location-visibility').value =
-  profile.location_visibility || 'members';
+      document.getElementById(
+        'bio-visibility'
+      ).value =
+        profile.bio_visibility || 'public';
 
-document.getElementById('social-links').value =
-  profile.social_links || '';
 
-document.getElementById('social-links-visibility').value =
-  profile.social_links_visibility || 'public';
+      document.getElementById(
+        'creative-disciplines'
+      ).value =
+        profile.creative_disciplines || '';
 
-document.getElementById('looking-for').value =
-  profile.looking_for || '';
 
-document.getElementById('looking-for-visibility').value =
-  profile.looking_for_visibility || 'members';
+      document.getElementById(
+        'creative-disciplines-visibility'
+      ).value =
+        profile.creative_disciplines_visibility || 'public';
 
-document.getElementById('creative-statement').value =
-  profile.creative_statement || '';
 
-document.getElementById('creative-statement-visibility').value =
-  profile.creative_statement_visibility || 'public';
+      document.getElementById(
+        'pronouns'
+      ).value =
+        profile.pronouns || '';
 
-document.getElementById('pronouns').value =
-  profile.pronouns || '';
 
-document.getElementById('pronouns-visibility').value =
-  profile.pronouns_visibility || 'private';
+      document.getElementById(
+        'pronouns-visibility'
+      ).value =
+        profile.pronouns_visibility || 'private';
 
-document.getElementById('profile-image-url').value =
-  profile.profile_image_url || '';
 
-document.getElementById('profile-image-visibility').value =
-  profile.profile_image_visibility || 'public';
+      document.getElementById(
+        'portfolio-url'
+      ).value =
+        profile.portfolio_url || '';
 
-document.getElementById('communication-preferences').value =
-  profile.communication_preferences || '';
 
-document.getElementById('communication-preferences-visibility').value =
-  profile.communication_preferences_visibility || 'private';
+      document.getElementById(
+        'portfolio-visibility'
+      ).value =
+        profile.portfolio_visibility || 'public';
 
-document.getElementById('profile-content').hidden = false;
 
-status.textContent = '';
+      document.getElementById(
+        'social-links'
+      ).value =
+        profile.social_links || '';
+
+
+      document.getElementById(
+        'social-links-visibility'
+      ).value =
+        profile.social_links_visibility || 'public';
+
+
+      document.getElementById(
+        'profile-image-url'
+      ).value =
+        profile.profile_image_url || '';
+
+
+      document.getElementById(
+        'profile-image-visibility'
+      ).value =
+        profile.profile_image_visibility || 'public';
+
+
+      document.getElementById(
+        'location'
+      ).value =
+        profile.location || '';
+
+
+      document.getElementById(
+        'location-visibility'
+      ).value =
+        profile.location_visibility || 'members';
+
+
+      document.getElementById(
+        'looking-for'
+      ).value =
+        profile.looking_for || '';
+
+
+      document.getElementById(
+        'looking-for-visibility'
+      ).value =
+        profile.looking_for_visibility || 'members';
+
+
+      document.getElementById(
+        'creative-statement'
+      ).value =
+        profile.creative_statement || '';
+
+
+      document.getElementById(
+        'creative-statement-visibility'
+      ).value =
+        profile.creative_statement_visibility || 'public';
+
+
+      document.getElementById(
+        'communication-preferences'
+      ).value =
+        profile.communication_preferences || '';
+
+
+      document.getElementById(
+        'communication-preferences-visibility'
+      ).value =
+        profile.communication_preferences_visibility || 'private';
+
+
+      status.textContent = '';
+
+      form.hidden = false;
     }
-document.getElementById('save-profile').addEventListener('click', async () => {
-  const saveStatus = document.getElementById('save-status');
 
-  saveStatus.textContent = 'Saving...';
 
-  const {
-    data: { user }
-  } = await supabaseClient.auth.getUser();
+    document
+      .getElementById('profile-form')
+      .addEventListener(
+        'submit',
+        async (event) => {
 
-  if (!user) {
-    saveStatus.textContent = 'Please log in first.';
-    return;
-  }
+          event.preventDefault();
 
-  const displayName =
-  document.getElementById('display-name').value.trim();
 
-const bio =
-  document.getElementById('bio').value.trim();
+          const saveStatus =
+            document.getElementById(
+              'save-status'
+            );
 
-const creativeDisciplines =
-  document.getElementById('creative-disciplines').value.trim();
 
-const creativeDisciplinesVisibility =
-  document.getElementById('creative-disciplines-visibility').value;
+          saveStatus.textContent =
+            'Saving...';
 
-const portfolioUrl =
-  document.getElementById('portfolio-url').value.trim();
 
-const portfolioVisibility =
-  document.getElementById('portfolio-visibility').value;
+          const {
+            data: { user }
+          } =
+            await supabaseClient.auth.getUser();
 
-const location =
-  document.getElementById('location').value.trim();
 
-const locationVisibility =
-  document.getElementById('location-visibility').value;
+          if (!user) {
 
-const socialLinks =
-  document.getElementById('social-links').value.trim();
+            saveStatus.textContent =
+              'Please log in first.';
 
-const socialLinksVisibility =
-  document.getElementById('social-links-visibility').value;
+            return;
+          }
 
-const lookingFor =
-  document.getElementById('looking-for').value.trim();
 
-const lookingForVisibility =
-  document.getElementById('looking-for-visibility').value;
+          const directoryVisible =
+            document.getElementById(
+              'directory-visible'
+            ).checked;
 
-const creativeStatement =
-  document.getElementById('creative-statement').value.trim();
 
-const creativeStatementVisibility =
-  document.getElementById('creative-statement-visibility').value;
+          const displayName =
+            document.getElementById(
+              'display-name'
+            ).value.trim();
 
-const pronouns =
-  document.getElementById('pronouns').value.trim();
 
-const pronounsVisibility =
-  document.getElementById('pronouns-visibility').value;
+          const bio =
+            document.getElementById(
+              'bio'
+            ).value.trim();
 
-const profileImageUrl =
-  document.getElementById('profile-image-url').value.trim();
 
-const profileImageVisibility =
-  document.getElementById('profile-image-visibility').value;
+          const bioVisibility =
+            document.getElementById(
+              'bio-visibility'
+            ).value;
 
-const communicationPreferences =
-  document.getElementById('communication-preferences').value.trim();
 
-const communicationPreferencesVisibility =
-  document.getElementById('communication-preferences-visibility').value;
+          const creativeDisciplines =
+            document.getElementById(
+              'creative-disciplines'
+            ).value.trim();
 
-  const { error } = await supabaseClient
-    .from('profiles')
-.update({
-  display_name: displayName,
-  bio: bio,
-  creative_disciplines: creativeDisciplines,
-  creative_disciplines_visibility: creativeDisciplinesVisibility,
-  portfolio_url: portfolioUrl,
-  portfolio_visibility: portfolioVisibility,
-  location: location,
-  location_visibility: locationVisibility,
-  social_links: socialLinks,
-  social_links_visibility: socialLinksVisibility,
-  looking_for: lookingFor,
-  looking_for_visibility: lookingForVisibility,
-  creative_statement: creativeStatement,
-  creative_statement_visibility: creativeStatementVisibility,
-  pronouns: pronouns,
-  pronouns_visibility: pronounsVisibility,
-  profile_image_url: profileImageUrl,
-  profile_image_visibility: profileImageVisibility,
-  communication_preferences: communicationPreferences,
-  communication_preferences_visibility: communicationPreferencesVisibility
-})
-    .eq('user_id', user.id);
 
-  if (error) {
-    console.error('Save profile error:', error);
-    saveStatus.textContent = 'Unable to save your profile.';
-    return;
-  }
+          const creativeDisciplinesVisibility =
+            document.getElementById(
+              'creative-disciplines-visibility'
+            ).value;
 
-  saveStatus.textContent = 'Profile saved!';
-});
+
+          const pronouns =
+            document.getElementById(
+              'pronouns'
+            ).value.trim();
+
+
+          const pronounsVisibility =
+            document.getElementById(
+              'pronouns-visibility'
+            ).value;
+
+
+          const portfolioUrl =
+            document.getElementById(
+              'portfolio-url'
+            ).value.trim();
+
+
+          const portfolioVisibility =
+            document.getElementById(
+              'portfolio-visibility'
+            ).value;
+
+
+          const socialLinks =
+            document.getElementById(
+              'social-links'
+            ).value.trim();
+
+
+          const socialLinksVisibility =
+            document.getElementById(
+              'social-links-visibility'
+            ).value;
+
+
+          const profileImageUrl =
+            document.getElementById(
+              'profile-image-url'
+            ).value.trim();
+
+
+          const profileImageVisibility =
+            document.getElementById(
+              'profile-image-visibility'
+            ).value;
+
+
+          const location =
+            document.getElementById(
+              'location'
+            ).value.trim();
+
+
+          const locationVisibility =
+            document.getElementById(
+              'location-visibility'
+            ).value;
+
+
+          const lookingFor =
+            document.getElementById(
+              'looking-for'
+            ).value.trim();
+
+
+          const lookingForVisibility =
+            document.getElementById(
+              'looking-for-visibility'
+            ).value;
+
+
+          const creativeStatement =
+            document.getElementById(
+              'creative-statement'
+            ).value.trim();
+
+
+          const creativeStatementVisibility =
+            document.getElementById(
+              'creative-statement-visibility'
+            ).value;
+
+
+          const communicationPreferences =
+            document.getElementById(
+              'communication-preferences'
+            ).value.trim();
+
+
+          const communicationPreferencesVisibility =
+            document.getElementById(
+              'communication-preferences-visibility'
+            ).value;
+
+
+          const { error } =
+            await supabaseClient
+              .from('profiles')
+              .update({
+
+                directory_visible:
+                  directoryVisible,
+
+                display_name:
+                  displayName,
+
+                bio:
+                  bio,
+
+                bio_visibility:
+                  bioVisibility,
+
+                creative_disciplines:
+                  creativeDisciplines,
+
+                creative_disciplines_visibility:
+                  creativeDisciplinesVisibility,
+
+                pronouns:
+                  pronouns,
+
+                pronouns_visibility:
+                  pronounsVisibility,
+
+                portfolio_url:
+                  portfolioUrl,
+
+                portfolio_visibility:
+                  portfolioVisibility,
+
+                social_links:
+                  socialLinks,
+
+                social_links_visibility:
+                  socialLinksVisibility,
+
+                profile_image_url:
+                  profileImageUrl,
+
+                profile_image_visibility:
+                  profileImageVisibility,
+
+                location:
+                  location,
+
+                location_visibility:
+                  locationVisibility,
+
+                looking_for:
+                  lookingFor,
+
+                looking_for_visibility:
+                  lookingForVisibility,
+
+                creative_statement:
+                  creativeStatement,
+
+                creative_statement_visibility:
+                  creativeStatementVisibility,
+
+                communication_preferences:
+                  communicationPreferences,
+
+                communication_preferences_visibility:
+                  communicationPreferencesVisibility
+
+              })
+              .eq(
+                'user_id',
+                user.id
+              );
+
+
+          if (error) {
+
+            console.error(
+              'Save profile error:',
+              error
+            );
+
+            saveStatus.textContent =
+              'Unable to save your profile.';
+
+            return;
+          }
+
+
+          saveStatus.textContent =
+            'Profile saved successfully.';
+        }
+      );
+
+
+    document
+      .getElementById('logout-button')
+      .addEventListener(
+        'click',
+        async () => {
+
+          const {
+            error
+          } =
+            await supabaseClient.auth.signOut();
+
+
+          if (error) {
+
+            console.error(
+              'Logout error:',
+              error
+            );
+
+            return;
+          }
+
+
+          window.location.href =
+            'login.html';
+        }
+      );
+
+
     loadMyProfile();
   </script>
 
