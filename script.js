@@ -5,7 +5,7 @@
 
 // -------------------------------
 // DARK MODE
-// -------------------------------
+alert("STLNC JavaScript is working!");
 console.log("STLNC script.js is loading!");
 const themeToggle = document.getElementById('theme-toggle');
 const currentTheme = localStorage.getItem('theme');
