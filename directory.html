@@ -10,192 +10,237 @@
 
   <script>
     const SUPABASE_URL = 'https://nwmnamevyasyruygapeb.supabase.co';
-    const SUPABASE_ANON_KEY = 'sb_publishable_OWaZPpZTVGK6FYETNa0VLQ_-1gAz1qQ';
+
+    const SUPABASE_ANON_KEY = 'PASTE_YOUR_KEY_HERE';
 
     const supabaseClient = window.supabase.createClient(
       SUPABASE_URL,
       SUPABASE_ANON_KEY
     );
-    console.log("DIRECTORY SUPABASE CLIENT:", supabaseClient);
   </script>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 40px 20px;
-    background: #f7f4f0;
-    color: #222;
-  }
 
-  main {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 40px 20px;
+      background: #f7f4f0;
+      color: #222;
+    }
 
-  h1 {
-    margin-bottom: 10px;
-  }
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
 
-  #directory-status {
-    margin: 30px 0;
-  }
+    h1 {
+      margin-bottom: 10px;
+    }
 
-  #directory-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
-    margin-top: 35px;
-  }
+    #directory-status {
+      margin: 30px 0;
+    }
 
-  .creative-card {
-    background: white;
-    border-radius: 16px;
-    padding: 24px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  }
-.creative-profile-image {
-  width: 110px;
-  height: 110px;
-  object-fit: cover;
-  border-radius: 50%;
-  display: block;
-  margin: 0 auto 18px;
-}
-  .creative-card h2 {
-    margin-top: 0;
-    margin-bottom: 10px;
-  }
+    #directory-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 35px;
+    }
 
-  .creative-disciplines {
-    font-weight: bold;
-    margin-bottom: 16px;
-  }
+    .creative-card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
 
-  .creative-bio,
-  .creative-statement {
-    line-height: 1.6;
-  }
+    .creative-profile-image,
+    .creative-profile-placeholder {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      display: block;
+      margin: 0 auto 18px;
+    }
 
-  .creative-statement {
-    font-style: italic;
-  }
+    .creative-profile-image {
+      object-fit: cover;
+    }
 
-  .creative-card a {
-    display: inline-block;
-    margin-top: 10px;
-    text-decoration: none;
-    font-weight: bold;
-  }
-</style>
+    .creative-profile-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      font-weight: bold;
+      background: #e8e1d9;
+    }
+
+    .creative-card h2 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .creative-disciplines {
+      font-weight: bold;
+      margin-bottom: 16px;
+    }
+
+    .creative-bio,
+    .creative-statement {
+      line-height: 1.6;
+    }
+
+    .creative-statement {
+      font-style: italic;
+    }
+
+    .creative-card a {
+      display: inline-block;
+      margin-top: 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
 </head>
 
 <body>
 
   <main>
+
     <p>STLNC DIRECTORY TEST</p>
+
     <h1>STLNC Creative Directory</h1>
 
-    <p>Explore creatives connected to St. Louis Neurodiverse Creatives.</p>
+    <p>
+      Explore creatives connected to St. Louis Neurodiverse Creatives.
+    </p>
 
-    <div id="directory-status">Loading creatives...</div>
+    <div id="directory-status">
+      Loading creatives...
+    </div>
 
     <div id="directory-list"></div>
- 
-    <script>
+
+  </main>
+
   <script>
-  async function loadDirectory() {
-    const status = document.getElementById('directory-status');
-    const directory = document.getElementById('directory-list');
+    async function loadDirectory() {
+      const status = document.getElementById('directory-status');
+      const directory = document.getElementById('directory-list');
 
-    const { data, error } = await supabaseClient.rpc('get_public_profiles');
+      const { data, error } =
+        await supabaseClient.rpc('get_public_profiles');
 
-    if (error) {
-      console.error('Directory error:', error);
-      status.textContent = 'Unable to load the directory.';
-      return;
+      if (error) {
+        console.error('Directory error:', error);
+        status.textContent = 'Unable to load the directory.';
+        return;
+      }
+
+      status.textContent = '';
+
+      data.forEach(profile => {
+
+        const card = document.createElement('article');
+
+        card.className = 'creative-card';
+
+        card.innerHTML = `
+          <div class="creative-card-content">
+
+            ${
+              profile.profile_image_url
+                ? `
+                  <img
+                    class="creative-profile-image"
+                    src="${profile.profile_image_url}"
+                    alt="${profile.display_name || 'STLNC Creative'}"
+                  >
+                `
+                : `
+                  <div class="creative-profile-placeholder">
+                    ${
+                      profile.display_name
+                        ? profile.display_name.charAt(0).toUpperCase()
+                        : 'S'
+                    }
+                  </div>
+                `
+            }
+
+            <h2>
+              ${profile.display_name || 'STLNC Creative'}
+            </h2>
+
+            ${
+              profile.creative_disciplines
+                ? `
+                  <p class="creative-disciplines">
+                    ${profile.creative_disciplines}
+                  </p>
+                `
+                : ''
+            }
+
+            ${
+              profile.bio
+                ? `
+                  <p class="creative-bio">
+                    ${profile.bio}
+                  </p>
+                `
+                : ''
+            }
+
+            ${
+              profile.creative_statement
+                ? `
+                  <p class="creative-statement">
+                    ${profile.creative_statement}
+                  </p>
+                `
+                : ''
+            }
+
+            ${
+              profile.looking_for
+                ? `
+                  <p>
+                    <strong>Looking for:</strong>
+                    ${profile.looking_for}
+                  </p>
+                `
+                : ''
+            }
+
+            ${
+              profile.portfolio_url
+                ? `
+                  <p>
+                    <a
+                      href="${profile.portfolio_url}"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View Portfolio
+                    </a>
+                  </p>
+                `
+                : ''
+            }
+
+          </div>
+        `;
+
+        directory.appendChild(card);
+      });
     }
 
-    status.textContent = '';
-
-    data.forEach(profile => {
-      const card = document.createElement('article');
-      card.className = 'creative-card';
-
-      card.innerHTML = `
-        <div class="creative-card-content">
-
-          ${
-            profile.profile_image_url
-              ? `<img
-                  class="creative-profile-image"
-                  src="${profile.profile_image_url}"
-                  alt="${profile.display_name || 'STLNC Creative'}"
-                >`
-              : `<div class="creative-profile-placeholder">
-                  ${profile.display_name
-                    ? profile.display_name.charAt(0).toUpperCase()
-                    : 'S'}
-                </div>`
-          }
-
-          <h2>${profile.display_name || 'STLNC Creative'}</h2>
-
-          ${
-            profile.creative_disciplines
-              ? `<p class="creative-disciplines">
-                  ${profile.creative_disciplines}
-                </p>`
-              : ''
-          }
-
-          ${
-            profile.bio
-              ? `<p class="creative-bio">
-                  ${profile.bio}
-                </p>`
-              : ''
-          }
-
-          ${
-            profile.creative_statement
-              ? `<p class="creative-statement">
-                  ${profile.creative_statement}
-                </p>`
-              : ''
-          }
-
-          ${
-            profile.looking_for
-              ? `<p>
-                  <strong>Looking for:</strong> ${profile.looking_for}
-                </p>`
-              : ''
-          }
-
-          ${
-            profile.portfolio_url
-              ? `<p>
-                  <a
-                    href="${profile.portfolio_url}"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    View Portfolio
-                  </a>
-                </p>`
-              : ''
-          }
-
-        </div>
-      `;
-
-      directory.appendChild(card);
-    });
-  }
-
-  loadDirectory();
-</script>
-  </main>
+    loadDirectory();
+  </script>
 
 </body>
 </html>
