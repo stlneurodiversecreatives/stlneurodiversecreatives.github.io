@@ -521,32 +521,44 @@
       );
 
 
-    async function loadMyProfile() {
+   async function loadMyProfile() {
 
-      const status =
-        document.getElementById('profile-status');
+  const status =
+    document.getElementById('profile-status');
 
-      const form =
-        document.getElementById('profile-form');
-
-
-      const {
-        data: { user }
-      } = await supabaseClient.auth.getUser();
+  const form =
+    document.getElementById('profile-form');
 
 
-      if (!user) {
+  const {
+    data: { session }
+  } = await supabaseClient.auth.getSession();
 
-        status.textContent =
-          'You are not logged in.';
 
-        setTimeout(() => {
-          window.location.href = 'login.html';
-        }, 1000);
+  if (!session) {
 
-        return;
-      }
+    status.textContent =
+      'You are not logged in.';
 
+    window.location.href = 'login.html';
+
+    return;
+  }
+
+
+  const {
+    data: { user },
+    error: userError
+  } = await supabaseClient.auth.getUser();
+
+
+  if (userError || !user) {
+
+    status.textContent =
+      'Unable to verify your login.';
+
+    return;
+  }
 
       const {
         data,
