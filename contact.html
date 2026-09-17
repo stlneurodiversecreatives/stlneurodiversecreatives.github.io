@@ -1,61 +1,261 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script>
-  const SUPABASE_URL = 'https://nwmnamevyasyruygapeb.supabase.co';
-  const SUPABASE_ANON_KEY = 'sb_publishable_OWaZPpZTVGK6FYETNa0VLQ_-1gAz1qQ';
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  const supabaseClient = window.supabase.createClient(
+  <title>STLNC</title>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    const SUPABASE_URL = 'https://nwmnamevyasyruygapeb.supabase.co';
+
+    const SUPABASE_ANON_KEY =
+      'sb_publishable_OWaZPpZTVGK6FYETNa0VLQ_-1gAz1qQ';
+
+  
+  window.supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_ANON_KEY
-  );
-</script>
-</script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Contact Us </title>
- 
+      );
+
+     /*
+      ACCOUNT NAVIGATION
+    */
+
+    async function updateAccountNav() {
+
+      const accountNav =
+        document.getElementById('account-nav');
+
+      if (!accountNav) {
+        return;
+      }
+
+
+      const {
+        data: {
+          session
+        }
+      } =
+        await supabaseClient.auth.getSession();
+
+
+      accountNav.innerHTML = '';
+
+
+      if (session) {
+
+        const profileLink =
+          document.createElement('a');
+
+        profileLink.href =
+          'profile.html';
+
+        profileLink.textContent =
+          'My Profile';
+
+
+        const logoutLink =
+          document.createElement('a');
+
+        logoutLink.href =
+          '#';
+
+        logoutLink.textContent =
+          'Log Out';
+
+        logoutLink.addEventListener(
+          'click',
+          async (event) => {
+
+            event.preventDefault();
+
+            const {
+              error
+            } =
+              await supabaseClient.auth.signOut();
+
+
+            if (error) {
+
+              console.error(
+                'Logout error:',
+                error
+              );
+
+              return;
+            }
+
+            window.location.href =
+              'index.html';
+
+          }
+        );
+
+
+        accountNav.appendChild(
+          profileLink
+        );
+
+        accountNav.appendChild(
+          logoutLink
+        );
+
+
+      } else {
+
+        const joinLink =
+          document.createElement('a');
+
+        joinLink.href =
+          'signup.html';
+
+        joinLink.textContent =
+          'Join STLNC';
+
+
+        const loginLink =
+          document.createElement('a');
+
+        loginLink.href =
+          'login.html';
+
+        loginLink.textContent =
+          'Log In';
+
+
+        accountNav.appendChild(
+          joinLink
+        );
+
+        accountNav.appendChild(
+          loginLink
+        );
+
+      }
+    }
+
+  </script>
+
   <!-- Shared CSS -->
   <link rel="stylesheet" href="css/style.css">
 
   <!-- Shared JavaScript -->
   <script src="script.js" defer></script>
+
 </head>
+
+
 <body>
-    <div class="account-nav" aria-label="Account navigation">
 
-  <a href="signup.html">
-    Join STLNC
-  </a>
-
-  <a href="login.html">
-    Log In
-  </a>
-
-  <a href="profile.html">
-    My Profile
-  </a>
-
+  <div class="account-nav" id="account-nav" aria-label="Account navigation">
+  <a href="signup.html">Join STLNC</a>
+  <a href="login.html">Log In</a>
 </div>
-<nav class="main-nav" aria-label="Main navigation">
-  <div class="main-nav-inner">
-    <a class="site-name" href="index.html">STLNC</a>
 
-    <div class="main-nav-links">
-      <a href="index.html" class="current" aria-current="page">Home</a>
-      <a href="about.html">About</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="directory.html">Directory</a>
-      <a href="events.html">Events</a>
-      <a href="contact.html">Contact</a>
+  <!-- MAIN SITE NAVIGATION -->
+
+  <nav
+    class="main-nav"
+    aria-label="Main navigation"
+  >
+
+    <div class="main-nav-inner">
+
+      <a
+        class="site-name"
+        href="index.html"
+      >
+        STLNC
+      </a>
+
+
+      <div class="main-nav-links">
+
+        <a
+          href="index.html"
+          class="current"
+          aria-current="page"
+        >
+          Home
+        </a>
+
+        <a href="about.html">
+          About
+        </a>
+
+        <a href="gallery.html">
+          Gallery
+        </a>
+
+        <a href="directory.html">
+          Directory
+        </a>
+
+        <a href="events.html">
+          Events
+        </a>
+
+        <a href="contact.html">
+          Contact
+        </a>
+
+      </div>
+
     </div>
-  </div>
-</nav>
+
+  </nav>
 
 
-    <main class="page">
+  <!-- PAGE CONTENT -->
+
+  <main>
+
+    <h1>
+      Hi
+    </h1>
+
+    <p>
+      im still working on the website
+    </p>
+
+    <p>
+      check out the gallery tho
+    </p>
+
+    <img
+      src="wizard.gif"
+      width="500"
+      alt="wizard"
+    >
+
+  </main>
+
+
+</body>
+</html>
+```
+
+
+      <a class="site-name" href="index.html">STLNC</a>
+
+      <div class="main-nav-links">
+        <a href="index.html" class="current">Home</a>
+        <a href="about.html">About</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="directory.html">Directory</a>
+        <a href="events.html">Events</a>
+        <a href="contact.html">Contact</a>
+      </div>
+
+    </div>
+  </nav>
+      <main class="page">
 <h1 style="text-align: center;"> Contact Us </h1>
 
 
