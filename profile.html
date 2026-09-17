@@ -151,6 +151,11 @@ document.getElementById('display-name').value =
 
 document.getElementById('bio').value =
   profile.bio || '';
+      document.getElementById('creative-disciplines').value =
+  profile.creative_disciplines || '';
+
+document.getElementById('creative-disciplines-visibility').value =
+  profile.creative_disciplines_visibility || 'public';
 
 document.getElementById('profile-content').hidden = false;
 
@@ -172,16 +177,23 @@ document.getElementById('save-profile').addEventListener('click', async () => {
 
   const displayName =
     document.getElementById('display-name').value.trim();
+  const creativeDisciplines =
+  document.getElementById('creative-disciplines').value.trim();
+
+const creativeDisciplinesVisibility =
+  document.getElementById('creative-disciplines-visibility').value;
 
   const bio =
     document.getElementById('bio').value.trim();
 
   const { error } = await supabaseClient
     .from('profiles')
-    .update({
-      display_name: displayName,
-      bio: bio
-    })
+ .update({
+  display_name: displayName,
+  bio: bio,
+  creative_disciplines: creativeDisciplines,
+  creative_disciplines_visibility: creativeDisciplinesVisibility
+})
     .eq('user_id', user.id);
 
   if (error) {
