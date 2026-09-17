@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Join STLNC</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 40px 20px;
+      background: #f7f4f0;
+      color: #222;
+    }
+
+    main {
+      max-width: 500px;
+      margin: 50px auto;
+      background: white;
+      padding: 32px;
+      border-radius: 20px;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+      font-family: inherit;
+    }
+
+    button {
+      margin-top: 24px;
+      padding: 12px 22px;
+      border: none;
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #signup-status {
+      margin-top: 20px;
+      line-height: 1.5;
+    }
+
+    .login-link {
+      margin-top: 24px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main>
+
+    <h1>Join STLNC</h1>
+
+    <p>
+      Create your STLNC member account.
+    </p>
+
+    <form id="signup-form">
+
+      <label for="email">
+        Email address
+      </label>
+
+      <input
+        type="email"
+        id="email"
+        name="email"
+        autocomplete="email"
+        required
+      >
+
+      <label for="password">
+        Password
+      </label>
+
+      <input
+        type="password"
+        id="password"
+        name="password"
+        autocomplete="new-password"
+        minlength="8"
+        required
+      >
+
+      <label for="password-confirm">
+        Confirm password
+      </label>
+
+      <input
+        type="password"
+        id="password-confirm"
+        name="password-confirm"
+        autocomplete="new-password"
+        minlength="8"
+        required
+      >
+
+      <button type="submit">
+        Create Account
+      </button>
+
+    </form>
+
+    <div
+      id="signup-status"
+      aria-live="polite"
+    ></div>
+
+    <p class="login-link">
+      Already have an account?
+      <a href="login.html">Log in</a>
+    </p>
+
+  </main>
+
+  <script>
+    const SUPABASE_URL =
+      'https://nwmnamevyasyruygapeb.supabase.co';
+
+    const SUPABASE_ANON_KEY =
+      'sb_publishable_OWaZPpZTVGK6FYETNa0VLQ_-1gAz1qQ';
+
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+      );
+
+    const signupForm =
+      document.getElementById('signup-form');
+
+    const status =
+      document.getElementById('signup-status');
+
+    signupForm.addEventListener(
+      'submit',
+      async (event) => {
+
+        event.preventDefault();
+
+        status.textContent =
+          'Creating your account...';
+
+        const email =
+          document.getElementById('email').value.trim();
+
+        const password =
+          document.getElementById('password').value;
+
+        const passwordConfirm =
+          document.getElementById('password-confirm').value;
+
+        if (password !== passwordConfirm) {
+          status.textContent =
+            'Passwords do not match.';
+          return;
+        }
+
+        const {
+          data,
+          error
+        } = await supabaseClient.auth.signUp({
+          email: email,
+          password: password
+        });
+
+        if (error) {
+          console.error(
+            'Signup error:',
+            error
+          );
+
+          status.textContent =
+            'Unable to create the account. Please try again.';
+
+          return;
+        }
+
+        if (data.session) {
+          window.location.href =
+            'profile.html';
+          return;
+        }
+
+        status.textContent =
+          'Account created. Please check your email to confirm your account, then log in.';
+      }
+    );
+  </script>
+
+</body>
+</html>
