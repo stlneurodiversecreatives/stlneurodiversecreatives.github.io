@@ -29,6 +29,36 @@
     <div id="directory-status">Loading creatives...</div>
 
     <div id="directory-list"></div>
+    <script>
+  async function loadDirectory() {
+    const status = document.getElementById('directory-status');
+    const directory = document.getElementById('directory-list');
+
+    const { data, error } = await supabaseClient.rpc('get_public_profiles');
+
+    if (error) {
+      console.error('Directory error:', error);
+      status.textContent = 'Unable to load the directory.';
+      return;
+    }
+
+    status.textContent = '';
+
+    data.forEach(profile => {
+      const card = document.createElement('article');
+
+      card.innerHTML = `
+        <h2>${profile.display_name || 'STLNC Creative'}</h2>
+        <p>${profile.bio || ''}</p>
+        <p><strong>Creative disciplines:</strong> ${profile.creative_disciplines || ''}</p>
+      `;
+
+      directory.appendChild(card);
+    });
+  }
+
+  loadDirectory();
+</script>
   </main>
 
 </body>
