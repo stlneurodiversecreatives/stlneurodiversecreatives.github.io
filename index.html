@@ -12,19 +12,16 @@
     SUPABASE_ANON_KEY
   );
 </script>
-  <script>
-  async function testSTLNCConnection() {
-    const { data, error } = await supabaseClient.rpc('get_public_profiles');
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    if (error) {
-      console.error("STLNC database test failed:", error);
-      return;
-    }
+<script>
+  const SUPABASE_URL = 'https://nwmnamevyasyruygapeb.supabase.co';
+  const SUPABASE_ANON_KEY = 'YOUR_KEY_IS_HERE';
 
-    console.log("STLNC database connection successful:", data);
-  }
-
-  testSTLNCConnection();
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
 </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
