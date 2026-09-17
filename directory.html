@@ -1,1 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>STLNC Creative Directory</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    const SUPABASE_URL = 'https://nwmnamevyasyruygapeb.supabase.co';
+    const SUPABASE_ANON_KEY = 'nwmnamevyasyruygapeb';
+
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_ANON_KEY
+    );
+  </script>
+</head>
+
+<body>
+
+  <main>
+    <h1>STLNC Creative Directory</h1>
+
+    <p>Explore creatives connected to St. Louis Neurodiverse Creatives.</p>
+
+    <div id="directory-status">Loading creatives...</div>
+
+    <div id="directory-list"></div>
+  </main>
+
+</body>
+</html>
