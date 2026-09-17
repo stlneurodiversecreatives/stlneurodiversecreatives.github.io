@@ -12,14 +12,95 @@
     body {
       font-family: Arial, sans-serif;
       margin: 0;
-      padding: 40px 20px;
+      padding: 0 20px 50px;
       background: #f7f4f0;
       color: #222;
     }
 
+    /* ACCOUNT AREA */
+
+    .account-nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 0 10px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .account-nav a {
+      display: inline-block;
+      padding: 9px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: 1px solid #ccc;
+      color: #222;
+      background: white;
+    }
+
+    .account-nav a:hover,
+    .account-nav a:focus {
+      background: #f1ece6;
+    }
+
+    /* MAIN NAV */
+
+    .main-nav {
+      max-width: 1100px;
+      margin: 0 auto 35px;
+      padding: 16px 20px;
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    .main-nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .site-name {
+      font-size: 1.1rem;
+      font-weight: bold;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .main-nav-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .main-nav-links a {
+      text-decoration: none;
+      color: inherit;
+      padding: 8px 10px;
+      border-radius: 8px;
+    }
+
+    .main-nav-links a:hover,
+    .main-nav-links a:focus {
+      background: #f1ece6;
+    }
+
+    .main-nav-links a.current {
+      font-weight: bold;
+    }
+
+    /* PAGE */
+
     main {
       max-width: 850px;
-      margin: 40px auto;
+      margin: 0 auto;
       background: white;
       padding: 32px;
       border-radius: 20px;
@@ -49,21 +130,14 @@
       margin: 20px 0 28px;
     }
 
+    /* DIRECTORY TOGGLE */
+
     .directory-setting {
       background: #fafafa;
       border: 1px solid #ddd;
       border-radius: 14px;
       padding: 18px;
       margin-bottom: 30px;
-    }
-
-    .directory-setting label {
-      margin: 0;
-    }
-
-    .directory-setting p {
-      margin-bottom: 0;
-      line-height: 1.5;
     }
 
     .checkbox-row {
@@ -74,14 +148,31 @@
 
     .checkbox-row input {
       width: auto;
-      margin-top: 4px;
+      margin-top: 5px;
     }
+
+    .checkbox-row label {
+      margin: 0;
+    }
+
+    .directory-setting p {
+      margin-bottom: 0;
+      line-height: 1.5;
+    }
+
+    /* FORM */
 
     label {
       display: block;
       margin-top: 22px;
       margin-bottom: 8px;
       font-weight: bold;
+    }
+
+    .privacy-label {
+      font-size: 0.9rem;
+      font-weight: normal;
+      margin-top: 10px;
     }
 
     input,
@@ -104,50 +195,43 @@
       background: white;
     }
 
-    .privacy-label {
-      font-size: 0.9rem;
-      font-weight: normal;
-      margin-top: 10px;
-    }
-
-    .privacy-help {
+    .help-text {
       font-size: 0.9rem;
       color: #555;
-      margin-top: 6px;
       line-height: 1.4;
+      margin-top: 6px;
     }
 
+    /* BUTTONS */
+
     button {
-      margin-top: 28px;
       padding: 12px 22px;
       border: none;
       border-radius: 999px;
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;
+      background: #222;
+      color: white;
+    }
+
+    button:hover,
+    button:focus {
+      opacity: 0.85;
     }
 
     #save-profile {
-      margin-right: 10px;
+      margin-top: 28px;
     }
 
     #logout-button {
-      background: transparent;
-      border: 1px solid #aaa;
+      background: white;
+      color: #222;
+      border: 1px solid #bbb;
+      margin-top: 18px;
     }
 
-    .profile-actions {
-      margin-top: 35px;
-      padding-top: 25px;
-      border-top: 1px solid #e5e0da;
-    }
-
-    .profile-actions a {
-      display: inline-block;
-      margin-right: 15px;
-      margin-bottom: 10px;
-      font-weight: bold;
-    }
+    /* STATUS */
 
     #profile-status,
     #save-status {
@@ -158,25 +242,106 @@
     #save-status {
       font-weight: bold;
     }
+
+    /* ACTIONS */
+
+    .profile-actions {
+      margin-top: 35px;
+      padding-top: 25px;
+      border-top: 1px solid #e5e0da;
+    }
+
+    .profile-actions a {
+      font-weight: bold;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 600px) {
+      body {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+
+      main {
+        padding: 22px;
+      }
+
+      .main-nav-inner {
+        align-items: flex-start;
+      }
+
+      .main-nav-links {
+        width: 100%;
+        gap: 6px;
+      }
+    }
   </style>
 </head>
 
 <body>
-  <div class="account-nav" aria-label="Account navigation">
 
-  <a href="signup.html">
-    Join STLNC
-  </a>
+  <!-- TOP-RIGHT ACCOUNT CONTROLS -->
 
-  <a href="login.html">
-    Log In
-  </a>
+  <div
+    class="account-nav"
+    id="account-nav"
+    aria-label="Account navigation"
+  >
+    Loading account...
+  </div>
 
-  <a href="profile.html">
-    My Profile
-  </a>
 
-</div>
+  <!-- MAIN NAVIGATION -->
+
+  <nav
+    class="main-nav"
+    aria-label="Main navigation"
+  >
+
+    <div class="main-nav-inner">
+
+      <a
+        class="site-name"
+        href="index.html"
+      >
+        STLNC
+      </a>
+
+      <div class="main-nav-links">
+
+        <a href="index.html">
+          Home
+        </a>
+
+        <a href="about.html">
+          About
+        </a>
+
+        <a href="gallery.html">
+          Gallery
+        </a>
+
+        <a href="directory.html">
+          Directory
+        </a>
+
+        <a href="events.html">
+          Events
+        </a>
+
+        <a href="contact.html">
+          Contact
+        </a>
+
+      </div>
+
+    </div>
+
+  </nav>
+
+
+  <!-- PROFILE PAGE -->
 
   <main>
 
@@ -190,15 +355,24 @@
       <strong>About privacy:</strong>
       Each field has its own visibility setting.
       <strong>Public</strong> means anyone can see it.
-      <strong>Members only</strong> means it can be shown to logged-in STLNC members.
-      <strong>Private</strong> keeps it out of the directories.
+      <strong>Members only</strong> means logged-in STLNC members can see it.
+      <strong>Private</strong> keeps the information out of the directories.
     </div>
 
-    <div id="profile-status">
+    <div
+      id="profile-status"
+      aria-live="polite"
+    >
       Loading your profile...
     </div>
 
-    <form id="profile-form" hidden>
+
+    <form
+      id="profile-form"
+      hidden
+    >
+
+      <!-- DIRECTORY VISIBILITY -->
 
       <div class="directory-setting">
 
@@ -227,7 +401,10 @@
       </div>
 
 
+      <!-- BASIC INFORMATION -->
+
       <h2>Basic Information</h2>
+
 
       <label for="display-name">
         Display Name
@@ -250,7 +427,10 @@
         rows="6"
       ></textarea>
 
-      <label class="privacy-label" for="bio-visibility">
+      <label
+        class="privacy-label"
+        for="bio-visibility"
+      >
         Who can see your bio?
       </label>
 
@@ -275,7 +455,10 @@
         placeholder="Painting, music, photography, performance..."
       >
 
-      <label class="privacy-label" for="creative-disciplines-visibility">
+      <label
+        class="privacy-label"
+        for="creative-disciplines-visibility"
+      >
         Who can see your creative disciplines?
       </label>
 
@@ -300,7 +483,10 @@
         placeholder="they/them"
       >
 
-      <label class="privacy-label" for="pronouns-visibility">
+      <label
+        class="privacy-label"
+        for="pronouns-visibility"
+      >
         Who can see your pronouns?
       </label>
 
@@ -314,7 +500,10 @@
       </select>
 
 
+      <!-- CREATIVE PRESENCE -->
+
       <h2>Creative Presence</h2>
+
 
       <label for="portfolio-url">
         Portfolio URL
@@ -327,7 +516,10 @@
         placeholder="https://yourportfolio.com"
       >
 
-      <label class="privacy-label" for="portfolio-visibility">
+      <label
+        class="privacy-label"
+        for="portfolio-visibility"
+      >
         Who can see your portfolio?
       </label>
 
@@ -352,7 +544,10 @@
         placeholder="https://instagram.com/yourname"
       >
 
-      <label class="privacy-label" for="social-links-visibility">
+      <label
+        class="privacy-label"
+        for="social-links-visibility"
+      >
         Who can see your social links?
       </label>
 
@@ -377,7 +572,10 @@
         placeholder="https://example.com/image.jpg"
       >
 
-      <label class="privacy-label" for="profile-image-visibility">
+      <label
+        class="privacy-label"
+        for="profile-image-visibility"
+      >
         Who can see your profile image?
       </label>
 
@@ -402,7 +600,10 @@
         placeholder="St. Louis, MO"
       >
 
-      <label class="privacy-label" for="location-visibility">
+      <label
+        class="privacy-label"
+        for="location-visibility"
+      >
         Who can see your location?
       </label>
 
@@ -416,7 +617,10 @@
       </select>
 
 
+      <!-- COMMUNITY -->
+
       <h2>Community & Collaboration</h2>
+
 
       <label for="looking-for">
         What are you looking for?
@@ -429,7 +633,10 @@
         placeholder="Collaborators, artists, events, commissions..."
       ></textarea>
 
-      <label class="privacy-label" for="looking-for-visibility">
+      <label
+        class="privacy-label"
+        for="looking-for-visibility"
+      >
         Who can see what you're looking for?
       </label>
 
@@ -454,7 +661,10 @@
         placeholder="Tell people about your creative perspective..."
       ></textarea>
 
-      <label class="privacy-label" for="creative-statement-visibility">
+      <label
+        class="privacy-label"
+        for="creative-statement-visibility"
+      >
         Who can see your creative statement?
       </label>
 
@@ -479,7 +689,10 @@
         placeholder="Preferred ways to communicate..."
       ></textarea>
 
-      <label class="privacy-label" for="communication-preferences-visibility">
+      <label
+        class="privacy-label"
+        for="communication-preferences-visibility"
+      >
         Who can see your communication preferences?
       </label>
 
@@ -493,7 +706,10 @@
       </select>
 
 
-      <button type="submit" id="save-profile">
+      <button
+        type="submit"
+        id="save-profile"
+      >
         Save Profile
       </button>
 
@@ -513,7 +729,10 @@
 
       <br>
 
-      <button type="button" id="logout-button">
+      <button
+        type="button"
+        id="logout-button"
+      >
         Log Out
       </button>
 
@@ -523,257 +742,349 @@
 
 
   <script>
+
     const SUPABASE_URL =
       'https://nwmnamevyasyruygapeb.supabase.co';
 
     const SUPABASE_ANON_KEY =
       'sb_publishable_OWaZPpZTVGK6FYETNa0VLQ_-1gAz1qQ';
 
+
     const supabaseClient =
       window.supabase.createClient(
         SUPABASE_URL,
         SUPABASE_ANON_KEY
       );
-<script>
-  async function updateAccountNav() {
-
-    const accountNav =
-      document.getElementById('account-nav');
-
-    if (!accountNav) {
-      return;
-    }
-
-    const {
-      data: { session }
-    } = await supabaseClient.auth.getSession();
 
 
-    if (session) {
+    /* ACCOUNT NAVIGATION */
 
-      accountNav.innerHTML = `
-        <a href="profile.html">
-          My Profile
-        </a>
+    async function updateAccountNav() {
 
-        <a
-          href="#"
-          id="account-logout"
-          class="primary"
-        >
-          Log Out
-        </a>
-      `;
+      const accountNav =
+        document.getElementById(
+          'account-nav'
+        );
+
+      if (!accountNav) {
+        return;
+      }
 
 
-      const logoutButton =
-        document.getElementById('account-logout');
-
-
-      logoutButton.addEventListener(
-        'click',
-        async (event) => {
-
-          event.preventDefault();
-
-          const { error } =
-            await supabaseClient.auth.signOut();
-
-          if (error) {
-
-            console.error(
-              'Logout error:',
-              error
-            );
-
-            return;
-          }
-
-          window.location.reload();
+      const {
+        data: {
+          session
         }
-      );
+      } =
+        await supabaseClient.auth.getSession();
 
-    } else {
 
-      accountNav.innerHTML = `
-        <a href="signup.html" class="primary">
-          Join STLNC
-        </a>
+      accountNav.innerHTML = '';
 
-        <a href="login.html">
-          Log In
-        </a>
-      `;
+
+      if (session) {
+
+        const profileLink =
+          document.createElement('a');
+
+        profileLink.href =
+          'profile.html';
+
+        profileLink.textContent =
+          'My Profile';
+
+
+        const logoutLink =
+          document.createElement('a');
+
+        logoutLink.href =
+          '#';
+
+        logoutLink.textContent =
+          'Log Out';
+
+
+        logoutLink.addEventListener(
+          'click',
+          async (event) => {
+
+            event.preventDefault();
+
+
+            const {
+              error
+            } =
+              await supabaseClient.auth.signOut({
+                scope: 'local'
+              });
+
+
+            if (error) {
+
+              console.error(
+                'Logout error:',
+                error
+              );
+
+              return;
+            }
+
+
+            window.location.href =
+              'index.html';
+
+          }
+        );
+
+
+        accountNav.appendChild(
+          profileLink
+        );
+
+        accountNav.appendChild(
+          logoutLink
+        );
+
+
+      } else {
+
+        const joinLink =
+          document.createElement('a');
+
+        joinLink.href =
+          'signup.html';
+
+        joinLink.textContent =
+          'Join STLNC';
+
+
+        const loginLink =
+          document.createElement('a');
+
+        loginLink.href =
+          'login.html';
+
+        loginLink.textContent =
+          'Log In';
+
+
+        accountNav.appendChild(
+          joinLink
+        );
+
+        accountNav.appendChild(
+          loginLink
+        );
+
+      }
 
     }
-  }
 
 
-  updateAccountNav();
+    /* LOAD PROFILE */
+
+    async function loadMyProfile(session) {
+
+      const status =
+        document.getElementById(
+          'profile-status'
+        );
+
+      const form =
+        document.getElementById(
+          'profile-form'
+        );
 
 
-  supabaseClient.auth.onAuthStateChange(
-    () => {
-      updateAccountNav();
+      if (!session || !session.user) {
+
+        status.textContent =
+          'You are not currently logged in.';
+
+        form.hidden = true;
+
+        return;
+      }
+
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient.rpc(
+          'get_my_profile'
+        );
+
+
+      if (error) {
+
+        console.error(
+          'Profile error:',
+          error
+        );
+
+        status.textContent =
+          'Unable to load your profile.';
+
+        return;
+      }
+
+
+      if (!data || data.length === 0) {
+
+        status.textContent =
+          'No profile was found.';
+
+        return;
+      }
+
+
+      const profile =
+        data[0];
+
+
+      document.getElementById(
+        'directory-visible'
+      ).checked =
+        profile.directory_visible === true;
+
+
+      document.getElementById(
+        'display-name'
+      ).value =
+        profile.display_name || '';
+
+
+      document.getElementById(
+        'bio'
+      ).value =
+        profile.bio || '';
+
+
+      document.getElementById(
+        'bio-visibility'
+      ).value =
+        profile.bio_visibility || 'public';
+
+
+      document.getElementById(
+        'creative-disciplines'
+      ).value =
+        profile.creative_disciplines || '';
+
+
+      document.getElementById(
+        'creative-disciplines-visibility'
+      ).value =
+        profile.creative_disciplines_visibility || 'public';
+
+
+      document.getElementById(
+        'pronouns'
+      ).value =
+        profile.pronouns || '';
+
+
+      document.getElementById(
+        'pronouns-visibility'
+      ).value =
+        profile.pronouns_visibility || 'private';
+
+
+      document.getElementById(
+        'portfolio-url'
+      ).value =
+        profile.portfolio_url || '';
+
+
+      document.getElementById(
+        'portfolio-visibility'
+      ).value =
+        profile.portfolio_visibility || 'public';
+
+
+      document.getElementById(
+        'social-links'
+      ).value =
+        profile.social_links || '';
+
+
+      document.getElementById(
+        'social-links-visibility'
+      ).value =
+        profile.social_links_visibility || 'public';
+
+
+      document.getElementById(
+        'profile-image-url'
+      ).value =
+        profile.profile_image_url || '';
+
+
+      document.getElementById(
+        'profile-image-visibility'
+      ).value =
+        profile.profile_image_visibility || 'public';
+
+
+      document.getElementById(
+        'location'
+      ).value =
+        profile.location || '';
+
+
+      document.getElementById(
+        'location-visibility'
+      ).value =
+        profile.location_visibility || 'members';
+
+
+      document.getElementById(
+        'looking-for'
+      ).value =
+        profile.looking_for || '';
+
+
+      document.getElementById(
+        'looking-for-visibility'
+      ).value =
+        profile.looking_for_visibility || 'members';
+
+
+      document.getElementById(
+        'creative-statement'
+      ).value =
+        profile.creative_statement || '';
+
+
+      document.getElementById(
+        'creative-statement-visibility'
+      ).value =
+        profile.creative_statement_visibility || 'public';
+
+
+      document.getElementById(
+        'communication-preferences'
+      ).value =
+        profile.communication_preferences || '';
+
+
+      document.getElementById(
+        'communication-preferences-visibility'
+      ).value =
+        profile.communication_preferences_visibility || 'private';
+
+
+      status.textContent =
+        '';
+
+      form.hidden =
+        false;
+
     }
-  );
-</script>
 
-   async function loadMyProfile(session) {
 
-  const status =
-    document.getElementById('profile-status');
-
-  const form =
-    document.getElementById('profile-form');
-
-  if (!session || !session.user) {
-    status.textContent =
-      'You are not currently logged in.';
-    form.hidden = true;
-    return;
-  }
-
-  const {
-    data,
-    error
-  } = await supabaseClient.rpc(
-    'get_my_profile'
-  );
-
-  if (error) {
-    console.error(
-      'Profile error:',
-      error
-    );
-
-    status.textContent =
-      'Unable to load your profile.';
-
-    return;
-  }
-
-  if (!data || data.length === 0) {
-    status.textContent =
-      'No profile was found.';
-    return;
-  }
-
-  const profile = data[0];
-
-  document.getElementById(
-    'directory-visible'
-  ).checked =
-    profile.directory_visible === true;
-
-  document.getElementById(
-    'display-name'
-  ).value =
-    profile.display_name || '';
-
-  document.getElementById(
-    'bio'
-  ).value =
-    profile.bio || '';
-
-  document.getElementById(
-    'bio-visibility'
-  ).value =
-    profile.bio_visibility || 'public';
-
-  document.getElementById(
-    'creative-disciplines'
-  ).value =
-    profile.creative_disciplines || '';
-
-  document.getElementById(
-    'creative-disciplines-visibility'
-  ).value =
-    profile.creative_disciplines_visibility || 'public';
-
-  document.getElementById(
-    'pronouns'
-  ).value =
-    profile.pronouns || '';
-
-  document.getElementById(
-    'pronouns-visibility'
-  ).value =
-    profile.pronouns_visibility || 'private';
-
-  document.getElementById(
-    'portfolio-url'
-  ).value =
-    profile.portfolio_url || '';
-
-  document.getElementById(
-    'portfolio-visibility'
-  ).value =
-    profile.portfolio_visibility || 'public';
-
-  document.getElementById(
-    'social-links'
-  ).value =
-    profile.social_links || '';
-
-  document.getElementById(
-    'social-links-visibility'
-  ).value =
-    profile.social_links_visibility || 'public';
-
-  document.getElementById(
-    'profile-image-url'
-  ).value =
-    profile.profile_image_url || '';
-
-  document.getElementById(
-    'profile-image-visibility'
-  ).value =
-    profile.profile_image_visibility || 'public';
-
-  document.getElementById(
-    'location'
-  ).value =
-    profile.location || '';
-
-  document.getElementById(
-    'location-visibility'
-  ).value =
-    profile.location_visibility || 'members';
-
-  document.getElementById(
-    'looking-for'
-  ).value =
-    profile.looking_for || '';
-
-  document.getElementById(
-    'looking-for-visibility'
-  ).value =
-    profile.looking_for_visibility || 'members';
-
-  document.getElementById(
-    'creative-statement'
-  ).value =
-    profile.creative_statement || '';
-
-  document.getElementById(
-    'creative-statement-visibility'
-  ).value =
-    profile.creative_statement_visibility || 'public';
-
-  document.getElementById(
-    'communication-preferences'
-  ).value =
-    profile.communication_preferences || '';
-
-  document.getElementById(
-    'communication-preferences-visibility'
-  ).value =
-    profile.communication_preferences_visibility || 'private';
-
-  status.textContent = '';
-  form.hidden = false;
-}
+    /* SAVE PROFILE */
 
     document
       .getElementById('profile-form')
@@ -795,7 +1106,9 @@
 
 
           const {
-            data: { user }
+            data: {
+              user
+            }
           } =
             await supabaseClient.auth.getUser();
 
@@ -941,7 +1254,9 @@
             ).value;
 
 
-          const { error } =
+          const {
+            error
+          } =
             await supabaseClient
               .from('profiles')
               .update({
@@ -1035,9 +1350,12 @@
 
           saveStatus.textContent =
             'Profile saved successfully.';
+
         }
       );
 
+
+    /* LOG OUT */
 
     document
       .getElementById('logout-button')
@@ -1048,7 +1366,9 @@
           const {
             error
           } =
-            await supabaseClient.auth.signOut();
+            await supabaseClient.auth.signOut({
+              scope: 'local'
+            });
 
 
           if (error) {
@@ -1062,36 +1382,59 @@
           }
 
 
+          window.location.href =
+            'login.html';
+
         }
       );
 
 
-const {
-  data: {
-    subscription
-  }
-} = supabaseClient.auth.onAuthStateChange(
-  (event, session) => {
+    /* AUTH STATE */
 
-    if (
-      event === 'INITIAL_SESSION' ||
-      event === 'SIGNED_IN'
-    ) {
+    updateAccountNav();
 
-      if (session) {
-        setTimeout(() => {
-          loadMyProfile(session);
-        }, 0);
+
+    supabaseClient.auth.onAuthStateChange(
+      (event, session) => {
+
+        if (
+          event === 'INITIAL_SESSION' ||
+          event === 'SIGNED_IN'
+        ) {
+
+          if (session) {
+
+            setTimeout(
+              () => {
+                loadMyProfile(session);
+              },
+              0
+            );
+
+          }
+
+        }
+
+        if (
+          event === 'SIGNED_OUT'
+        ) {
+
+          document.getElementById(
+            'profile-form'
+          ).hidden = true;
+
+          document.getElementById(
+            'profile-status'
+          ).textContent =
+            'You are not currently logged in.';
+
+          updateAccountNav();
+
+        }
+
       }
+    );
 
-    }
-
-    if (event === 'SIGNED_OUT') {
-
-    }
-
-  }
-);
   </script>
 
 </body>
