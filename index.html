@@ -1,125 +1,135 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <script>
-    const SUPABASE_URL = 'https://nwmnamevyasyruygapeb.supabase.co';
-    const SUPABASE_ANON_KEY = 'sb_publishable_OWaZPpZTVGK6FYETNa0VLQ_-1gAz1qQ';
-
-    const supabaseClient = window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_ANON_KEY
-    );
-  </script>
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>STLNC</title>
- <script src="script.js" defer></script>
 
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    const SUPABASE_URL = 'https://nwmnamevyasyruygapeb.supabase.co';
+
+    const SUPABASE_ANON_KEY =
+      'sb_publishable_OWaZPpZTVGK6FYETNa0VLQ_-1gAz1qQ';
+
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+      );
+  </script>
+
+  <!-- Shared CSS -->
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- Shared JavaScript -->
+  <script src="script.js" defer></script>
 
 </head>
 
+
 <body>
 
-async function updateAccountNav() {
+  <!-- ACCOUNT NAVIGATION -->
 
-  const accountNav = document.getElementById('account-nav');
-
-  if (!accountNav) {
-    return;
-  }
-
-  // Make sure the Supabase client exists
-  if (typeof supabaseClient === 'undefined') {
-    console.error('STLNC: supabaseClient was not found.');
-
-    accountNav.innerHTML = `
-      <a href="signup.html">Join STLNC</a>
-      <a href="login.html">Log In</a>
-    `;
-
-    return;
-  }
-
-  try {
-
-    const {
-      data,
-      error
-    } = await supabaseClient.auth.getSession();
-
-    if (error) {
-      throw error;
-    }
-
-    const session = data.session;
-
-    accountNav.innerHTML = '';
-
-    if (session) {
-
-      accountNav.innerHTML = `
-        <a href="profile.html">My Profile</a>
-        <a href="#" id="logout-link">Log Out</a>
-      `;
-
-      document
-        .getElementById('logout-link')
-        .addEventListener('click', async function(event) {
-
-          event.preventDefault();
-
-          const { error } =
-            await supabaseClient.auth.signOut();
-
-          if (error) {
-            console.error('Logout error:', error);
-            return;
-          }
-
-          window.location.href = 'index.html';
-
-        });
-
-    } else {
-
-      accountNav.innerHTML = `
-        <a href="signup.html">Join STLNC</a>
-        <a href="login.html">Log In</a>
-      `;
-
-    }
-
-  } catch (error) {
-
-    console.error(
-      'STLNC account navigation error:',
-      error
-    );
-
-    // If Supabase fails, don't leave the user staring at
-    // "Loading account..."
-    accountNav.innerHTML = `
-      <a href="signup.html">Join STLNC</a>
-      <a href="login.html">Log In</a>
-    `;
-
-  }
-}
+  <div
+    class="account-nav"
+    id="account-nav"
+    aria-label="Account navigation"
+  >
+    Loading account...
+  </div>
 
 
-// Start account navigation
-document.addEventListener('DOMContentLoaded', function() {
-  updateAccountNav();
-});
+  <!-- MAIN SITE NAVIGATION -->
 
-  <nav class="main-nav" aria-label="Main navigation">
+  <nav
+    class="main-nav"
+    aria-label="Main navigation"
+  >
+
     <div class="main-nav-inner">
+
+      <a
+        class="site-name"
+        href="index.html"
+      >
+        STLNC
+      </a>
+
+
+      <div class="main-nav-links">
+
+        <a
+          href="index.html"
+          class="current"
+          aria-current="page"
+        >
+          Home
+        </a>
+
+        <a href="about.html">
+          About
+        </a>
+
+        <a href="gallery.html">
+          Gallery
+        </a>
+
+        <a href="directory.html">
+          Directory
+        </a>
+
+        <a href="events.html">
+          Events
+        </a>
+
+        <a href="contact.html">
+          Contact
+        </a>
+
+      </div>
+
+    </div>
+
+  </nav>
+
+
+  <!-- PAGE CONTENT -->
+
+  <main>
+
+    <h1>
+      Hi
+    </h1>
+
+    <p>
+      im still working on the website
+    </p>
+
+    <p>
+      check out the gallery tho
+    </p>
+
+    <img
+      src="wizard.gif"
+      width="500"
+      alt="wizard"
+    >
+
+  </main>
+
+
+</body>
+</html>
+```
+
 
       <a class="site-name" href="index.html">STLNC</a>
 
