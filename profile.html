@@ -64,9 +64,31 @@
 
 <div id="profile-content" hidden>
 
-  <h2 id="profile-name"></h2>
+  <label for="display-name">
+    Display Name
+  </label>
 
-  <p id="profile-bio"></p>
+  <input
+    type="text"
+    id="display-name"
+    name="display-name"
+  >
+
+  <label for="bio">
+    Bio
+  </label>
+
+  <textarea
+    id="bio"
+    name="bio"
+    rows="6"
+  ></textarea>
+
+  <button type="button" id="save-profile">
+    Save Profile
+  </button>
+
+  <div id="save-status" aria-live="polite"></div>
 
 </div>
 
