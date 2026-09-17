@@ -170,88 +170,93 @@
 
         card.className = 'creative-card';
 
-        card.innerHTML = `
-          <div class="creative-card-content">
+card.innerHTML = `
+  <div class="creative-card-content">
 
-           ${profile.portfolio_url
-    ? `
-      <p>
-        <a
-          class="profile-button"
-          href="${profile.portfolio_url}"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          View Portfolio
-        </a>
-      </p>
-    `
-    : ''
-}
-
-            <h2>
-              ${profile.display_name || 'STLNC Creative'}
-            </h2>
-
+    ${
+      profile.profile_image_url
+        ? `
+          <img
+            class="creative-profile-image"
+            src="${profile.profile_image_url}"
+            alt="${profile.display_name || 'STLNC Creative'}"
+          >
+        `
+        : `
+          <div class="creative-profile-placeholder">
             ${
-              profile.creative_disciplines
-                ? `
-                  <p class="creative-disciplines">
-                    ${profile.creative_disciplines}
-                  </p>
-                `
-                : ''
+              profile.display_name
+                ? profile.display_name.charAt(0).toUpperCase()
+                : 'S'
             }
-
-            ${
-              profile.bio
-                ? `
-                  <p class="creative-bio">
-                    ${profile.bio}
-                  </p>
-                `
-                : ''
-            }
-
-            ${
-              profile.creative_statement
-                ? `
-                  <p class="creative-statement">
-                    ${profile.creative_statement}
-                  </p>
-                `
-                : ''
-            }
-
-            ${
-              profile.looking_for
-                ? `
-                  <p>
-                    <strong>Looking for:</strong>
-                    ${profile.looking_for}
-                  </p>
-                `
-                : ''
-            }
-
-            ${
-              profile.portfolio_url
-                ? `
-                  <p>
-                    <a
-                      href="${profile.portfolio_url}"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      View Portfolio
-                    </a>
-                  </p>
-                `
-                : ''
-            }
-
           </div>
-        `;
+        `
+    }
+
+    <h2>
+      ${profile.display_name || 'STLNC Creative'}
+    </h2>
+
+    ${
+      profile.creative_disciplines
+        ? `
+          <p class="creative-disciplines">
+            ${profile.creative_disciplines}
+          </p>
+        `
+        : ''
+    }
+
+    ${
+      profile.bio
+        ? `
+          <p class="creative-bio">
+            ${profile.bio}
+          </p>
+        `
+        : ''
+    }
+
+    ${
+      profile.creative_statement
+        ? `
+          <p class="creative-statement">
+            ${profile.creative_statement}
+          </p>
+        `
+        : ''
+    }
+
+    ${
+      profile.looking_for
+        ? `
+          <p>
+            <strong>Looking for:</strong>
+            ${profile.looking_for}
+          </p>
+        `
+        : ''
+    }
+
+    ${
+      profile.portfolio_url
+        ? `
+          <p>
+            <a
+              class="profile-button"
+              href="${profile.portfolio_url}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View Portfolio
+            </a>
+          </p>
+        `
+        : ''
+    }
+
+  </div>
+`;
 
         directory.appendChild(card);
       });
