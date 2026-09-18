@@ -685,3 +685,60 @@ h1 {
     max-height: 500px;
   }
 }
+/* ==============================
+   DARK / LIGHT MODE
+   ============================== */
+
+#theme-toggle {
+  display: inline-block;
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid #ccc;
+  background: white;
+  color: #222;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#theme-toggle:hover,
+#theme-toggle:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode */
+
+html[data-theme="dark"] body {
+  background: #1c1b1a;
+  color: #f4f1ed;
+}
+
+html[data-theme="dark"] .main-nav {
+  background: #292725;
+}
+
+html[data-theme="dark"] .main-nav-links a,
+html[data-theme="dark"] .site-name {
+  color: #f4f1ed;
+}
+
+html[data-theme="dark"] .main-nav-links a:hover,
+html[data-theme="dark"] .main-nav-links a:focus {
+  background: #3a3734;
+}
+
+html[data-theme="dark"] .account-nav a,
+html[data-theme="dark"] #theme-toggle {
+  background: #292725;
+  color: #f4f1ed;
+  border-color: #55504b;
+}
+
+html[data-theme="dark"] .account-nav a:hover,
+html[data-theme="dark"] .account-nav a:focus,
+html[data-theme="dark"] #theme-toggle:hover,
+html[data-theme="dark"] #theme-toggle:focus {
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+}
