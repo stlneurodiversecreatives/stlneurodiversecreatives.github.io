@@ -45,114 +45,87 @@ if (themeToggle) {
 // ==========================================
 // STLNC ACCOUNT NAVIGATION
 // ==========================================
+// ==========================================
+// STLNC ACCOUNT NAVIGATION
+// ==========================================
 
 async function updateAccountNav() {
 
-    const accountNav =
-        document.getElementById('account-nav');
+  const accountLinks =
+    document.getElementById('account-links');
 
-    if (!accountNav) {
-        return;
+  if (!accountLinks) {
+    return;
+  }
+
+  if (!window.supabaseClient) {
+    console.error('STLNC: Supabase client not found.');
+    return;
+  }
+
+  try {
+
+    const { data, error } =
+      await window.supabaseClient.auth.getSession();
+
+    if (error) {
+      console.error(
+        'STLNC: Error checking login status:',
+        error
+      );
+      return;
     }
 
-    // If Supabase isn't available,
-    // leave the logged-out links alone.
-    if (!window.supabase) {
-        console.error('Supabase library not found.');
-        return;
-    }
+    if (data.session) {
 
-    try {
+      // LOGGED IN
+      accountLinks.innerHTML = `
+        <a href="profile.html">My Profile</a>
+        <a href="#" id="logout-link">Log Out</a>
+      `;
 
-        const {
-            data: {
-                session
-            },
-            error
-        } = await supabaseClient.auth.getSession();
+      const logoutLink =
+        document.getElementById('logout-link');
+
+      logoutLink.addEventListener('click', async function(event) {
+
+        event.preventDefault();
+
+        const { error } =
+          await window.supabaseClient.auth.signOut();
 
         if (error) {
-            console.error(
-                'Error checking login status:',
-                error
-            );
-            return;
-        }
-
-
-        // ======================================
-        // LOGGED IN
-        // ======================================
-
-        if (session) {
-
-            accountNav.innerHTML = `
-                <a href="profile.html">My Profile</a>
-                <a href="#" id="logout-link">Log Out</a>
-            `;
-
-            const logoutLink =
-                document.getElementById('logout-link');
-
-            logoutLink.addEventListener(
-                'click',
-                async function(event) {
-
-                    event.preventDefault();
-
-                    const {
-                        error
-                    } = await supabaseClient.auth.signOut();
-
-                    if (error) {
-
-                        console.error(
-                            'Logout error:',
-                            error
-                        );
-
-                        return;
-                    }
-
-                    window.location.href = 'index.html';
-                }
-            );
-        }
-
-
-        // ======================================
-        // LOGGED OUT
-        // ======================================
-
-        else {
-
-            accountNav.innerHTML = `
-                <a href="signup.html">Join STLNC</a>
-                <a href="login.html">Log In</a>
-            `;
-        }
-
-    } catch (error) {
-
-        console.error(
-            'Account navigation error:',
+          console.error(
+            'STLNC: Logout error:',
             error
-        );
+          );
+          return;
+        }
 
-        // IMPORTANT:
-        // Don't erase the logged-out navigation
-        // if something goes wrong.
+        window.location.href = 'index.html';
+      });
+
+    } else {
+
+      // LOGGED OUT
+      accountLinks.innerHTML = `
+        <a href="signup.html">Join STLNC</a>
+        <a href="login.html">Log In</a>
+      `;
     }
+
+  } catch (error) {
+
+    console.error(
+      'STLNC: Account navigation error:',
+      error
+    );
+  }
 }
 
 
-// ==========================================
-// START
-// ==========================================
-
+// Check login status when page loads
 document.addEventListener(
-    'DOMContentLoaded',
-    function() {
-        updateAccountNav();
-    }
+  'DOMContentLoaded',
+  updateAccountNav
 );
