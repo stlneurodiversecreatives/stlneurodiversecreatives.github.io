@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -9,160 +10,55 @@
   <title>Events</title>
 
   <!-- Supabase -->
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <script>
-    const SUPABASE_URL = 'https://nwmnamevyasyruygapeb.supabase.co';
-
-    const SUPABASE_ANON_KEY =
-      'sb_publishable_OWaZPpZTVGK6FYETNa0VLQ_-1gAz1qQ';
-
-  
-  window.supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-      );
-
-     /*
-      ACCOUNT NAVIGATION
-    */
-
-    async function updateAccountNav() {
-
-      const accountNav =
-        document.getElementById('account-nav');
-
-      if (!accountNav) {
-        return;
-      }
-
-
-      const {
-        data: {
-          session
-        }
-      } =
-        await supabaseClient.auth.getSession();
-
-
-      accountNav.innerHTML = '';
-
-
-      if (session) {
-
-        const profileLink =
-          document.createElement('a');
-
-        profileLink.href =
-          'profile.html';
-
-        profileLink.textContent =
-          'My Profile';
-
-
-        const logoutLink =
-          document.createElement('a');
-
-        logoutLink.href =
-          '#';
-
-        logoutLink.textContent =
-          'Log Out';
-
-        logoutLink.addEventListener(
-          'click',
-          async (event) => {
-
-            event.preventDefault();
-
-            const {
-              error
-            } =
-              await supabaseClient.auth.signOut();
-
-
-            if (error) {
-
-              console.error(
-                'Logout error:',
-                error
-              );
-
-              return;
-            }
-
-            window.location.href =
-              'index.html';
-
-          }
-        );
-
-
-        accountNav.appendChild(
-          profileLink
-        );
-
-        accountNav.appendChild(
-          logoutLink
-        );
-
-
-      } else {
-
-        const joinLink =
-          document.createElement('a');
-
-        joinLink.href =
-          'signup.html';
-
-        joinLink.textContent =
-          'Join STLNC';
-
-
-        const loginLink =
-          document.createElement('a');
-
-        loginLink.href =
-          'login.html';
-
-        loginLink.textContent =
-          'Log In';
-
-
-        accountNav.appendChild(
-          joinLink
-        );
-
-        accountNav.appendChild(
-          loginLink
-        );
-
-      }
-    }
-
-  </script>
-
   <!-- Shared CSS -->
+
   <link rel="stylesheet" href="css/style.css">
 
   <!-- Shared JavaScript -->
+
   <script src="script.js" defer></script>
 
 </head>
 
-
 <body>
 
+  <!-- ACCOUNT + DARK MODE NAVIGATION -->
+
+  <div
+    class="account-nav"
+    id="account-nav"
+    aria-label="Account navigation"
+  >
+
+<!-- Dark mode button -->
+<button
+  id="theme-toggle"
+  type="button"
+  aria-label="Toggle dark mode"
+>
+  🌙 Dark Mode
 </button>
-<div class="account-nav" id="account-nav" aria-label="Account navigation">
 
-  <button id="theme-toggle" type="button" aria-label="Toggle dark mode">
-    🌙 Dark Mode
-  </button>
+<!-- JavaScript changes these based on login status -->
+<div
+  class="account-links"
+  id="account-links"
+>
 
-  <div class="account-links" id="account-links">
-    <a href="signup.html">Join STLNC</a>
-    <a href="login.html">Log In</a>
+  <a href="signup.html">
+    Join STLNC
+  </a>
+
+  <a href="login.html">
+    Log In
+  </a>
+
+</div>
+
+
   </div>
 
   <!-- MAIN SITE NAVIGATION -->
@@ -172,71 +68,96 @@
     aria-label="Main navigation"
   >
 
-    <div class="main-nav-inner">
 
-      <a
-        class="site-name"
-        href="index.html"
-      >
-        STLNC
-      </a>
+<div class="main-nav-inner">
+
+  <a
+    class="site-name"
+    href="index.html"
+  >
+    STLNC
+  </a>
 
 
-      <div class="main-nav-links">
+  <div class="main-nav-links">
 
-        <a
-          href="index.html"
-          class="current"
-          aria-current="page"
-        >
-          Home
-        </a>
+    <a href="index.html">
+      Home
+    </a>
 
-        <a href="about.html">
-          About
-        </a>
+    <a href="about.html">
+      About
+    </a>
 
-        <a href="gallery.html">
-          Gallery
-        </a>
+    <a href="gallery.html">
+      Gallery
+    </a>
 
-        <a href="directory.html">
-          Directory
-        </a>
+    <a href="directory.html">
+      Directory
+    </a>
 
-        <a href="events.html">
-          Events
-        </a>
+    <a
+      href="events.html"
+      class="current"
+      aria-current="page"
+    >
+      Events
+    </a>
 
-        <a href="contact.html">
-          Contact
-        </a>
+    <a href="contact.html">
+      Contact
+    </a>
 
-      </div>
+  </div>
 
-    </div>
- </nav>
+</div>
 
-<main>
-<h1 style="text-align: center;"> Upcoming Events </h1>
 
-    <section class="event">
-        <h2>Block Art: A Minecraft Exhibit</h2>
-        <p>Date: Building Stage: September 12th - November 30th, 2026
-                </p>
-            </p>Exhibit Date: December 5th, 2026
-            </p>
-          </p>  Location: TBD
-            </p>
-                </p><img src="images/minecraft.png" width="400" alt="minecraftinfo">
-        </p>
-    </section>
+  </nav>
 
-</main>
+  <!-- EVENTS -->
+
+  <main>
+
+
+<h1 style="text-align: center;">
+  Upcoming Events
+</h1>
+
+
+<section class="event">
+
+  <h2>
+    Block Art: A Minecraft Exhibit
+  </h2>
+
+  <p>
+    <strong>Building Stage:</strong>
+    September 12th – November 30th, 2026
+  </p>
+
+  <p>
+    <strong>Exhibit Date:</strong>
+    December 5th, 2026
+  </p>
+
+  <p>
+    <strong>Location:</strong>
+    TBD
+  </p>
+
+  <img
+    src="images/minecraft.png"
+    width="400"
+    alt="Information about the Minecraft exhibit"
+  >
+
+</section>
+
+
+  </main>
 
 </body>
 
-  </a>
-
-</div>
 </html>
