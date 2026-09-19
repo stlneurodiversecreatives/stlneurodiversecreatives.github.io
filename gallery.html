@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -9,160 +10,49 @@
   <title>Our Gallery</title>
 
   <!-- Supabase -->
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <script>
-    const SUPABASE_URL = 'https://nwmnamevyasyruygapeb.supabase.co';
-
-    const SUPABASE_ANON_KEY =
-      'sb_publishable_OWaZPpZTVGK6FYETNa0VLQ_-1gAz1qQ';
-
-  
-  window.supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-      );
-
-     /*
-      ACCOUNT NAVIGATION
-    */
-
-    async function updateAccountNav() {
-
-      const accountNav =
-        document.getElementById('account-nav');
-
-      if (!accountNav) {
-        return;
-      }
-
-
-      const {
-        data: {
-          session
-        }
-      } =
-        await supabaseClient.auth.getSession();
-
-
-      accountNav.innerHTML = '';
-
-
-      if (session) {
-
-        const profileLink =
-          document.createElement('a');
-
-        profileLink.href =
-          'profile.html';
-
-        profileLink.textContent =
-          'My Profile';
-
-
-        const logoutLink =
-          document.createElement('a');
-
-        logoutLink.href =
-          '#';
-
-        logoutLink.textContent =
-          'Log Out';
-
-        logoutLink.addEventListener(
-          'click',
-          async (event) => {
-
-            event.preventDefault();
-
-            const {
-              error
-            } =
-              await supabaseClient.auth.signOut();
-
-
-            if (error) {
-
-              console.error(
-                'Logout error:',
-                error
-              );
-
-              return;
-            }
-
-            window.location.href =
-              'index.html';
-
-          }
-        );
-
-
-        accountNav.appendChild(
-          profileLink
-        );
-
-        accountNav.appendChild(
-          logoutLink
-        );
-
-
-      } else {
-
-        const joinLink =
-          document.createElement('a');
-
-        joinLink.href =
-          'signup.html';
-
-        joinLink.textContent =
-          'Join STLNC';
-
-
-        const loginLink =
-          document.createElement('a');
-
-        loginLink.href =
-          'login.html';
-
-        loginLink.textContent =
-          'Log In';
-
-
-        accountNav.appendChild(
-          joinLink
-        );
-
-        accountNav.appendChild(
-          loginLink
-        );
-
-      }
-    }
-
-  </script>
-
   <!-- Shared CSS -->
-    <!-- Shared CSS -->
+
   <link rel="stylesheet" href="css/style.css">
 
   <!-- Shared JavaScript -->
+
   <script src="script.js" defer></script>
 
 </head>
 
-
 <body>
+
+  <!-- ACCOUNT + DARK MODE NAVIGATION -->
+
+  <div class="account-nav" id="account-nav" aria-label="Account navigation">
+
+```
+<!-- Dark mode button -->
+<button
+  id="theme-toggle"
+  type="button"
+  aria-label="Toggle dark mode"
+>
+  🌙 Dark Mode
 </button>
-<div class="account-nav" id="account-nav" aria-label="Account navigation">
 
-  <button id="theme-toggle" type="button" aria-label="Toggle dark mode">
-    🌙 Dark Mode
-  </button>
+<!-- JavaScript replaces these depending on login status -->
+<div class="account-links" id="account-links">
 
-  <div class="account-links" id="account-links">
-    <a href="signup.html">Join STLNC</a>
-    <a href="login.html">Log In</a>
+  <a href="signup.html">
+    Join STLNC
+  </a>
+
+  <a href="login.html">
+    Log In
+  </a>
+
+</div>
+```
+
   </div>
 
   <!-- MAIN SITE NAVIGATION -->
@@ -172,168 +62,318 @@
     aria-label="Main navigation"
   >
 
-    <div class="main-nav-inner">
+```
+<div class="main-nav-inner">
 
-      <a
-        class="site-name"
-        href="index.html"
-      >
-        STLNC
-      </a>
+  <a
+    class="site-name"
+    href="index.html"
+  >
+    STLNC
+  </a>
 
+  <div class="main-nav-links">
 
-      <div class="main-nav-links">
+    <a href="index.html">
+      Home
+    </a>
 
-        <a
-          href="index.html"
-          class="current"
-          aria-current="page"
-        >
-          Home
-        </a>
+    <a href="about.html">
+      About
+    </a>
 
-        <a href="about.html">
-          About
-        </a>
+    <a
+      href="gallery.html"
+      class="current"
+      aria-current="page"
+    >
+      Gallery
+    </a>
 
-        <a href="gallery.html">
-          Gallery
-        </a>
+    <a href="directory.html">
+      Directory
+    </a>
 
-        <a href="directory.html">
-          Directory
-        </a>
+    <a href="events.html">
+      Events
+    </a>
 
-        <a href="events.html">
-          Events
-        </a>
+    <a href="contact.html">
+      Contact
+    </a>
 
-        <a href="contact.html">
-          Contact
-        </a>
+  </div>
 
-      </div>
+</div>
+```
 
-    </div>
- </nav>
+  </nav>
+
+  <!-- GALLERY -->
 
   <main>
 
-    <h1 style="text-align: center;">Our Gallery</h1>
+```
+<h1 style="text-align: center;">
+  Our Gallery
+</h1>
 
-    <div class="gallery">
-
-      <div class="gallery-item">
-        <img src="images/FrogRedditpost.png" alt="Artwork 1">
-
-        <div class="gallery-description">
-          <h3>cowkong</h3>
-          <p><a href="https://www.instagram.com/cowkong/">Instagram</a></p>
-          <p><a href="https://www.etsy.com/shop/Cowkong">Etsy</a></p>
-        </div>
-      </div>
+<div class="gallery">
 
 
-      <div class="gallery-item">
-        <img src="images/grant.jpg" alt="Artwork 2">
+  <div class="gallery-item">
 
-        <div class="gallery-description">
-          <h3>Grant Harris</h3>
-          <p><a href="https://www.instagram.com/art_and_empathies/">Instagram</a></p>
-        </div>
-      </div>
+    <img
+      src="images/FrogRedditpost.png"
+      alt="Artwork by cowkong"
+    >
 
+    <div class="gallery-description">
 
-      <div class="gallery-item">
-        <img src="images/stasia.png" alt="Artwork 3">
+      <h3>cowkong</h3>
 
-        <div class="gallery-description">
-          <h3>Stasia</h3>
-          <p><a href="https://www.instagram.com/a_rtistxc/">Instagram</a></p>
-          <p><a href="https://linktr.ee/a_rtistxc">Linktree</a></p>
-        </div>
-      </div>
+      <p>
+        <a href="https://www.instagram.com/cowkong/">
+          Instagram
+        </a>
+      </p>
 
-
-      <div class="gallery-item">
-        <img src="images/gabriel.jpg" alt="Artwork 4">
-
-        <div class="gallery-description">
-          <h3>e-GoS | Gabriel Vianello</h3>
-          <p><a href="https://www.instagram.com/egos.creative/">Instagram</a></p>
-          <p><a href="https://linktr.ee/egos.creative">Linktree</a></p>
-        </div>
-      </div>
-
-
-      <div class="gallery-item">
-        <img src="images/noel.PNG" alt="Artwork 5">
-
-        <div class="gallery-description">
-          <h3>hoynoddy</h3>
-          <p><a href="https://www.instagram.com/hoynoddy/">Instagram</a></p>
-        </div>
-      </div>
-
-
-      <div class="gallery-item">
-        <img src="images/Copy of Weird dinner print.png" alt="Artwork 6">
-
-        <div class="gallery-description">
-          <h3>goneferalmo</h3>
-          <p><a href="https://www.instagram.com/goneferalmo/">Instagram</a></p>
-          <p><a href="https://goneferalmo.bandcamp.com">Bandcamp</a></p>
-        </div>
-      </div>
-
-
-      <div class="gallery-item">
-        <img src="images/mitchmerge.PNG" alt="Artwork 7">
-
-        <div class="gallery-description">
-          <h3>_mitchellaneous_</h3>
-          <p><a href="https://www.instagram.com/_mitchellaneous_/">Instagram</a></p>
-        </div>
-      </div>
-
-
-      <div class="gallery-item">
-        <img src="images/piggy.jpg" alt="Artwork 8">
-
-        <div class="gallery-description">
-          <h3>Eliza Qadesh</h3>
-          <p><a href="https://www.instagram.com/eliza.qadesh/">Instagram</a></p>
-        </div>
-      </div>
-
-
-      <div class="gallery-item">
-
-        <video controls>
-          <source src="images/icymi (720p).mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-
-        <div class="gallery-description">
-          <h3>Adrian Petrosian</h3>
-          <p><a href="https://www.instagram.com/adrianpetrosian/">Instagram</a></p>
-        </div>
-
-      </div>
-
-
-      <div class="gallery-item">
-        <img src="images/art4.jpg" alt="Artwork 10">
-
-        <div class="gallery-description">
-          <h3>Fourth Piece</h3>
-          <p>Something about this artwork.</p>
-        </div>
-      </div>
+      <p>
+        <a href="https://www.etsy.com/shop/Cowkong">
+          Etsy
+        </a>
+      </p>
 
     </div>
+
+  </div>
+
+
+  <div class="gallery-item">
+
+    <img
+      src="images/grant.jpg"
+      alt="Artwork by Grant Harris"
+    >
+
+    <div class="gallery-description">
+
+      <h3>Grant Harris</h3>
+
+      <p>
+        <a href="https://www.instagram.com/art_and_empathies/">
+          Instagram
+        </a>
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="gallery-item">
+
+    <img
+      src="images/stasia.png"
+      alt="Artwork by Stasia"
+    >
+
+    <div class="gallery-description">
+
+      <h3>Stasia</h3>
+
+      <p>
+        <a href="https://www.instagram.com/a_rtistxc/">
+          Instagram
+        </a>
+      </p>
+
+      <p>
+        <a href="https://linktr.ee/a_rtistxc">
+          Linktree
+        </a>
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="gallery-item">
+
+    <img
+      src="images/gabriel.jpg"
+      alt="Artwork by e-GoS | Gabriel Vianello"
+    >
+
+    <div class="gallery-description">
+
+      <h3>e-GoS | Gabriel Vianello</h3>
+
+      <p>
+        <a href="https://www.instagram.com/egos.creative/">
+          Instagram
+        </a>
+      </p>
+
+      <p>
+        <a href="https://linktr.ee/egos.creative">
+          Linktree
+        </a>
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="gallery-item">
+
+    <img
+      src="images/noel.PNG"
+      alt="Artwork by hoynoddy"
+    >
+
+    <div class="gallery-description">
+
+      <h3>hoynoddy</h3>
+
+      <p>
+        <a href="https://www.instagram.com/hoynoddy/">
+          Instagram
+        </a>
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="gallery-item">
+
+    <img
+      src="images/Copy of Weird dinner print.png"
+      alt="Artwork by goneferalmo"
+    >
+
+    <div class="gallery-description">
+
+      <h3>goneferalmo</h3>
+
+      <p>
+        <a href="https://www.instagram.com/goneferalmo/">
+          Instagram
+        </a>
+      </p>
+
+      <p>
+        <a href="https://goneferalmo.bandcamp.com">
+          Bandcamp
+        </a>
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="gallery-item">
+
+    <img
+      src="images/mitchmerge.PNG"
+      alt="Artwork by _mitchellaneous_"
+    >
+
+    <div class="gallery-description">
+
+      <h3>_mitchellaneous_</h3>
+
+      <p>
+        <a href="https://www.instagram.com/_mitchellaneous_/">
+          Instagram
+        </a>
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="gallery-item">
+
+    <img
+      src="images/piggy.jpg"
+      alt="Artwork by Eliza Qadesh"
+    >
+
+    <div class="gallery-description">
+
+      <h3>Eliza Qadesh</h3>
+
+      <p>
+        <a href="https://www.instagram.com/eliza.qadesh/">
+          Instagram
+        </a>
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="gallery-item">
+
+    <video controls>
+
+      <source
+        src="images/icymi (720p).mp4"
+        type="video/mp4"
+      >
+
+      Your browser does not support the video tag.
+
+    </video>
+
+    <div class="gallery-description">
+
+      <h3>Adrian Petrosian</h3>
+
+      <p>
+        <a href="https://www.instagram.com/adrianpetrosian/">
+          Instagram
+        </a>
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="gallery-item">
+
+    <img
+      src="images/art4.jpg"
+      alt="Fourth Piece"
+    >
+
+    <div class="gallery-description">
+
+      <h3>Fourth Piece</h3>
+
+      <p>
+        Something about this artwork.
+      </p>
+
+    </div>
+
+  </div>
+
+
+</div>
+```
 
   </main>
 
 </body>
+
 </html>
