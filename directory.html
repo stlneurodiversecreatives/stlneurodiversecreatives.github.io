@@ -231,6 +231,118 @@
     });
 
   </script>
+<script>
+async function loadDirectory() {
 
+  const status = document.getElementById('directory-status');
+  const list = document.getElementById('directory-list');
+
+  if (!status || !list) {
+    return;
+  }
+
+  status.textContent = 'Loading directory...';
+  list.innerHTML = '';
+
+  try {
+
+    const { data, error } =
+      await supabaseClient.rpc('get_public_profiles');
+
+    if (error) {
+      console.error('Directory error:', error);
+      status.textContent = 'Unable to load the directory.';
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      status.textContent = 'No public profiles found.';
+      return;
+    }
+
+    status.textContent = '';
+
+    data.forEach(profile => {
+
+      const card =
+        document.createElement('div');
+
+      card.className = 'creative-card';
+
+      card.innerHTML = `
+
+        <div class="creative-card-content">
+
+          ${
+            profile.profile_image_url
+              ? `<img
+                   class="creative-profile-image"
+                   src="${profile.profile_image_url}"
+                   alt="${profile.display_name || 'Creative profile'}"
+                 >`
+              : `<div class="creative-profile-placeholder">
+                   ${(profile.display_name || '?').charAt(0).toUpperCase()}
+                 </div>`
+          }
+
+          <h2>
+            ${profile.display_name || 'Unnamed Creative'}
+          </h2>
+
+          ${
+            profile.creative_disciplines
+              ? `<div class="creative-disciplines">
+                   ${profile.creative_disciplines}
+                 </div>`
+              : ''
+          }
+
+          ${
+            profile.location
+              ? `<div class="creative-location">
+                   ${profile.location}
+                 </div>`
+              : ''
+          }
+
+          ${
+            profile.bio
+              ? `<div class="creative-bio">
+                   ${profile.bio}
+                 </div>`
+              : ''
+          }
+
+          ${
+            profile.creative_statement
+              ? `<div class="creative-statement">
+                   ${profile.creative_statement}
+                 </div>`
+              : ''
+          }
+
+        </div>
+
+      `;
+
+      list.appendChild(card);
+
+    });
+
+  } catch (error) {
+
+    console.error('Directory error:', error);
+
+    status.textContent =
+      'Unable to load the directory.';
+  }
+}
+
+
+document.addEventListener(
+  'DOMContentLoaded',
+  loadDirectory
+);
+</script>
 </body>
 </html>
