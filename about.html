@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,140 +7,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>STLNC</title>
+  <title>About Us | STLNC</title>
 
   <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script>
-    const SUPABASE_URL = 'https://nwmnamevyasyruygapeb.supabase.co';
+    const SUPABASE_URL =
+      'https://nwmnamevyasyruygapeb.supabase.co';
 
     const SUPABASE_ANON_KEY =
       'sb_publishable_OWaZPpZTVGK6FYETNa0VLQ_-1gAz1qQ';
 
-  
-  window.supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
+    window.supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
       );
-
-     /*
-      ACCOUNT NAVIGATION
-    */
-
-    async function updateAccountNav() {
-
-      const accountNav =
-        document.getElementById('account-nav');
-
-      if (!accountNav) {
-        return;
-      }
-
-
-      const {
-        data: {
-          session
-        }
-      } =
-        await supabaseClient.auth.getSession();
-
-
-      accountNav.innerHTML = '';
-
-
-      if (session) {
-
-        const profileLink =
-          document.createElement('a');
-
-        profileLink.href =
-          'profile.html';
-
-        profileLink.textContent =
-          'My Profile';
-
-
-        const logoutLink =
-          document.createElement('a');
-
-        logoutLink.href =
-          '#';
-
-        logoutLink.textContent =
-          'Log Out';
-
-        logoutLink.addEventListener(
-          'click',
-          async (event) => {
-
-            event.preventDefault();
-
-            const {
-              error
-            } =
-              await supabaseClient.auth.signOut();
-
-
-            if (error) {
-
-              console.error(
-                'Logout error:',
-                error
-              );
-
-              return;
-            }
-
-            window.location.href =
-              'index.html';
-
-          }
-        );
-
-
-        accountNav.appendChild(
-          profileLink
-        );
-
-        accountNav.appendChild(
-          logoutLink
-        );
-
-
-      } else {
-
-        const joinLink =
-          document.createElement('a');
-
-        joinLink.href =
-          'signup.html';
-
-        joinLink.textContent =
-          'Join STLNC';
-
-
-        const loginLink =
-          document.createElement('a');
-
-        loginLink.href =
-          'login.html';
-
-        loginLink.textContent =
-          'Log In';
-
-
-        accountNav.appendChild(
-          joinLink
-        );
-
-        accountNav.appendChild(
-          loginLink
-        );
-
-      }
-    }
-
   </script>
 
   <!-- Shared CSS -->
@@ -150,19 +34,33 @@
 
 </head>
 
-
 <body>
-</button>
-<div class="account-nav" id="account-nav" aria-label="Account navigation">
 
-  <button id="theme-toggle" type="button" aria-label="Toggle dark mode">
-    🌙 Dark Mode
-  </button>
+  <!-- ACCOUNT / THEME NAVIGATION -->
 
-  <div class="account-links" id="account-links">
-    <a href="signup.html">Join STLNC</a>
-    <a href="login.html">Log In</a>
+  <div
+    class="account-nav"
+    aria-label="Account navigation"
+  >
+
+    <button
+      id="theme-toggle"
+      type="button"
+      aria-label="Toggle dark mode"
+    >
+      🌙 Dark Mode
+    </button>
+
+    <div
+      class="account-links"
+      id="account-links"
+    >
+      <a href="signup.html">Join STLNC</a>
+      <a href="login.html">Log In</a>
+    </div>
+
   </div>
+
 
   <!-- MAIN SITE NAVIGATION -->
 
@@ -180,18 +78,17 @@
         STLNC
       </a>
 
-
       <div class="main-nav-links">
 
-        <a
-          href="index.html"
-          class="current"
-          aria-current="page"
-        >
+        <a href="index.html">
           Home
         </a>
 
-        <a href="about.html">
+        <a
+          href="about.html"
+          class="current"
+          aria-current="page"
+        >
           About
         </a>
 
@@ -219,16 +116,30 @@
 
 
   <!-- PAGE CONTENT -->
-  <h1 style="text-align: center;"> About Us </h1>
-  STLNC is a network for neurodivergent, alternative, and unconventional creatives from St. Louis to connect, collaborate, and build community together. Our focus is celebrating diverse perspectives based in mutual respect, radical inclusion, and mindful support.
-    </p>
-<img src="images/stlcall.jpg" width="400" alt="stlcall">
+
+  <main>
+
+    <h1 style="text-align: center;">
+      About Us
+    </h1>
+
     <p>
+      STLNC is a network for neurodivergent, alternative,
+      and unconventional creatives from St. Louis to
+      connect, collaborate, and build community together.
+      Our focus is celebrating diverse perspectives based
+      in mutual respect, radical inclusion, and mindful support.
+    </p>
+
+    <img
+      src="images/stlcall.jpg"
+      width="400"
+      alt="STLNC community"
+    >
 
   </main>
 
 
 </body>
 </html>
-
-      
+```
