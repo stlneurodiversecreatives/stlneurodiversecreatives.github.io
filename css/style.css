@@ -760,3 +760,46 @@ html[data-theme="dark"] #theme-toggle:focus {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
 }
 
+/* =========================================================
+   DARK MODE — CARDS / PANELS
+   ========================================================= */
+
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .section-card,
+html[data-theme="dark"] .creative-card,
+html[data-theme="dark"] .gallery-item,
+html[data-theme="dark"] #directory-search-form {
+  background: #1e1e1e;
+  color: #f5f5f5;
+}
+
+html[data-theme="dark"] .gallery-description {
+  background: #1e1e1e;
+  color: #f5f5f5;
+}
+
+html[data-theme="dark"] .creative-profile-placeholder {
+  background: #333;
+  color: #f5f5f5;
+}
+
+html[data-theme="dark"] .account-nav a {
+  background: #1e1e1e;
+  color: #f5f5f5;
+  border-color: #555;
+}
+
+html[data-theme="dark"] .main-nav {
+  background: #1e1e1e;
+  color: #f5f5f5;
+}
+
+html[data-theme="dark"] .search-row input {
+  background: #2a2a2a;
+  color: #f5f5f5;
+  border-color: #555;
+}
+
+html[data-theme="dark"] .search-row input::placeholder {
+  color: #aaa;
+}
