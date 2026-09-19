@@ -11,7 +11,7 @@ html {
 }
 
 body {
-  font-family: Montserrat, Light 300
+ font-family: 'Montserrat', sans-serif;
   margin: 0;
   padding: 0 20px 50px;
   background: #f7f4f0;
