@@ -27,7 +27,16 @@ a {
   color: inherit;
 }
 
+.site-name img {
+  display: block;
+  width: 100px;
+  height: auto;
+}
 
+.site-name {
+  display: inline-block;
+  text-decoration: none;
+}
 /* =========================================================
    TOP-RIGHT ACCOUNT AREA
    ========================================================= */
