@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -6,1475 +7,234 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>STLNC</title>
+  <title>STLNC Directory</title>
 
   <!-- Supabase -->
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script>
     const SUPABASE_URL = 'https://nwmnamevyasyruygapeb.supabase.co';
 
-    const SUPABASE_ANON_KEY =
-      'sb_publishable_OWaZPpZTVGK6FYETNa0VLQ_-1gAz1qQ';
+    const SUPABASE_ANON_KEY = 'sb_publishable_OWaZPpZTVGK6FYETNa0VLQ_-1gAz1qQ';
 
-  
-  window.supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-      );
-
-     /*
-      ACCOUNT NAVIGATION
-    */
-
-    async function updateAccountNav() {
-
-      const accountNav =
-        document.getElementById('account-nav');
-
-      if (!accountNav) {
-        return;
-      }
-
-
-      const {
-        data: {
-          session
-        }
-      } =
-        await supabaseClient.auth.getSession();
-
-
-      accountNav.innerHTML = '';
-
-
-      if (session) {
-
-        const profileLink =
-          document.createElement('a');
-
-        profileLink.href =
-          'profile.html';
-
-        profileLink.textContent =
-          'My Profile';
-
-
-        const logoutLink =
-          document.createElement('a');
-
-        logoutLink.href =
-          '#';
-
-        logoutLink.textContent =
-          'Log Out';
-
-        logoutLink.addEventListener(
-          'click',
-          async (event) => {
-
-            event.preventDefault();
-
-            const {
-              error
-            } =
-              await supabaseClient.auth.signOut();
-
-
-            if (error) {
-
-              console.error(
-                'Logout error:',
-                error
-              );
-
-              return;
-            }
-
-            window.location.href =
-              'index.html';
-
-          }
-        );
-
-
-        accountNav.appendChild(
-          profileLink
-        );
-
-        accountNav.appendChild(
-          logoutLink
-        );
-
-
-      } else {
-
-        const joinLink =
-          document.createElement('a');
-
-        joinLink.href =
-          'signup.html';
-
-        joinLink.textContent =
-          'Join STLNC';
-
-
-        const loginLink =
-          document.createElement('a');
-
-        loginLink.href =
-          'login.html';
-
-        loginLink.textContent =
-          'Log In';
-
-
-        accountNav.appendChild(
-          joinLink
-        );
-
-        accountNav.appendChild(
-          loginLink
-        );
-
-      }
-    }
-
+    window.supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_ANON_KEY
+    );
   </script>
 
   <!-- Shared CSS -->
+
   <link rel="stylesheet" href="css/style.css">
 
   <!-- Shared JavaScript -->
+
   <script src="script.js" defer></script>
 
 </head>
 
-
 <body>
+
+  <!-- ACCOUNT NAVIGATION -->
+
+  <div class="account-nav" id="account-nav" aria-label="Account navigation">
+
+```
+<!-- DARK / LIGHT MODE -->
+<button
+  id="theme-toggle"
+  type="button"
+  aria-label="Toggle dark mode"
+>
+  🌙 Dark Mode
 </button>
-<div class="account-nav" id="account-nav" aria-label="Account navigation">
 
-  <button id="theme-toggle" type="button" aria-label="Toggle dark mode">
-    🌙 Dark Mode
-  </button>
+<!-- ACCOUNT LINKS -->
+<div class="account-links" id="account-links">
+  <a href="signup.html">Join STLNC</a>
+  <a href="login.html">Log In</a>
+</div>
+```
 
-  <div class="account-links" id="account-links">
-    <a href="signup.html">Join STLNC</a>
-    <a href="login.html">Log In</a>
+  </div>
+
+  <!-- MAIN SITE NAVIGATION -->
+
+  <nav class="main-nav" aria-label="Main navigation">
+
+```
+<div class="main-nav-inner">
+
+  <a class="site-name" href="index.html">
+    STLNC
+  </a>
+
+  <div class="main-nav-links">
+
+    <a href="index.html">
+      Home
+    </a>
+
+    <a href="about.html">
+      About
+    </a>
+
+    <a href="gallery.html">
+      Gallery
+    </a>
+
+    <a
+      href="directory.html"
+      class="current"
+      aria-current="page"
+    >
+      Directory
+    </a>
+
+    <a href="events.html">
+      Events
+    </a>
+
+    <a href="contact.html">
+      Contact
+    </a>
+
   </div>
 
 </div>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0 20px 50px;
-      background: #f7f4f0;
-      color: #222;
-    }
+```
 
-    /* TOP-RIGHT ACCOUNT AREA */
+  </nav>
 
-    .account-nav {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 12px 0 10px;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
+  <!-- DIRECTORY CONTENT -->
 
-    .account-nav a {
-      display: inline-block;
-      padding: 9px 16px;
-      border-radius: 999px;
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 600;
-      border: 1px solid #ccc;
-      color: #222;
-      background: white;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
+  <main>
 
-    .account-nav a:hover,
-    .account-nav a:focus {
-      transform: translateY(-1px);
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-    }
+```
+<h1>STLNC Creative Directory</h1>
 
-    /* MAIN SITE NAVIGATION */
+<p class="intro">
+  Explore creatives from the St. Louis community.
+</p>
 
-    .main-nav {
-      max-width: 1100px;
-      margin: 0 auto 35px;
-      padding: 16px 20px;
-      background: white;
-      border-radius: 14px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-    }
 
-    .main-nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
+<!-- SEARCH -->
+<form id="directory-search-form">
 
-    .site-name {
-      font-size: 1.1rem;
-      font-weight: bold;
-      text-decoration: none;
-      color: inherit;
-    }
+  <label for="directory-search">
+    Search the directory
+  </label>
 
-    .main-nav-links {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
+  <div class="search-row">
 
-    .main-nav-links a {
-      text-decoration: none;
-      color: inherit;
-      padding: 8px 10px;
-      border-radius: 8px;
-    }
+    <input
+      type="search"
+      id="directory-search"
+      placeholder="Search by name, discipline, location, etc."
+    >
 
-    .main-nav-links a:hover,
-    .main-nav-links a:focus {
-      background: #f1ece6;
-    }
+    <button type="submit">
+      Search
+    </button>
 
-    .main-nav-links a.current {
-      font-weight: bold;
-    }
-
-    /* PAGE */
-
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    h1 {
-      margin-bottom: 10px;
-    }
-
-    .intro {
-      line-height: 1.6;
-      margin-bottom: 30px;
-    }
-
-    /* SEARCH */
-
-    #directory-search-form {
-      background: white;
-      padding: 20px;
-      border-radius: 16px;
-      margin-bottom: 30px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-    }
-
-    #directory-search-form label {
-      display: block;
-      margin-bottom: 10px;
-      font-weight: bold;
-    }
-
-    .search-row {
-      display: flex;
-      align-items: stretch;
-      gap: 10px;
-    }
-
-    .search-row input {
-      flex: 1;
-      min-width: 0;
-      padding: 12px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      font-family: inherit;
-    }
-
-    .search-row button {
-      padding: 12px 20px;
-      border: none;
-      border-radius: 999px;
-      background: #222;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .search-row button:hover,
-    .search-row button:focus {
-      opacity: 0.85;
-    }
-
-    /* DIRECTORY */
-
-    #directory-status {
-      margin: 30px 0;
-      line-height: 1.5;
-    }
-
-    #directory-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-    }
-
-    .creative-card {
-      background: white;
-      border-radius: 20px;
-      padding: 28px;
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .creative-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-    }
-
-    .creative-card-content {
-      text-align: center;
-    }
-
-    /* PROFILE IMAGE */
-
-    .creative-profile-image,
-    .creative-profile-placeholder {
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      display: block;
-      margin: 0 auto 18px;
-    }
-
-    .creative-profile-image {
-      object-fit: cover;
-    }
-
-    .creative-profile-placeholder {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 40px;
-      font-weight: bold;
-      background: #e8e1d9;
-    }
-
-    /* PROFILE TEXT */
-
-    .creative-card h2 {
-      margin-top: 0;
-      margin-bottom: 10px;
-      text-align: center;
-    }
-
-    .creative-disciplines {
-      font-weight: bold;
-      margin-bottom: 18px;
-      line-height: 1.5;
-    }
-
-    .creative-location {
-      margin-bottom: 18px;
-    }
-
-    .creative-bio,
-    .creative-statement {
-      line-height: 1.7;
-      text-align: left;
-    }
-
-    .creative-statement {
-      font-style: italic;
-    }
-
-    .profile-section {
-      margin-top: 18px;
-      text-align: left;
-    }
-
-    .profile-section h3 {
-      margin-bottom: 6px;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    /* PROFILE LINKS */
-
-    .profile-links {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 20px;
-    }
-
-    .profile-button {
-      display: inline-block;
-      padding: 10px 18px;
-      border-radius: 999px;
-      text-decoration: none;
-      font-weight: bold;
-      background: #222;
-      color: white;
-      transition: transform 0.2s ease, opacity 0.2s ease;
-    }
-
-    .profile-button:hover,
-    .profile-button:focus {
-      transform: translateY(-2px);
-      opacity: 0.85;
-    }
-
-    /* MOBILE */
-
-    @media (max-width: 600px) {
-
-      body {
-        padding-left: 15px;
-        padding-right: 15px;
-      }
-
-      .main-nav-inner {
-        align-items: flex-start;
-      }
-
-      .main-nav-links {
-        width: 100%;
-        gap: 6px;
-      }
-
-      .search-row {
-        flex-direction: column;
-      }
-
-      .search-row button {
-        width: 100%;
-      }
-
-      .creative-card {
-        padding: 22px;
-      }
-
-    }
-  </style>
-</head>
-
-<body>
-
-  <!-- TOP-RIGHT ACCOUNT CONTROLS -->
-
-  <div
-    class="account-nav"
-    id="account-nav"
-    aria-label="Account navigation"
-  >
-    Loading account...
   </div>
 
-
-  <!-- MAIN SITE NAVIGATION -->
-
-  <nav
-    class="main-nav"
-    aria-label="Main navigation"
-  >
-
-    <div class="main-nav-inner">
-
-      <a
-        class="site-name"
-        href="index.html"
-      >
-        STLNC
-      </a>
-
-      <div class="main-nav-links">
-
-        <a href="index.html">
-          Home
-        </a>
-
-        <a href="about.html">
-          About
-        </a>
-
-        <a href="gallery.html">
-          Gallery
-        </a>
-
-        <a
-          href="directory.html"
-          class="current"
-          aria-current="page"
-        >
-          Directory
-        </a>
-
-        <a href="events.html">
-          Events
-        </a>
-
-        <a href="contact.html">
-          Contact
-        </a>
-
-      </div>
-
-    </div>
-
-  </nav>
+</form>
 
 
-  <!-- DIRECTORY CONTENT -->
-
-  <main>
-
-    <h1>
-      STLNC Creative Directory
-    </h1>
-
-    <p class="intro
-    </p>
+<!-- STATUS -->
+<div id="directory-status">
+  Loading directory...
+</div>
 
 
-    <!-- SEARCH -->
-
-    <form
-      id="directory-search-form"
-      role="search"
-    >
-
-      <label for="directory-search">
-        Search the directory
-      </label>
-
-      <div class="search-row">
-
-        <input
-          type="search"
-          id="directory-search"
-          name="directory-search"
-          placeholder="Name, discipline, or keyword"
-          autocomplete="off"
-        >
-
-        <button type="submit">
-          Search
-        </button>
-
-      </div>
-
-    </form>
-
-
-    <div
-      id="directory-status"
-      aria-live="polite"
-    >
-      Loading creatives...
-    </div>
-
-
-    <div id="directory-list"></div>
+<!-- DIRECTORY RESULTS -->
+<div id="directory-list"></div>
+```
 
   </main>
 
-
-  <!-- SUPABASE + DIRECTORY CODE -->
-
-  <script>
-
-    const SUPABASE_URL =
-      'https://nwmnamevyasyruygapeb.supabase.co';
-
-    const SUPABASE_ANON_KEY =
-      'sb_publishable_OWaZPpZTVGK6FYETNa0VLQ_-1gAz1qQ';
-
-
-    const supabaseClient =
-      window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
-      );
-
-
-  <!-- MAIN SITE NAVIGATION -->
-
-  <nav
-    class="main-nav"
-    aria-label="Main navigation"
-  >
-
-    <div class="main-nav-inner">
-
-      <a
-        class="site-name"
-        href="index.html"
-      >
-        STLNC
-      </a>
-
-      <div class="main-nav-links">
-
-        <a href="index.html">
-          Home
-        </a>
-
-        <a href="about.html">
-          About
-        </a>
-
-        <a href="gallery.html">
-          Gallery
-        </a>
-
-        <a
-          href="directory.html"
-          class="current"
-          aria-current="page"
-        >
-          Directory
-        </a>
-
-        <a href="events.html">
-          Events
-        </a>
-
-        <a href="contact.html">
-          Contact
-        </a>
-
-      </div>
-
-    </div>
-
-  </nav>
-
-
-  <!-- DIRECTORY CONTENT -->
-
-  <main>
-
-    <h1>
-      STLNC Creative Directory
-    </h1>
-
-    <p class="intro
-    </p>
-
-
-    <!-- SEARCH -->
-
-    <form
-      id="directory-search-form"
-      role="search"
-    >
-
-      <label for="directory-search">
-        Search the directory
-      </label>
-
-      <div class="search-row">
-
-        <input
-          type="search"
-          id="directory-search"
-          name="directory-search"
-          placeholder="Name, discipline, or keyword"
-          autocomplete="off"
-        >
-
-        <button type="submit">
-          Search
-        </button>
-
-      </div>
-
-    </form>
-
-
-    <div
-      id="directory-status"
-      aria-live="polite"
-    >
-      Loading creatives...
-    </div>
-
-
-    <div id="directory-list"></div>
-
-  </main>
-
-
-  <!-- SUPABASE + DIRECTORY CODE -->
+  <!-- DARK MODE -->
 
   <script>
 
-    const SUPABASE_URL =
-      'https://nwmnamevyasyruygapeb.supabase.co';
+    document.addEventListener('DOMContentLoaded', function () {
 
-    const SUPABASE_ANON_KEY =
-      'sb_publishable_OWaZPpZTVGK6FYETNa0VLQ_-1gAz1qQ';
+      const themeToggle =
+        document.getElementById('theme-toggle');
 
-
-    const supabaseClient =
-      window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
-      );
-
-
-    /*
-      ACCOUNT NAVIGATION
-    */
-
-    async function updateAccountNav() {
-
-      const accountNav =
-        document.getElementById('account-nav');
-
-      if (!accountNav) {
+      if (!themeToggle) {
         return;
       }
 
+      const savedTheme =
+        localStorage.getItem('theme');
 
-      const {
-        data: {
-          session
-        }
-      } =
-        await supabaseClient.auth.getSession();
+      if (savedTheme === 'dark') {
 
-
-      accountNav.innerHTML = '';
-
-
-      if (session) {
-
-        const profileLink =
-          document.createElement('a');
-
-        profileLink.href =
-          'profile.html';
-
-        profileLink.textContent =
-          'My Profile';
-
-
-        const logoutLink =
-          document.createElement('a');
-
-        logoutLink.href =
-          '#';
-
-        logoutLink.textContent =
-          'Log Out';
-
-        logoutLink.addEventListener(
-          'click',
-          async (event) => {
-
-            event.preventDefault();
-
-            const {
-              error
-            } =
-              await supabaseClient.auth.signOut();
-
-
-            if (error) {
-
-              console.error(
-                'Logout error:',
-                error
-              );
-
-              return;
-            }
-
-            window.location.href =
-              'index.html';
-
-          }
+        document.documentElement.setAttribute(
+          'data-theme',
+          'dark'
         );
 
-
-        accountNav.appendChild(
-          profileLink
-        );
-
-        accountNav.appendChild(
-          logoutLink
-        );
-
+        themeToggle.textContent =
+          '☀️ Light Mode';
 
       } else {
 
-        const joinLink =
-          document.createElement('a');
-
-        joinLink.href =
-          'signup.html';
-
-        joinLink.textContent =
-          'Join STLNC';
-
-
-        const loginLink =
-          document.createElement('a');
-
-        loginLink.href =
-          'login.html';
-
-        loginLink.textContent =
-          'Log In';
-
-
-        accountNav.appendChild(
-          joinLink
+        document.documentElement.removeAttribute(
+          'data-theme'
         );
 
-        accountNav.appendChild(
-          loginLink
-        );
-
-      }
-    }
-
-
-    /*
-      SAFE URL CHECK
-    */
-
-    function getSafeUrl(value) {
-
-      if (!value) {
-        return null;
-      }
-
-      try {
-
-        const url =
-          new URL(value);
-
-        if (
-          url.protocol === 'https:' ||
-          url.protocol === 'http:'
-        ) {
-          return url.href;
-        }
-
-      } catch (error) {
-
-        return null;
-
-      }
-
-      return null;
-    }
-
-
-    /*
-      LOAD DIRECTORY
-    */
-
-    async function loadDirectory() {
-
-      const status =
-        document.getElementById(
-          'directory-status'
-        );
-
-      const directory =
-        document.getElementById(
-          'directory-list'
-        );
-
-
-      const {
-        data,
-        error
-      } =
-        await supabaseClient.rpc(
-          'get_public_profiles'
-        );
-
-
-      if (error) {
-
-        console.error(
-          'Directory error:',
-          error
-        );
-
-        status.textContent =
-          'Unable to load the directory.';
-
-        return;
+        themeToggle.textContent =
+          '🌙 Dark Mode';
       }
 
 
-      status.textContent =
-        '';
+      themeToggle.addEventListener(
+        'click',
+        function () {
 
-      directory.innerHTML =
-        '';
-
-
-      if (!data || data.length === 0) {
-
-        status.textContent =
-          'No public creatives are currently listed.';
-
-        return;
-      }
-
-
-      data.forEach(
-        (profile) => {
-
-          const card =
-            document.createElement(
-              'article'
+          const currentTheme =
+            document.documentElement.getAttribute(
+              'data-theme'
             );
 
-          card.className =
-            'creative-card';
+          if (currentTheme === 'dark') {
 
-
-          const content =
-            document.createElement(
-              'div'
+            document.documentElement.removeAttribute(
+              'data-theme'
             );
 
-          content.className =
-            'creative-card-content';
+            localStorage.setItem(
+              'theme',
+              'light'
+            );
 
-
-          /*
-            IMAGE
-          */
-
-          if (
-            profile.profile_image_url
-          ) {
-
-            const imageUrl =
-              getSafeUrl(
-                profile.profile_image_url
-              );
-
-
-            if (imageUrl) {
-
-              const image =
-                document.createElement(
-                  'img'
-                );
-
-              image.className =
-                'creative-profile-image';
-
-              image.src =
-                imageUrl;
-
-              image.alt =
-                profile.display_name
-                  ? profile.display_name + ' profile image'
-                  : 'STLNC creative profile image';
-
-              content.appendChild(
-                image
-              );
-
-            } else {
-
-              createPlaceholder(
-                content,
-                profile
-              );
-
-            }
+            themeToggle.textContent =
+              '🌙 Dark Mode';
 
           } else {
 
-            createPlaceholder(
-              content,
-              profile
+            document.documentElement.setAttribute(
+              'data-theme',
+              'dark'
             );
 
-          }
-
-
-          /*
-            NAME
-          */
-
-          const name =
-            document.createElement(
-              'h2'
+            localStorage.setItem(
+              'theme',
+              'dark'
             );
 
-          name.textContent =
-            profile.display_name ||
-            'STLNC Creative';
-
-          content.appendChild(
-            name
-          );
-
-
-          /*
-            DISCIPLINES
-          */
-
-          if (
-            profile.creative_disciplines
-          ) {
-
-            const disciplines =
-              document.createElement(
-                'p'
-              );
-
-            disciplines.className =
-              'creative-disciplines';
-
-            disciplines.textContent =
-              profile.creative_disciplines;
-
-            content.appendChild(
-              disciplines
-            );
-
-          }
-
-
-          /*
-            LOCATION
-          */
-
-          if (
-            profile.location
-          ) {
-
-            const location =
-              document.createElement(
-                'p'
-              );
-
-            location.className =
-              'creative-location';
-
-            location.textContent =
-              '📍 ' +
-              profile.location;
-
-            content.appendChild(
-              location
-            );
-
-          }
-
-
-          /*
-            BIO
-          */
-
-          if (
-            profile.bio
-          ) {
-
-            const about =
-              document.createElement(
-                'div'
-              );
-
-            about.className =
-              'profile-section';
-
-
-            const heading =
-              document.createElement(
-                'h3'
-              );
-
-            heading.textContent =
-              'About';
-
-
-            const bio =
-              document.createElement(
-                'p'
-              );
-
-            bio.className =
-              'creative-bio';
-
-            bio.textContent =
-              profile.bio;
-
-
-            about.appendChild(
-              heading
-            );
-
-            about.appendChild(
-              bio
-            );
-
-            content.appendChild(
-              about
-            );
-
-          }
-
-
-          /*
-            CREATIVE STATEMENT
-          */
-
-          if (
-            profile.creative_statement
-          ) {
-
-            const statement =
-              document.createElement(
-                'p'
-              );
-
-            statement.className =
-              'creative-statement';
-
-            statement.textContent =
-              profile.creative_statement;
-
-            content.appendChild(
-              statement
-            );
-
-          }
-
-
-          /*
-            LOOKING FOR
-          */
-
-          if (
-            profile.looking_for
-          ) {
-
-            const lookingFor =
-              document.createElement(
-                'div'
-              );
-
-            lookingFor.className =
-              'profile-section';
-
-
-            const heading =
-              document.createElement(
-                'h3'
-              );
-
-            heading.textContent =
-              'Looking For';
-
-
-            const text =
-              document.createElement(
-                'p'
-              );
-
-            text.textContent =
-              profile.looking_for;
-
-
-            lookingFor.appendChild(
-              heading
-            );
-
-            lookingFor.appendChild(
-              text
-            );
-
-            content.appendChild(
-              lookingFor
-            );
-
-          }
-
-
-          /*
-            LINKS
-          */
-
-          const links =
-            document.createElement(
-              'div'
-            );
-
-          links.className =
-            'profile-links';
-
-
-          if (
-            profile.portfolio_url
-          ) {
-
-            const portfolioUrl =
-              getSafeUrl(
-                profile.portfolio_url
-              );
-
-
-            if (portfolioUrl) {
-
-              const portfolio =
-                document.createElement(
-                  'a'
-                );
-
-              portfolio.className =
-                'profile-button';
-
-              portfolio.href =
-                portfolioUrl;
-
-              portfolio.target =
-                '_blank';
-
-              portfolio.rel =
-                'noopener noreferrer';
-
-              portfolio.textContent =
-                'View Portfolio';
-
-              links.appendChild(
-                portfolio
-              );
-
-            }
-
-          }
-
-
-          if (
-            profile.social_links
-          ) {
-
-            const socialUrl =
-              getSafeUrl(
-                profile.social_links
-              );
-
-
-            if (socialUrl) {
-
-              const social =
-                document.createElement(
-                  'a'
-                );
-
-              social.className =
-                'profile-button';
-
-              social.href =
-                socialUrl;
-
-              social.target =
-                '_blank';
-
-              social.rel =
-                'noopener noreferrer';
-
-              social.textContent =
-                'Social / Website';
-
-              links.appendChild(
-                social
-              );
-
-            }
-
-          }
-
-
-          if (
-            links.children.length > 0
-          ) {
-
-            content.appendChild(
-              links
-            );
-
-          }
-
-
-          card.appendChild(
-            content
-          );
-
-          directory.appendChild(
-            card
-          );
-
-        }
-      );
-
-
-      /*
-        SEARCH
-      */
-
-      const searchForm =
-        document.getElementById(
-          'directory-search-form'
-        );
-
-      const search =
-        document.getElementById(
-          'directory-search'
-        );
-
-
-      searchForm.addEventListener(
-        'submit',
-        (event) => {
-
-          event.preventDefault();
-
-
-          const searchTerm =
-            search.value
-              .toLowerCase()
-              .trim();
-
-
-          const cards =
-            document.querySelectorAll(
-              '.creative-card'
-            );
-
-
-          let visibleCount = 0;
-
-
-          cards.forEach(
-            (card) => {
-
-              const cardText =
-                card.textContent
-                  .toLowerCase();
-
-
-              if (
-                searchTerm === '' ||
-                cardText.includes(
-                  searchTerm
-                )
-              ) {
-
-                card.style.display =
-                  '';
-
-                visibleCount++;
-
-              } else {
-
-                card.style.display =
-                  'none';
-
-              }
-
-            }
-          );
-
-
-          if (
-            searchTerm !== '' &&
-            visibleCount === 0
-          ) {
-
-            status.textContent =
-              'No creatives matched your search.';
-
-          } else {
-
-            status.textContent =
-              '';
-
+            themeToggle.textContent =
+              '☀️ Light Mode';
           }
 
         }
       );
 
-    }
-
-
-    /*
-      PROFILE IMAGE PLACEHOLDER
-    */
-
-    function createPlaceholder(
-      container,
-      profile
-    ) {
-
-      const placeholder =
-        document.createElement(
-          'div'
-        );
-
-      placeholder.className =
-        'creative-profile-placeholder';
-
-
-      placeholder.textContent =
-        profile.display_name
-          ? profile.display_name
-              .charAt(0)
-              .toUpperCase()
-          : 'S';
-
-
-      container.appendChild(
-        placeholder
-      );
-
-    }
-
-
-    /*
-      START
-    */
-
-    updateAccountNav();
-
-    loadDirectory();
-
-
-    supabaseClient.auth.onAuthStateChange(
-      () => {
-        updateAccountNav();
-      }
-    );
+    });
 
   </script>
 
