@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -7,60 +6,59 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Events</title>
+  <title>Events | STLNC</title>
 
   <!-- Supabase -->
-
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <!-- Shared CSS -->
+  <script>
+    const SUPABASE_URL =
+      'https://nwmnamevyasyruygapeb.supabase.co';
 
+    const SUPABASE_ANON_KEY =
+      'sb_publishable_OWaZPpZTVGK6FYETNa0VLQ_-1gAz1qQ';
+
+    window.supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+      );
+  </script>
+
+  <!-- Shared CSS -->
   <link rel="stylesheet" href="css/style.css">
 
   <!-- Shared JavaScript -->
-
   <script src="script.js" defer></script>
 
 </head>
 
 <body>
 
-  <!-- ACCOUNT + DARK MODE NAVIGATION -->
+  <!-- ACCOUNT / THEME NAVIGATION -->
 
   <div
     class="account-nav"
-    id="account-nav"
     aria-label="Account navigation"
   >
 
-<!-- Dark mode button -->
-<button
-  id="theme-toggle"
-  type="button"
-  aria-label="Toggle dark mode"
->
-  🌙 Dark Mode
-</button>
+    <button
+      id="theme-toggle"
+      type="button"
+      aria-label="Toggle dark mode"
+    >
+      🌙 Dark Mode
+    </button>
 
-<!-- JavaScript changes these based on login status -->
-<div
-  class="account-links"
-  id="account-links"
->
-
-  <a href="signup.html">
-    Join STLNC
-  </a>
-
-  <a href="login.html">
-    Log In
-  </a>
-
-</div>
-
+    <div
+      class="account-links"
+      id="account-links"
+    >
+      <a href="signup.html">Join STLNC</a>
+      <a href="login.html">Log In</a>
+    </div>
 
   </div>
-
   <!-- MAIN SITE NAVIGATION -->
 
   <nav
