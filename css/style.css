@@ -875,3 +875,9 @@ html[data-theme="dark"] .text-box {
   width: 100%;
   height: auto;
 }
+
+html[data-theme="dark"] .framed-image {
+  background: #333;
+  border-color: #aaa;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
