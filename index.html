@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,140 +7,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>STLNC</title>
+  <title>Home | STLNC</title>
 
   <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script>
-    const SUPABASE_URL = 'https://nwmnamevyasyruygapeb.supabase.co';
+    const SUPABASE_URL =
+      'https://nwmnamevyasyruygapeb.supabase.co';
 
     const SUPABASE_ANON_KEY =
       'sb_publishable_OWaZPpZTVGK6FYETNa0VLQ_-1gAz1qQ';
 
-  
-  window.supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
+    window.supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
       );
-
-     /*
-      ACCOUNT NAVIGATION
-    */
-
-    async function updateAccountNav() {
-
-      const accountNav =
-        document.getElementById('account-nav');
-
-      if (!accountNav) {
-        return;
-      }
-
-
-      const {
-        data: {
-          session
-        }
-      } =
-        await supabaseClient.auth.getSession();
-
-
-      accountNav.innerHTML = '';
-
-
-      if (session) {
-
-        const profileLink =
-          document.createElement('a');
-
-        profileLink.href =
-          'profile.html';
-
-        profileLink.textContent =
-          'My Profile';
-
-
-        const logoutLink =
-          document.createElement('a');
-
-        logoutLink.href =
-          '#';
-
-        logoutLink.textContent =
-          'Log Out';
-
-        logoutLink.addEventListener(
-          'click',
-          async (event) => {
-
-            event.preventDefault();
-
-            const {
-              error
-            } =
-              await supabaseClient.auth.signOut();
-
-
-            if (error) {
-
-              console.error(
-                'Logout error:',
-                error
-              );
-
-              return;
-            }
-
-            window.location.href =
-              'index.html';
-
-          }
-        );
-
-
-        accountNav.appendChild(
-          profileLink
-        );
-
-        accountNav.appendChild(
-          logoutLink
-        );
-
-
-      } else {
-
-        const joinLink =
-          document.createElement('a');
-
-        joinLink.href =
-          'signup.html';
-
-        joinLink.textContent =
-          'Join STLNC';
-
-
-        const loginLink =
-          document.createElement('a');
-
-        loginLink.href =
-          'login.html';
-
-        loginLink.textContent =
-          'Log In';
-
-
-        accountNav.appendChild(
-          joinLink
-        );
-
-        accountNav.appendChild(
-          loginLink
-        );
-
-      }
-    }
-
   </script>
 
   <!-- Shared CSS -->
@@ -150,24 +34,34 @@
 
 </head>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-  
 <body>
-</button>
-<div class="account-nav" id="account-nav" aria-label="Account navigation">
 
-  <button id="theme-toggle" type="button" aria-label="Toggle dark mode">
-    🌙 Dark Mode
-  </button>
+  <!-- ACCOUNT / THEME NAVIGATION -->
 
-  <div class="account-links" id="account-links">
-    <a href="signup.html">Join STLNC</a>
-    <a href="login.html">Log In</a>
+  <div
+    class="account-nav"
+    aria-label="Account navigation"
+  >
+
+    <button
+      id="theme-toggle"
+      type="button"
+      aria-label="Toggle dark mode"
+    >
+      🌙 Dark Mode
+    </button>
+
+    <div
+      class="account-links"
+      id="account-links"
+    >
+      <a href="signup.html">Join STLNC</a>
+      <a href="login.html">Log In</a>
+    </div>
+
   </div>
 
-</div>
+
   <!-- MAIN SITE NAVIGATION -->
 
   <nav
@@ -177,23 +71,21 @@
 
     <div class="main-nav-inner">
 
-      
-      <a class="site-name" href="index.html">
+    <a class="site-name" href="index.html">
   <img src="images/longlogo.jpg" alt="STLNC">
 </a>
 
-
       <div class="main-nav-links">
 
-        <a
-          href="index.html"
-          class="current"
-          aria-current="page"
-        >
+        <a href="index.html">
           Home
         </a>
 
-        <a href="about.html">
+        <a
+          href="about.html"
+          class="current"
+          aria-current="page"
+        >
           About
         </a>
 
