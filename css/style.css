@@ -857,4 +857,21 @@ html[data-theme="dark"] .get-involved-button:hover {
 html[data-theme="dark"] .text-box {
   background: #1e1e1e;
   color: #f5f5f5;
+
+   /*framed image*/
+}
+.framed-image {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 15px;
+  background: white;
+  border: 8px solid #222;
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.framed-image img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
