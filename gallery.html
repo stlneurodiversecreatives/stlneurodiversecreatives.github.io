@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -7,18 +6,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Our Gallery</title>
+  <title>Gallery | STLNC</title>
 
   <!-- Supabase -->
-
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <!-- Shared CSS -->
+  <script>
+    const SUPABASE_URL =
+      'https://nwmnamevyasyruygapeb.supabase.co';
 
+    const SUPABASE_ANON_KEY =
+      'sb_publishable_OWaZPpZTVGK6FYETNa0VLQ_-1gAz1qQ';
+
+    window.supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+      );
+  </script>
+
+  <!-- Shared CSS -->
   <link rel="stylesheet" href="css/style.css">
 
   <!-- Shared JavaScript -->
-
   <script src="script.js" defer></script>
 
 </head>
