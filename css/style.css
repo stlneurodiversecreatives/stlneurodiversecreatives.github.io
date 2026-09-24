@@ -830,11 +830,37 @@ html[data-theme="dark"] .search-row input::placeholder {
     background-color: #0c0c0c;
 }
 
-.get-involved-button:hover {
-    animation: pulseAnimation 1s ease-in-out;
+/* GET INVOLVED BUTTON */
+
+.get-involved-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 160px;
+    height: 60px;
+
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+
+    outline: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+
+    text-align: center;
+    text-decoration: none;
+
+    background-color: #0c0c0c;
 }
 
-/* DARK MODE — GET INVOLVED BUTTON */
+.get-involved-button:hover {
+    animation: pulseAnimation 0.6s ease-in-out;
+}
+
+
+/* DARK MODE */
 
 html[data-theme="dark"] .get-involved-button {
     background-color: #f5f5f5;
@@ -842,8 +868,11 @@ html[data-theme="dark"] .get-involved-button {
 }
 
 html[data-theme="dark"] .get-involved-button:hover {
-    animation: pulseAnimation 1s;
+    animation: pulseAnimation 0.6s ease-in-out;
 }
+
+
+/* ANIMATION */
 
 @keyframes pulseAnimation {
     0% {
