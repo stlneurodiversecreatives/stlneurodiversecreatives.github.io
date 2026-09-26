@@ -876,6 +876,17 @@ html[data-theme="dark"] .get-involved-button:hover {
     justify-content: center;
     margin: 25px 0;
 }
+.button-right {
+    display: flex;
+    justify-content: left;
+    margin: 25px 0;
+}
+.button-left {
+    display: flex;
+    justify-content: right;
+    margin: 25px 0;
+}
+
 
 
 /* ANIMATION */
