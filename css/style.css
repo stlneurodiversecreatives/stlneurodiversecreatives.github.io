@@ -930,3 +930,10 @@ html[data-theme="dark"] .framed-image {
   border-color: #aaa;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
 }
+
+.parent-container {
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center;     /* Centers vertically */
+  height: 100vh;           /* Forces container to fill the full screen height */
+}
