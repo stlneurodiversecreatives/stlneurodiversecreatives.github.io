@@ -1,351 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Browse creatives from the St. Louis community.">
+  <title>Directory | STLNC</title>
 
-  <title> Directory | STLNC</title>
+  <link rel="icon" type="image/png" href="images/favicon.png">
 
-  <!-- Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Applies saved display settings before first paint -->
+  <script src="theme-init.js"></script>
 
-  <script>
-    const SUPABASE_URL =
-      'https://nwmnamevyasyruygapeb.supabase.co';
-
-    const SUPABASE_ANON_KEY =
-      'sb_publishable_OWaZPpZTVGK6FYETNa0VLQ_-1gAz1qQ';
-
-    window.supabaseClient =
-      window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
-      );
-  </script>
-
-  <!-- Shared CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap">
   <link rel="stylesheet" href="css/style.css">
 
-  <!-- Shared JavaScript -->
+  <!-- Supabase library, shared script, then this page's script (order matters) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
   <script src="script.js" defer></script>
-
+  <script src="js/directory.js" defer></script>
 </head>
-
 <body>
 
-  <!-- ACCOUNT / THEME NAVIGATION -->
+<a class="skip-link" href="#main">Skip to main content</a>
 
-  <div
-    class="account-nav"
-    aria-label="Account navigation"
-  >
+<div class="spectrum" aria-hidden="true"></div>
+<header class="site-header">
+  <div class="container">
 
-    <button
-      id="theme-toggle"
-      type="button"
-      aria-label="Toggle dark mode"
-    >
-      🌙 Dark Mode
-    </button>
+    <div class="utility-bar">
+      <div class="display-settings">
+        <button type="button" class="btn btn-small" id="display-toggle" aria-expanded="false" aria-controls="display-panel">
+          Display settings
+        </button>
+        <div class="display-panel" id="display-panel" role="group" aria-label="Display settings" hidden>
+          <fieldset>
+            <legend>Color theme</legend>
+            <label class="choice"><input type="radio" name="theme" value="auto" checked> Match my device</label>
+            <label class="choice"><input type="radio" name="theme" value="light"> Light</label>
+            <label class="choice"><input type="radio" name="theme" value="dark"> Dark</label>
+          </fieldset>
+          <fieldset>
+            <legend>Text size</legend>
+            <label class="choice"><input type="radio" name="textsize" value="default" checked> Standard</label>
+            <label class="choice"><input type="radio" name="textsize" value="large"> Large</label>
+            <label class="choice"><input type="radio" name="textsize" value="xl"> Extra large</label>
+          </fieldset>
+          <label class="choice"><input type="checkbox" id="spacing-toggle"> More space between letters and lines</label>
+          <button type="button" class="btn btn-small" id="display-reset">Reset to defaults</button>
+        </div>
+      </div>
 
-    <div
-      class="account-links"
-      id="account-links"
-    >
-      <a href="signup.html">Join STLNC</a>
-      <a href="login.html">Log In</a>
+      <div class="account-links" id="account-links">
+        <a class="btn btn-small btn-sun" href="signup.html">Join STLNC</a>
+        <a class="btn btn-small" href="login.html">Log In</a>
+      </div>
+    </div>
+
+    <div class="header-main">
+      <a class="brand" href="index.html">
+        <img src="images/longlogo-transparent.png" width="1370" height="145" alt="STL Neurodiverse Creatives, home">
+      </a>
+      <nav aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="directory.html" aria-current="page">Directory</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
     </div>
 
   </div>
+</header>
 
-  <!-- MAIN SITE NAVIGATION -->
+<main id="main" tabindex="-1">
+  <div class="container">
 
-  <nav class="main-nav" aria-label="Main navigation">
+    <div class="page-head">
+      <h1>STLNC Creative Directory</h1>
+      <p class="intro">Explore creatives from the St. Louis community.</p>
+    </div>
 
-<div class="main-nav-inner">
+    <form id="directory-search-form" class="card search-card" role="search" aria-label="Directory">
+      <label for="directory-search">Search the directory</label>
+      <div class="search-row">
+        <input type="search" id="directory-search" name="q" autocomplete="off"
+               placeholder="Search by name, discipline, location, etc." aria-describedby="search-hint">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </div>
+      <span class="hint" id="search-hint">Results update as you type.</span>
+    </form>
 
-   <a class="site-name" href="index.html">
-  <img src="images/longlogo.jpg" alt="STLNC">
-</a>
-  
-  <div class="main-nav-links">
+    <!-- Announced to screen readers when the list loads or changes -->
+    <p id="directory-status" class="results-status" role="status" aria-live="polite">Loading directory&hellip;</p>
 
-    <a href="index.html">
-      Home
-    </a>
-
-    <a href="about.html">
-      About
-    </a>
-
-    <a href="gallery.html">
-      Gallery
-    </a>
-
-    <a
-      href="directory.html"
-      class="current"
-      aria-current="page"
-    >
-      Directory
-    </a>
-
-    <a href="events.html">
-      Events
-    </a>
-
-    <a href="contact.html">
-      Contact
-    </a>
+    <ul id="directory-list" class="directory-grid" aria-label="Creatives"></ul>
 
   </div>
+</main>
 
-</div>
-
-  </nav>
-
-  <!-- DIRECTORY CONTENT -->
-
-  <main>
-
-<h1>STLNC Creative Directory</h1>
-
-<p class="intro">
-  Explore creatives from the St. Louis community.
-</p>
-
-
-<!-- SEARCH -->
-<form id="directory-search-form">
-
-  <label for="directory-search">
-    Search the directory
-  </label>
-
-  <div class="search-row">
-
-    <input
-      type="search"
-      id="directory-search"
-      placeholder="Search by name, discipline, location, etc."
-    >
-
-    <button type="submit">
-      Search
-    </button>
-
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img class="footer-logo" src="images/stlnc-logo-transparent.png" width="768" height="596" alt="">
+        <p class="footer-blurb">A network for neurodivergent, alternative, and unconventional creatives in St. Louis.</p>
+      </div>
+      <div>
+        <h2>Explore</h2>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="directory.html">Directory</a></li>
+          <li><a href="events.html">Events</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Connect</h2>
+        <ul>
+          <li><a href="https://www.instagram.com/stlneurodiversecreatives/" target="_blank" rel="noopener noreferrer">Instagram<span class="sr-only"> (opens in a new tab)</span></a></li>
+          <li><a href="https://discord.com/invite/Z4AyvyJqw" target="_blank" rel="noopener noreferrer">Discord<span class="sr-only"> (opens in a new tab)</span></a></li>
+          <li><a href="https://forms.gle/uLSqWdj6ZThNny8v9" target="_blank" rel="noopener noreferrer">Google Form<span class="sr-only"> (opens in a new tab)</span></a></li>
+          <li><a href="mailto:contact@stlneurodiversecreatives.org">contact@stlneurodiversecreatives.org</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Members</h2>
+        <ul>
+          <li><a href="signup.html">Join STLNC</a></li>
+          <li><a href="login.html">Log in</a></li>
+          <li><a href="contact.html">Get in touch</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer-legal">&copy; STL Neurodiverse Creatives. Made with and for St. Louis creatives.</p>
   </div>
-
-</form>
-
-
-<!-- STATUS -->
-<div id="directory-status">
-  Loading directory...
-</div>
+</footer>
 
 
-<!-- DIRECTORY RESULTS -->
-<div id="directory-list"></div>
-
-  </main>
-
-  <!-- DARK MODE -->
-
-  <script>
-
-    document.addEventListener('DOMContentLoaded', function () {
-
-      const themeToggle =
-        document.getElementById('theme-toggle');
-
-      if (!themeToggle) {
-        return;
-      }
-
-      const savedTheme =
-        localStorage.getItem('theme');
-
-      if (savedTheme === 'dark') {
-
-        document.documentElement.setAttribute(
-          'data-theme',
-          'dark'
-        );
-
-        themeToggle.textContent =
-          '☀️ Light Mode';
-
-      } else {
-
-        document.documentElement.removeAttribute(
-          'data-theme'
-        );
-
-        themeToggle.textContent =
-          '🌙 Dark Mode';
-      }
-
-
-      themeToggle.addEventListener(
-        'click',
-        function () {
-
-          const currentTheme =
-            document.documentElement.getAttribute(
-              'data-theme'
-            );
-
-          if (currentTheme === 'dark') {
-
-            document.documentElement.removeAttribute(
-              'data-theme'
-            );
-
-            localStorage.setItem(
-              'theme',
-              'light'
-            );
-
-            themeToggle.textContent =
-              '🌙 Dark Mode';
-
-          } else {
-
-            document.documentElement.setAttribute(
-              'data-theme',
-              'dark'
-            );
-
-            localStorage.setItem(
-              'theme',
-              'dark'
-            );
-
-            themeToggle.textContent =
-              '☀️ Light Mode';
-          }
-
-        }
-      );
-
-    });
-
-  </script>
-<script>
-async function loadDirectory() {
-
-  const status = document.getElementById('directory-status');
-  const list = document.getElementById('directory-list');
-
-  if (!status || !list) {
-    return;
-  }
-
-  status.textContent = 'Loading directory...';
-  list.innerHTML = '';
-
-  try {
-
-    const { data, error } =
-      await supabaseClient.rpc('get_public_profiles');
-
-    if (error) {
-      console.error('Directory error:', error);
-      status.textContent = 'Unable to load the directory.';
-      return;
-    }
-
-    if (!data || data.length === 0) {
-      status.textContent = 'No public profiles found.';
-      return;
-    }
-
-    status.textContent = '';
-
-    data.forEach(profile => {
-
-      const card =
-        document.createElement('div');
-
-      card.className = 'creative-card';
-
-      card.innerHTML = `
-
-        <div class="creative-card-content">
-
-          ${
-            profile.profile_image_url
-              ? `<img
-                   class="creative-profile-image"
-                   src="${profile.profile_image_url}"
-                   alt="${profile.display_name || 'Creative profile'}"
-                 >`
-              : `<div class="creative-profile-placeholder">
-                   ${(profile.display_name || '?').charAt(0).toUpperCase()}
-                 </div>`
-          }
-
-          <h2>
-            ${profile.display_name || 'Unnamed Creative'}
-          </h2>
-
-          ${
-            profile.creative_disciplines
-              ? `<div class="creative-disciplines">
-                   ${profile.creative_disciplines}
-                 </div>`
-              : ''
-          }
-
-          ${
-            profile.location
-              ? `<div class="creative-location">
-                   ${profile.location}
-                 </div>`
-              : ''
-          }
-
-          ${
-            profile.bio
-              ? `<div class="creative-bio">
-                   ${profile.bio}
-                 </div>`
-              : ''
-          }
-
-          ${
-            profile.creative_statement
-              ? `<div class="creative-statement">
-                   ${profile.creative_statement}
-                 </div>`
-              : ''
-          }
-
-        </div>
-
-      `;
-
-      list.appendChild(card);
-
-    });
-
-  } catch (error) {
-
-    console.error('Directory error:', error);
-
-    status.textContent =
-      'Unable to load the directory.';
-  }
-}
-
-
-document.addEventListener(
-  'DOMContentLoaded',
-  loadDirectory
-);
-</script>
 </body>
 </html>

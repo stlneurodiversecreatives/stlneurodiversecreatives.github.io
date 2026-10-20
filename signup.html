@@ -2,227 +2,160 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Create your STLNC member account.">
   <title>Join STLNC</title>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="icon" type="image/png" href="images/favicon.png">
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 40px 20px;
-      background: #f7f4f0;
-      color: #222;
-    }
+  <!-- Applies saved display settings before first paint -->
+  <script src="theme-init.js"></script>
 
-    main {
-      max-width: 500px;
-      margin: 50px auto;
-      background: white;
-      padding: 32px;
-      border-radius: 20px;
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
-    }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap">
+  <link rel="stylesheet" href="css/style.css">
 
-    h1 {
-      margin-top: 0;
-    }
-
-    label {
-      display: block;
-      margin-top: 20px;
-      margin-bottom: 8px;
-      font-weight: bold;
-    }
-
-    input {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      font-size: 16px;
-      font-family: inherit;
-    }
-
-    button {
-      margin-top: 24px;
-      padding: 12px 22px;
-      border: none;
-      border-radius: 999px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    #signup-status {
-      margin-top: 20px;
-      line-height: 1.5;
-    }
-
-    .login-link {
-      margin-top: 24px;
-    }
-  </style>
+  <!-- Supabase library, shared script, then this page's script (order matters) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="script.js" defer></script>
+  <script src="js/signup.js" defer></script>
 </head>
-
 <body>
-</button>
-<div class="account-nav" id="account-nav" aria-label="Account navigation">
 
-  <button id="theme-toggle" type="button" aria-label="Toggle dark mode">
-    🌙 Dark Mode
-  </button>
+<a class="skip-link" href="#main">Skip to main content</a>
 
-  <div class="account-links" id="account-links">
-    <a href="signup.html">Join STLNC</a>
-    <a href="login.html">Log In</a>
+<div class="spectrum" aria-hidden="true"></div>
+<header class="site-header">
+  <div class="container">
+
+    <div class="utility-bar">
+      <div class="display-settings">
+        <button type="button" class="btn btn-small" id="display-toggle" aria-expanded="false" aria-controls="display-panel">
+          Display settings
+        </button>
+        <div class="display-panel" id="display-panel" role="group" aria-label="Display settings" hidden>
+          <fieldset>
+            <legend>Color theme</legend>
+            <label class="choice"><input type="radio" name="theme" value="auto" checked> Match my device</label>
+            <label class="choice"><input type="radio" name="theme" value="light"> Light</label>
+            <label class="choice"><input type="radio" name="theme" value="dark"> Dark</label>
+          </fieldset>
+          <fieldset>
+            <legend>Text size</legend>
+            <label class="choice"><input type="radio" name="textsize" value="default" checked> Standard</label>
+            <label class="choice"><input type="radio" name="textsize" value="large"> Large</label>
+            <label class="choice"><input type="radio" name="textsize" value="xl"> Extra large</label>
+          </fieldset>
+          <label class="choice"><input type="checkbox" id="spacing-toggle"> More space between letters and lines</label>
+          <button type="button" class="btn btn-small" id="display-reset">Reset to defaults</button>
+        </div>
+      </div>
+
+      <div class="account-links" id="account-links">
+        <a class="btn btn-small btn-sun" href="signup.html">Join STLNC</a>
+        <a class="btn btn-small" href="login.html">Log In</a>
+      </div>
+    </div>
+
+    <div class="header-main">
+      <a class="brand" href="index.html">
+        <img src="images/longlogo-transparent.png" width="1370" height="145" alt="STL Neurodiverse Creatives, home">
+      </a>
+      <nav aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="directory.html">Directory</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+
   </div>
-  <main>
+</header>
 
-    <h1>Join STLNC</h1>
+<main id="main" tabindex="-1">
+  <div class="container">
 
-    <p>
-      Create your STLNC member account.
-    </p>
+    <div class="card form-card">
+      <h1>Join STLNC</h1>
+      <p>Create your STLNC member account.</p>
 
-    <form id="signup-form">
+      <form id="signup-form" novalidate>
+        <div class="field">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" autocomplete="new-password" minlength="8" required aria-describedby="pw-hint">
+          <span class="hint" id="pw-hint">At least 8 characters.</span>
+        </div>
+        <div class="field">
+          <label for="password-confirm">Confirm password</label>
+          <input type="password" id="password-confirm" name="password-confirm" autocomplete="new-password" minlength="8" required>
+        </div>
+        <label class="choice"><input type="checkbox" id="show-password"> Show passwords</label>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="signup-submit">Create Account</button>
+        </div>
+      </form>
 
-      <label for="email">
-        Email address
-      </label>
+      <p id="signup-status" class="message is-info" role="status"></p>
+      <p id="signup-error" class="message is-error" role="alert"></p>
 
-      <input
-        type="email"
-        id="email"
-        name="email"
-        autocomplete="email"
-        required
-      >
+      <div id="signup-done" class="message is-ok" tabindex="-1" hidden>
+        Account created. Please check your email to confirm your account, then <a href="login.html">log in</a>.
+      </div>
 
-      <label for="password">
-        Password
-      </label>
+      <p style="margin-top:1.5rem">Already have an account? <a href="login.html">Log in</a></p>
+    </div>
 
-      <input
-        type="password"
-        id="password"
-        name="password"
-        autocomplete="new-password"
-        minlength="8"
-        required
-      >
+  </div>
+</main>
 
-      <label for="password-confirm">
-        Confirm password
-      </label>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img class="footer-logo" src="images/stlnc-logo-transparent.png" width="768" height="596" alt="">
+        <p class="footer-blurb">A network for neurodivergent, alternative, and unconventional creatives in St. Louis.</p>
+      </div>
+      <div>
+        <h2>Explore</h2>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="directory.html">Directory</a></li>
+          <li><a href="events.html">Events</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Connect</h2>
+        <ul>
+          <li><a href="https://www.instagram.com/stlneurodiversecreatives/" target="_blank" rel="noopener noreferrer">Instagram<span class="sr-only"> (opens in a new tab)</span></a></li>
+          <li><a href="https://discord.com/invite/Z4AyvyJqw" target="_blank" rel="noopener noreferrer">Discord<span class="sr-only"> (opens in a new tab)</span></a></li>
+          <li><a href="https://forms.gle/uLSqWdj6ZThNny8v9" target="_blank" rel="noopener noreferrer">Google Form<span class="sr-only"> (opens in a new tab)</span></a></li>
+          <li><a href="mailto:contact@stlneurodiversecreatives.org">contact@stlneurodiversecreatives.org</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Members</h2>
+        <ul>
+          <li><a href="signup.html">Join STLNC</a></li>
+          <li><a href="login.html">Log in</a></li>
+          <li><a href="contact.html">Get in touch</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer-legal">&copy; STL Neurodiverse Creatives. Made with and for St. Louis creatives.</p>
+  </div>
+</footer>
 
-      <input
-        type="password"
-        id="password-confirm"
-        name="password-confirm"
-        autocomplete="new-password"
-        minlength="8"
-        required
-      >
-
-      <button type="submit">
-        Create Account
-      </button>
-
-    </form>
-
-    <div
-      id="signup-status"
-      aria-live="polite"
-    ></div>
-
-    <p class="login-link">
-      Already have an account?
-      <a href="login.html">Log in</a>
-    </p>
-
-  </main>
-
-  <script>
-    const SUPABASE_URL =
-      'https://nwmnamevyasyruygapeb.supabase.co';
-
-    const SUPABASE_ANON_KEY =
-      'sb_publishable_OWaZPpZTVGK6FYETNa0VLQ_-1gAz1qQ';
-
-    const supabaseClient =
-      window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
-      );
-
-    const signupForm =
-      document.getElementById('signup-form');
-
-    const status =
-      document.getElementById('signup-status');
-
-    signupForm.addEventListener(
-      'submit',
-      async (event) => {
-
-        event.preventDefault();
-
-        status.textContent =
-          'Creating your account...';
-
-        const email =
-          document.getElementById('email').value.trim();
-
-        const password =
-          document.getElementById('password').value;
-
-        const passwordConfirm =
-          document.getElementById('password-confirm').value;
-
-        if (password !== passwordConfirm) {
-          status.textContent =
-            'Passwords do not match.';
-          return;
-        }
-
-const {
-  data,
-  error
-} = await supabaseClient.auth.signUp({
-  email: email,
-  password: password,
-  options: {
-    emailRedirectTo: 'https://stlneurodiversecreatives.org/profile.html'
-  }
-});
-
-        if (error) {
-          console.error(
-            'Signup error:',
-            error
-          );
-
-          status.textContent =
-            'Unable to create the account. Please try again.';
-
-          return;
-        }
-
-        if (data.session) {
-          window.location.href =
-            'profile.html';
-          return;
-        }
-
-        status.textContent =
-          'Account created. Please check your email to confirm your account, then log in.';
-      }
-    );
-  </script>
 
 </body>
 </html>

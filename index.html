@@ -1,159 +1,225 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="STL Neurodiverse Creatives is a network for neurodivergent, alternative, and unconventional creatives in St. Louis.">
   <title>Home | STLNC</title>
 
-  <!-- Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="icon" type="image/png" href="images/favicon.png">
 
-  <script>
-    const SUPABASE_URL =
-      'https://nwmnamevyasyruygapeb.supabase.co';
+  <!-- Applies saved display settings before first paint -->
+  <script src="theme-init.js"></script>
 
-    const SUPABASE_ANON_KEY =
-      'sb_publishable_OWaZPpZTVGK6FYETNa0VLQ_-1gAz1qQ';
-
-    window.supabaseClient =
-      window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
-      );
-  </script>
-
-  <!-- Shared CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap">
   <link rel="stylesheet" href="css/style.css">
 
-  <!-- Shared JavaScript -->
+  <!-- Supabase library, shared script, then this page's script (order matters) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
   <script src="script.js" defer></script>
-
 </head>
-
 <body>
 
-  <!-- ACCOUNT / THEME NAVIGATION -->
+<a class="skip-link" href="#main">Skip to main content</a>
 
-  <div
-    class="account-nav"
-    aria-label="Account navigation"
-  >
+<div class="spectrum" aria-hidden="true"></div>
+<header class="site-header">
+  <div class="container">
 
-    <button
-      id="theme-toggle"
-      type="button"
-      aria-label="Toggle dark mode"
-    >
-      🌙 Dark Mode
-    </button>
+    <div class="utility-bar">
+      <div class="display-settings">
+        <button type="button" class="btn btn-small" id="display-toggle" aria-expanded="false" aria-controls="display-panel">
+          Display settings
+        </button>
+        <div class="display-panel" id="display-panel" role="group" aria-label="Display settings" hidden>
+          <fieldset>
+            <legend>Color theme</legend>
+            <label class="choice"><input type="radio" name="theme" value="auto" checked> Match my device</label>
+            <label class="choice"><input type="radio" name="theme" value="light"> Light</label>
+            <label class="choice"><input type="radio" name="theme" value="dark"> Dark</label>
+          </fieldset>
+          <fieldset>
+            <legend>Text size</legend>
+            <label class="choice"><input type="radio" name="textsize" value="default" checked> Standard</label>
+            <label class="choice"><input type="radio" name="textsize" value="large"> Large</label>
+            <label class="choice"><input type="radio" name="textsize" value="xl"> Extra large</label>
+          </fieldset>
+          <label class="choice"><input type="checkbox" id="spacing-toggle"> More space between letters and lines</label>
+          <button type="button" class="btn btn-small" id="display-reset">Reset to defaults</button>
+        </div>
+      </div>
 
-    <div
-      class="account-links"
-      id="account-links"
-    >
-      <a href="signup.html">Join STLNC</a>
-      <a href="login.html">Log In</a>
+      <div class="account-links" id="account-links">
+        <a class="btn btn-small btn-sun" href="signup.html">Join STLNC</a>
+        <a class="btn btn-small" href="login.html">Log In</a>
+      </div>
+    </div>
+
+    <div class="header-main">
+      <a class="brand" href="index.html">
+        <img src="images/longlogo-transparent.png" width="1370" height="145" alt="STL Neurodiverse Creatives, home">
+      </a>
+      <nav aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="index.html" aria-current="page">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="directory.html">Directory</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
     </div>
 
   </div>
+</header>
 
+<main id="main" tabindex="-1">
+  <div class="container">
 
-  <!-- MAIN SITE NAVIGATION -->
-
-  <nav
-    class="main-nav"
-    aria-label="Main navigation"
-  >
-
-    <div class="main-nav-inner">
-
-    <a class="site-name" href="index.html">
-  <img src="images/longlogo.jpg" alt="STLNC">
-</a>
-
-      <div class="main-nav-links">
-
-        <a href="index.html">
-          Home
-        </a>
-
-        <a
-          href="about.html"
-          class="current"
-          aria-current="page"
-        >
-          About
-        </a>
-
-        <a href="gallery.html">
-          Gallery
-        </a>
-
-        <a href="directory.html">
-          Directory
-        </a>
-
-        <a href="events.html">
-          Events
-        </a>
-
-        <a href="contact.html">
-          Contact
-        </a>
-
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow">St. Louis, Missouri</p>
+        <h1 id="hero-title">Find your people. <span class="hl">Make your work.</span> Go at your own pace.</h1>
+        <p class="lead">STLNC is a network for neurodivergent, alternative, and unconventional creatives from St. Louis to connect, collaborate, and build community together.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="contact.html">Get involved</a>
+          <a class="btn" href="signup.html">Join the directory</a>
+        </div>
       </div>
+      <ul class="values" aria-label="What we stand for">
+        <li>Mutual respect</li>
+        <li>Radical inclusion</li>
+        <li>Mindful support</li>
+      </ul>
+    </section>
 
+    <section class="section" aria-labelledby="maybe-title">
+      <h2 id="maybe-title">Are you a St. Louis creative who has struggled to find your people, or your place in the creative world? Maybe…</h2>
+      <ul class="checklist">
+        <li>You find networking particularly difficult.</li>
+        <li>You’ve been creating privately, and need a safe space to emerge at your own pace.</li>
+        <li>You feel like an outsider in creative spaces.</li>
+        <li>You are exhausted by competition within creative spaces and desire connection instead.</li>
+        <li>You’ve taken a long break from making and need a softer place to begin again.</li>
+        <li>You need more practical or social support than other communities can provide.</li>
+        <li>Your art explores topics, experiences, or ideas that aren’t always embraced.</li>
+        <li>You don’t have a traditional art background, network, or clear path into the local art scene.</li>
+        <li>You’re still figuring out what your creative practice looks like.</li>
+        <li>You’re tired of feeling like you have to perform or prove yourself.</li>
+      </ul>
+      <p class="statement">You&rsquo;re neurodivergent, disabled, chronically ill, socially anxious, unconventional, alternative, or just someone who has never quite felt like you belong.</p>
+      <p class="section-intro">Join us at <strong>STL Neurodiverse Creatives</strong>, a group for like-minded local creatives who respect, include, and support each other.</p>
+    </section>
+
+    <section class="section" aria-labelledby="disc-title">
+      <h2 id="disc-title">We enthusiastically welcome all disciplines</h2>
+      <ul class="chips">
+        <li>Music</li>
+        <li>Sound</li>
+        <li>Visual</li>
+        <li>Tactile</li>
+        <li>Textile</li>
+        <li>Performance</li>
+        <li>Design</li>
+        <li>Digital</li>
+        <li>Technical</li>
+        <li>Literary</li>
+        <li>Film</li>
+        <li>Engineers</li>
+        <li>Game Developers</li>
+        <li>Content Creators</li>
+        <li>Directors</li>
+        <li>Everyone!</li>
+      </ul>
+    </section>
+
+    <section class="section card tint-lilac" aria-labelledby="join-title">
+      <h2 id="join-title">Join the directory</h2>
+      <p>Sign up to be included in the directory, get access to members-only information about other creatives in town, and receive monthly news and updates from STLNC by email.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="signup.html">Sign up</a>
+        <a class="btn" href="login.html">I already have an account</a>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="explore-title">
+      <h2 id="explore-title">Look around</h2>
+      <div class="grid">
+        <div class="card link-card tint-coral">
+          <h3><a href="directory.html">Directory</a></h3>
+          <p>Browse creatives from the St. Louis community.</p>
+          <span class="arrow" aria-hidden="true">Browse &rarr;</span>
+        </div>
+        <div class="card link-card tint-sky">
+          <h3><a href="gallery.html">Gallery</a></h3>
+          <p>Art, music, and moving image from our members.</p>
+          <span class="arrow" aria-hidden="true">View &rarr;</span>
+        </div>
+        <div class="card link-card tint-mint">
+          <h3><a href="events.html">Events</a></h3>
+          <p>See what&rsquo;s coming up and join in.</p>
+          <span class="arrow" aria-hidden="true">See events &rarr;</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="flyer-title">
+      <h2 id="flyer-title">Share the call</h2>
+      <figure>
+        <div class="figure-frame">
+          <img src="images/stlcall.jpg" width="1080" height="1350" alt="Flyer titled &ldquo;Call for STL Creatives&rdquo; from STL Neurodiverse Creatives. It asks whether you are a St. Louis creative who has struggled to find your people, lists the reasons above, and welcomes all disciplines. Handle: @stlNeurodiverseCreatives.">
+        </div>
+        <figcaption>Our call for St. Louis creatives. The full text of the flyer is on this page, above.</figcaption>
+      </figure>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img class="footer-logo" src="images/stlnc-logo-transparent.png" width="768" height="596" alt="">
+        <p class="footer-blurb">A network for neurodivergent, alternative, and unconventional creatives in St. Louis.</p>
+      </div>
+      <div>
+        <h2>Explore</h2>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="directory.html">Directory</a></li>
+          <li><a href="events.html">Events</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Connect</h2>
+        <ul>
+          <li><a href="https://www.instagram.com/stlneurodiversecreatives/" target="_blank" rel="noopener noreferrer">Instagram<span class="sr-only"> (opens in a new tab)</span></a></li>
+          <li><a href="https://discord.com/invite/Z4AyvyJqw" target="_blank" rel="noopener noreferrer">Discord<span class="sr-only"> (opens in a new tab)</span></a></li>
+          <li><a href="https://forms.gle/uLSqWdj6ZThNny8v9" target="_blank" rel="noopener noreferrer">Google Form<span class="sr-only"> (opens in a new tab)</span></a></li>
+          <li><a href="mailto:contact@stlneurodiversecreatives.org">contact@stlneurodiversecreatives.org</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Members</h2>
+        <ul>
+          <li><a href="signup.html">Join STLNC</a></li>
+          <li><a href="login.html">Log in</a></li>
+          <li><a href="contact.html">Get in touch</a></li>
+        </ul>
+      </div>
     </div>
-
-  </nav>
-
-
-  <!-- PAGE CONTENT -->
-
-  <main>
-
-   
- <h1 style="text-align: center;">
-    </h1>
-
-    <p>
-     
-    </p>
-
-<div class="framed-image">
-  <img src="images/stlcall.jpg" alt="STL CALL">
-</div>
-
-<div class="button-center">
- <a href="contact.html" class="get-involved-button">
-  Get Involved
-</a>
-</div>
-
-       <div class="text-box">
-  <p>
-      <h2 style="text-align: center;">
-     Sign Up
-    </h2>
-
-    Sign up now to be included in the directory, and have access to member's only information on other creatives in town, and recieve monthly news and updates to your email on STLNC.
-    
-  <div class="button-center">
- <a href="signup.html" class="get-involved-button">
- Sign Up
-</a>
-</div> 
-
-  </main>
-
-
-</body>
-</html>
+    <p class="footer-legal">&copy; STL Neurodiverse Creatives. Made with and for St. Louis creatives.</p>
+  </div>
+</footer>
 
 <!-- Elfsight Accessibility | Untitled Accessibility -->
 <script src="https://elfsightcdn.com/platform.js" async></script>
 <div class="elfsight-app-50f97a0c-b0fc-4388-8663-5e5d6c8759b4" data-elfsight-app-lazy></div>
+</body>
+</html>

@@ -2,1440 +2,314 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Manage your STLNC member profile.">
+  <title>My Profile | STLNC</title>
 
-  <title>My STLNC Profile</title>
+  <link rel="icon" type="image/png" href="images/favicon.png">
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Applies saved display settings before first paint -->
+  <script src="theme-init.js"></script>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0 20px 50px;
-      background: #f7f4f0;
-      color: #222;
-    }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap">
+  <link rel="stylesheet" href="css/style.css">
 
-    /* ACCOUNT AREA */
-
-    .account-nav {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 12px 0 10px;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .account-nav a {
-      display: inline-block;
-      padding: 9px 16px;
-      border-radius: 999px;
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 600;
-      border: 1px solid #ccc;
-      color: #222;
-      background: white;
-    }
-
-    .account-nav a:hover,
-    .account-nav a:focus {
-      background: #f1ece6;
-    }
-
-    /* MAIN NAV */
-
-    .main-nav {
-      max-width: 1100px;
-      margin: 0 auto 35px;
-      padding: 16px 20px;
-      background: white;
-      border-radius: 14px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-    }
-
-    .main-nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .site-name {
-      font-size: 1.1rem;
-      font-weight: bold;
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .main-nav-links {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .main-nav-links a {
-      text-decoration: none;
-      color: inherit;
-      padding: 8px 10px;
-      border-radius: 8px;
-    }
-
-    .main-nav-links a:hover,
-    .main-nav-links a:focus {
-      background: #f1ece6;
-    }
-
-    .main-nav-links a.current {
-      font-weight: bold;
-    }
-
-    /* PAGE */
-
-    main {
-      max-width: 850px;
-      margin: 0 auto;
-      background: white;
-      padding: 32px;
-      border-radius: 20px;
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
-    }
-
-    h1 {
-      margin-top: 0;
-      margin-bottom: 10px;
-    }
-
-    h2 {
-      margin-top: 40px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid #e5e0da;
-    }
-
-    .intro {
-      line-height: 1.6;
-    }
-
-    .privacy-note {
-      background: #f7f4f0;
-      padding: 16px;
-      border-radius: 12px;
-      line-height: 1.6;
-      margin: 20px 0 28px;
-    }
-
-    /* DIRECTORY TOGGLE */
-
-    .directory-setting {
-      background: #fafafa;
-      border: 1px solid #ddd;
-      border-radius: 14px;
-      padding: 18px;
-      margin-bottom: 30px;
-    }
-
-    .checkbox-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-    }
-
-    .checkbox-row input {
-      width: auto;
-      margin-top: 5px;
-    }
-
-    .checkbox-row label {
-      margin: 0;
-    }
-
-    .directory-setting p {
-      margin-bottom: 0;
-      line-height: 1.5;
-    }
-
-    /* FORM */
-
-    label {
-      display: block;
-      margin-top: 22px;
-      margin-bottom: 8px;
-      font-weight: bold;
-    }
-
-    .privacy-label {
-      font-size: 0.9rem;
-      font-weight: normal;
-      margin-top: 10px;
-    }
-
-    input,
-    textarea,
-    select {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 12px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      font-family: inherit;
-    }
-
-    textarea {
-      resize: vertical;
-    }
-
-    select {
-      background: white;
-    }
-
-    .help-text {
-      font-size: 0.9rem;
-      color: #555;
-      line-height: 1.4;
-      margin-top: 6px;
-    }
-
-    /* BUTTONS */
-
-    button {
-      padding: 12px 22px;
-      border: none;
-      border-radius: 999px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      background: #222;
-      color: white;
-    }
-
-    button:hover,
-    button:focus {
-      opacity: 0.85;
-    }
-
-    #save-profile {
-      margin-top: 28px;
-    }
-
-    #logout-button {
-      background: white;
-      color: #222;
-      border: 1px solid #bbb;
-      margin-top: 18px;
-    }
-
-    /* STATUS */
-
-    #profile-status,
-    #save-status {
-      margin-top: 20px;
-      line-height: 1.5;
-    }
-
-    #save-status {
-      font-weight: bold;
-    }
-
-    /* ACTIONS */
-
-    .profile-actions {
-      margin-top: 35px;
-      padding-top: 25px;
-      border-top: 1px solid #e5e0da;
-    }
-
-    .profile-actions a {
-      font-weight: bold;
-    }
-
-    /* MOBILE */
-
-    @media (max-width: 600px) {
-      body {
-        padding-left: 15px;
-        padding-right: 15px;
-      }
-
-      main {
-        padding: 22px;
-      }
-
-      .main-nav-inner {
-        align-items: flex-start;
-      }
-
-      .main-nav-links {
-        width: 100%;
-        gap: 6px;
-      }
-    }
-  </style>
+  <!-- Supabase library, shared script, then this page's script (order matters) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="script.js" defer></script>
+  <script src="js/profile.js" defer></script>
 </head>
-
 <body>
 
-  <!-- TOP-RIGHT ACCOUNT CONTROLS -->
+<a class="skip-link" href="#main">Skip to main content</a>
 
-  <div
-    class="account-nav"
-    id="account-nav"
-    aria-label="Account navigation"
-  >
-    Loading account...
-  </div>
+<div class="spectrum" aria-hidden="true"></div>
+<header class="site-header">
+  <div class="container">
 
-
-  <!-- MAIN NAVIGATION -->
-
-  <nav
-    class="main-nav"
-    aria-label="Main navigation"
-  >
-
-    <div class="main-nav-inner">
-
-      <a
-        class="site-name"
-        href="index.html"
-      >
-        STLNC
-      </a>
-
-      <div class="main-nav-links">
-
-        <a href="index.html">
-          Home
-        </a>
-
-        <a href="about.html">
-          About
-        </a>
-
-        <a href="gallery.html">
-          Gallery
-        </a>
-
-        <a href="directory.html">
-          Directory
-        </a>
-
-        <a href="events.html">
-          Events
-        </a>
-
-        <a href="contact.html">
-          Contact
-        </a>
-
-      </div>
-
-    </div>
-
-  </nav>
-
-
-  <!-- PROFILE PAGE -->
-
-  <main>
-
-    <h1>My STLNC Profile</h1>
-
-    <p class="intro">
-      Manage the information you choose to share with the STLNC community.
-    </p>
-
-    <div class="privacy-note">
-      <strong>About privacy:</strong>
-      Each field has its own visibility setting.
-      <strong>Public</strong> means anyone can see it.
-      <strong>Members only</strong> means logged-in STLNC members can see it.
-      <strong>Private</strong> keeps the information out of the directories.
-    </div>
-
-    <div
-      id="profile-status"
-      aria-live="polite"
-    >
-      Loading your profile...
-    </div>
-
-
-    <form
-      id="profile-form"
-      hidden
-    >
-
-      <!-- DIRECTORY VISIBILITY -->
-
-      <div class="directory-setting">
-
-        <div class="checkbox-row">
-
-          <input
-            type="checkbox"
-            id="directory-visible"
-            name="directory-visible"
-          >
-
-          <div>
-
-            <label for="directory-visible">
-              Show my profile in the STLNC directory
-            </label>
-
-            <p>
-              Turn this off if you do not want your profile included in the directory.
-            </p>
-
-          </div>
-
+    <div class="utility-bar">
+      <div class="display-settings">
+        <button type="button" class="btn btn-small" id="display-toggle" aria-expanded="false" aria-controls="display-panel">
+          Display settings
+        </button>
+        <div class="display-panel" id="display-panel" role="group" aria-label="Display settings" hidden>
+          <fieldset>
+            <legend>Color theme</legend>
+            <label class="choice"><input type="radio" name="theme" value="auto" checked> Match my device</label>
+            <label class="choice"><input type="radio" name="theme" value="light"> Light</label>
+            <label class="choice"><input type="radio" name="theme" value="dark"> Dark</label>
+          </fieldset>
+          <fieldset>
+            <legend>Text size</legend>
+            <label class="choice"><input type="radio" name="textsize" value="default" checked> Standard</label>
+            <label class="choice"><input type="radio" name="textsize" value="large"> Large</label>
+            <label class="choice"><input type="radio" name="textsize" value="xl"> Extra large</label>
+          </fieldset>
+          <label class="choice"><input type="checkbox" id="spacing-toggle"> More space between letters and lines</label>
+          <button type="button" class="btn btn-small" id="display-reset">Reset to defaults</button>
         </div>
+      </div>
+
+      <div class="account-links" id="account-links">
+        <a class="btn btn-small btn-sun" href="signup.html">Join STLNC</a>
+        <a class="btn btn-small" href="login.html">Log In</a>
+      </div>
+    </div>
+
+    <div class="header-main">
+      <a class="brand" href="index.html">
+        <img src="images/longlogo-transparent.png" width="1370" height="145" alt="STL Neurodiverse Creatives, home">
+      </a>
+      <nav aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="directory.html">Directory</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+  <div class="container">
+
+    <div class="card form-card wide">
+      <h1>My STLNC Profile</h1>
+      <p class="intro">Manage the information you choose to share with the STLNC community.</p>
+
+      <div class="privacy-note">
+        <p><strong>About privacy:</strong>
+          Each field has its own visibility setting.
+          <strong>Public</strong> means anyone can see it.
+          <strong>Members only</strong> means logged-in STLNC members can see it.
+          <strong>Private</strong> keeps the information out of the directories.</p>
+      </div>
+
+      <p id="profile-status" class="message is-info" role="status">Loading your profile&hellip;</p>
+
+      <form id="profile-form" hidden>
+      <div class="card setting-card tint-sun">
+        <input type="checkbox" id="directory-visible" name="directory-visible" aria-describedby="directory-visible-hint">
+        <div>
+          <label for="directory-visible">Show my profile in the STLNC directory</label>
+          <p id="directory-visible-hint">Turn this off if you do not want your profile included in the directory.</p>
+        </div>
+      </div>
+
+      <section class="form-section" aria-labelledby="basic-title">
+        <h2 id="basic-title">Basic Information</h2>
+
+      <div class="field">
+        <label for="display-name">Display Name</label>
+        <input type="text" id="display-name" name="display-name" autocomplete="nickname">
 
       </div>
 
-
-      <!-- BASIC INFORMATION -->
-
-      <h2>Basic Information</h2>
-
-
-      <label for="display-name">
-        Display Name
-      </label>
-
-      <input
-        type="text"
-        id="display-name"
-        name="display-name"
-      >
-
-
-      <label for="bio">
-        Bio
-      </label>
-
-      <textarea
-        id="bio"
-        name="bio"
-        rows="6"
-      ></textarea>
-
-      <label
-        class="privacy-label"
-        for="bio-visibility"
-      >
-        Who can see your bio?
-      </label>
-
-      <select
-        id="bio-visibility"
-        name="bio-visibility"
-      >
-        <option value="public">Public</option>
-        <option value="members">Members only</option>
-        <option value="private">Private</option>
-      </select>
-
-
-      <label for="creative-disciplines">
-        Creative Disciplines
-      </label>
-
-      <input
-        type="text"
-        id="creative-disciplines"
-        name="creative-disciplines"
-        placeholder="Painting, music, photography, performance..."
-      >
-
-      <label
-        class="privacy-label"
-        for="creative-disciplines-visibility"
-      >
-        Who can see your creative disciplines?
-      </label>
-
-      <select
-        id="creative-disciplines-visibility"
-        name="creative-disciplines-visibility"
-      >
-        <option value="public">Public</option>
-        <option value="members">Members only</option>
-        <option value="private">Private</option>
-      </select>
-
-
-      <label for="pronouns">
-        Pronouns
-      </label>
-
-      <input
-        type="text"
-        id="pronouns"
-        name="pronouns"
-        placeholder="they/them"
-      >
-
-      <label
-        class="privacy-label"
-        for="pronouns-visibility"
-      >
-        Who can see your pronouns?
-      </label>
-
-      <select
-        id="pronouns-visibility"
-        name="pronouns-visibility"
-      >
-        <option value="public">Public</option>
-        <option value="members">Members only</option>
-        <option value="private">Private</option>
-      </select>
-
-
-      <!-- CREATIVE PRESENCE -->
-
-      <h2>Creative Presence</h2>
-
-
-      <label for="portfolio-url">
-        Portfolio URL
-      </label>
-
-      <input
-        type="url"
-        id="portfolio-url"
-        name="portfolio-url"
-        placeholder="https://yourportfolio.com"
-      >
-
-      <label
-        class="privacy-label"
-        for="portfolio-visibility"
-      >
-        Who can see your portfolio?
-      </label>
-
-      <select
-        id="portfolio-visibility"
-        name="portfolio-visibility"
-      >
-        <option value="public">Public</option>
-        <option value="members">Members only</option>
-        <option value="private">Private</option>
-      </select>
-
-
-      <label for="social-links">
-        Social Links
-      </label>
-
-      <input
-        type="url"
-        id="social-links"
-        name="social-links"
-        placeholder="https://instagram.com/yourname"
-      >
-
-      <label
-        class="privacy-label"
-        for="social-links-visibility"
-      >
-        Who can see your social links?
-      </label>
-
-      <select
-        id="social-links-visibility"
-        name="social-links-visibility"
-      >
-        <option value="public">Public</option>
-        <option value="members">Members only</option>
-        <option value="private">Private</option>
-      </select>
-
-
-      <label for="profile-image-url">
-        Profile Image URL
-      </label>
-
-      <input
-        type="url"
-        id="profile-image-url"
-        name="profile-image-url"
-        placeholder="https://example.com/image.jpg"
-      >
-
-      <label
-        class="privacy-label"
-        for="profile-image-visibility"
-      >
-        Who can see your profile image?
-      </label>
-
-      <select
-        id="profile-image-visibility"
-        name="profile-image-visibility"
-      >
-        <option value="public">Public</option>
-        <option value="members">Members only</option>
-        <option value="private">Private</option>
-      </select>
-
-
-      <label for="location">
-        Location
-      </label>
-
-      <input
-        type="text"
-        id="location"
-        name="location"
-        placeholder="St. Louis, MO"
-      >
-
-      <label
-        class="privacy-label"
-        for="location-visibility"
-      >
-        Who can see your location?
-      </label>
-
-      <select
-        id="location-visibility"
-        name="location-visibility"
-      >
-        <option value="public">Public</option>
-        <option value="members">Members only</option>
-        <option value="private">Private</option>
-      </select>
-
-
-      <!-- COMMUNITY -->
-
-      <h2>Community & Collaboration</h2>
-
-
-      <label for="looking-for">
-        What are you looking for?
-      </label>
-
-      <textarea
-        id="looking-for"
-        name="looking-for"
-        rows="4"
-        placeholder="Collaborators, artists, events, commissions..."
-      ></textarea>
-
-      <label
-        class="privacy-label"
-        for="looking-for-visibility"
-      >
-        Who can see what you're looking for?
-      </label>
-
-      <select
-        id="looking-for-visibility"
-        name="looking-for-visibility"
-      >
-        <option value="public">Public</option>
-        <option value="members">Members only</option>
-        <option value="private">Private</option>
-      </select>
-
-
-      <label for="creative-statement">
-        Creative Statement
-      </label>
-
-      <textarea
-        id="creative-statement"
-        name="creative-statement"
-        rows="6"
-        placeholder="Tell people about your creative perspective..."
-      ></textarea>
-
-      <label
-        class="privacy-label"
-        for="creative-statement-visibility"
-      >
-        Who can see your creative statement?
-      </label>
-
-      <select
-        id="creative-statement-visibility"
-        name="creative-statement-visibility"
-      >
-        <option value="public">Public</option>
-        <option value="members">Members only</option>
-        <option value="private">Private</option>
-      </select>
-
-
-      <label for="communication-preferences">
-        Communication Preferences
-      </label>
-
-      <textarea
-        id="communication-preferences"
-        name="communication-preferences"
-        rows="4"
-        placeholder="Preferred ways to communicate..."
-      ></textarea>
-
-      <label
-        class="privacy-label"
-        for="communication-preferences-visibility"
-      >
-        Who can see your communication preferences?
-      </label>
-
-      <select
-        id="communication-preferences-visibility"
-        name="communication-preferences-visibility"
-      >
-        <option value="public">Public</option>
-        <option value="members">Members only</option>
-        <option value="private">Private</option>
-      </select>
-
-
-      <button
-        type="submit"
-        id="save-profile"
-      >
-        Save Profile
-      </button>
-
-      <div
-        id="save-status"
-        aria-live="polite"
-      ></div>
-
-    </form>
-
-
-    <div class="profile-actions">
-
-      <a href="directory.html">
-        View Public Directory
-      </a>
-
-      <br>
-
-      <button
-        type="button"
-        id="logout-button"
-      >
-        Log Out
-      </button>
-
+      <div class="field">
+        <label for="bio">Bio</label>
+        <textarea id="bio" name="bio" rows="6"></textarea>
+        <div class="field-vis">
+          <label for="bio-visibility">Who can see your bio?</label>
+          <select id="bio-visibility" name="bio-visibility">
+            <option value="public">Public</option>
+            <option value="members">Members only</option>
+            <option value="private">Private</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="creative-disciplines">Creative Disciplines</label>
+        <input type="text" id="creative-disciplines" name="creative-disciplines" placeholder="Painting, music, photography, performance..." aria-describedby="creative-disciplines-hint">
+        <span class="hint" id="creative-disciplines-hint">Separate with commas, like &ldquo;painting, music, zines&rdquo;.</span>
+        <div class="field-vis">
+          <label for="creative-disciplines-visibility">Who can see your creative disciplines?</label>
+          <select id="creative-disciplines-visibility" name="creative-disciplines-visibility">
+            <option value="public">Public</option>
+            <option value="members">Members only</option>
+            <option value="private">Private</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="pronouns">Pronouns</label>
+        <input type="text" id="pronouns" name="pronouns" placeholder="they/them">
+        <div class="field-vis">
+          <label for="pronouns-visibility">Who can see your pronouns?</label>
+          <select id="pronouns-visibility" name="pronouns-visibility">
+            <option value="public">Public</option>
+            <option value="members">Members only</option>
+            <option value="private">Private</option>
+          </select>
+        </div>
+      </div>
+
+      </section>
+
+      <section class="form-section" aria-labelledby="presence-title">
+        <h2 id="presence-title">Creative Presence</h2>
+
+      <div class="field">
+        <label for="portfolio-url">Portfolio URL</label>
+        <input type="url" id="portfolio-url" name="portfolio-url" placeholder="https://yourportfolio.com">
+        <div class="field-vis">
+          <label for="portfolio-visibility">Who can see your portfolio?</label>
+          <select id="portfolio-visibility" name="portfolio-visibility">
+            <option value="public">Public</option>
+            <option value="members">Members only</option>
+            <option value="private">Private</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="social-links">Social Links</label>
+        <input type="url" id="social-links" name="social-links" placeholder="https://instagram.com/yourname">
+        <div class="field-vis">
+          <label for="social-links-visibility">Who can see your social links?</label>
+          <select id="social-links-visibility" name="social-links-visibility">
+            <option value="public">Public</option>
+            <option value="members">Members only</option>
+            <option value="private">Private</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="profile-image-url">Profile Image URL</label>
+        <input type="url" id="profile-image-url" name="profile-image-url" placeholder="https://example.com/image.jpg" aria-describedby="profile-image-url-hint">
+        <span class="hint" id="profile-image-url-hint">A link to an image already online.</span>
+        <div class="field-vis">
+          <label for="profile-image-visibility">Who can see your profile image?</label>
+          <select id="profile-image-visibility" name="profile-image-visibility">
+            <option value="public">Public</option>
+            <option value="members">Members only</option>
+            <option value="private">Private</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="location">Location</label>
+        <input type="text" id="location" name="location" placeholder="St. Louis, MO">
+        <div class="field-vis">
+          <label for="location-visibility">Who can see your location?</label>
+          <select id="location-visibility" name="location-visibility">
+            <option value="public">Public</option>
+            <option value="members">Members only</option>
+            <option value="private">Private</option>
+          </select>
+        </div>
+      </div>
+
+      </section>
+
+      <section class="form-section" aria-labelledby="community-title">
+        <h2 id="community-title">Community &amp; Collaboration</h2>
+
+      <div class="field">
+        <label for="looking-for">What are you looking for?</label>
+        <textarea id="looking-for" name="looking-for" rows="4" placeholder="Collaborators, artists, events, commissions..."></textarea>
+        <div class="field-vis">
+          <label for="looking-for-visibility">Who can see what you&rsquo;re looking for?</label>
+          <select id="looking-for-visibility" name="looking-for-visibility">
+            <option value="public">Public</option>
+            <option value="members">Members only</option>
+            <option value="private">Private</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="creative-statement">Creative Statement</label>
+        <textarea id="creative-statement" name="creative-statement" rows="6" placeholder="Tell people about your creative perspective..."></textarea>
+        <div class="field-vis">
+          <label for="creative-statement-visibility">Who can see your creative statement?</label>
+          <select id="creative-statement-visibility" name="creative-statement-visibility">
+            <option value="public">Public</option>
+            <option value="members">Members only</option>
+            <option value="private">Private</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="communication-preferences">Communication Preferences</label>
+        <textarea id="communication-preferences" name="communication-preferences" rows="4" placeholder="Preferred ways to communicate..."></textarea>
+        <div class="field-vis">
+          <label for="communication-preferences-visibility">Who can see your communication preferences?</label>
+          <select id="communication-preferences-visibility" name="communication-preferences-visibility">
+            <option value="public">Public</option>
+            <option value="members">Members only</option>
+            <option value="private">Private</option>
+          </select>
+        </div>
+      </div>
+
+      </section>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="save-profile">Save Profile</button>
+        </div>
+        <p id="save-status" class="message" role="status"></p>
+      </form>
+
+      <div class="profile-actions">
+        <a href="directory.html">View Public Directory</a>
+        <button type="button" class="btn" id="logout-button">Log Out</button>
+      </div>
     </div>
 
-  </main>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img class="footer-logo" src="images/stlnc-logo-transparent.png" width="768" height="596" alt="">
+        <p class="footer-blurb">A network for neurodivergent, alternative, and unconventional creatives in St. Louis.</p>
+      </div>
+      <div>
+        <h2>Explore</h2>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="directory.html">Directory</a></li>
+          <li><a href="events.html">Events</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Connect</h2>
+        <ul>
+          <li><a href="https://www.instagram.com/stlneurodiversecreatives/" target="_blank" rel="noopener noreferrer">Instagram<span class="sr-only"> (opens in a new tab)</span></a></li>
+          <li><a href="https://discord.com/invite/Z4AyvyJqw" target="_blank" rel="noopener noreferrer">Discord<span class="sr-only"> (opens in a new tab)</span></a></li>
+          <li><a href="https://forms.gle/uLSqWdj6ZThNny8v9" target="_blank" rel="noopener noreferrer">Google Form<span class="sr-only"> (opens in a new tab)</span></a></li>
+          <li><a href="mailto:contact@stlneurodiversecreatives.org">contact@stlneurodiversecreatives.org</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Members</h2>
+        <ul>
+          <li><a href="signup.html">Join STLNC</a></li>
+          <li><a href="login.html">Log in</a></li>
+          <li><a href="contact.html">Get in touch</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer-legal">&copy; STL Neurodiverse Creatives. Made with and for St. Louis creatives.</p>
+  </div>
+</footer>
 
-
-  <script>
-
-    const SUPABASE_URL =
-      'https://nwmnamevyasyruygapeb.supabase.co';
-
-    const SUPABASE_ANON_KEY =
-      'sb_publishable_OWaZPpZTVGK6FYETNa0VLQ_-1gAz1qQ';
-
-
-    const supabaseClient =
-      window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
-      );
-
-
-    /* ACCOUNT NAVIGATION */
-
-    async function updateAccountNav() {
-
-      const accountNav =
-        document.getElementById(
-          'account-nav'
-        );
-
-      if (!accountNav) {
-        return;
-      }
-
-
-      const {
-        data: {
-          session
-        }
-      } =
-        await supabaseClient.auth.getSession();
-
-
-      accountNav.innerHTML = '';
-
-
-      if (session) {
-
-        const profileLink =
-          document.createElement('a');
-
-        profileLink.href =
-          'profile.html';
-
-        profileLink.textContent =
-          'My Profile';
-
-
-        const logoutLink =
-          document.createElement('a');
-
-        logoutLink.href =
-          '#';
-
-        logoutLink.textContent =
-          'Log Out';
-
-
-        logoutLink.addEventListener(
-          'click',
-          async (event) => {
-
-            event.preventDefault();
-
-
-            const {
-              error
-            } =
-              await supabaseClient.auth.signOut({
-                scope: 'local'
-              });
-
-
-            if (error) {
-
-              console.error(
-                'Logout error:',
-                error
-              );
-
-              return;
-            }
-
-
-            window.location.href =
-              'index.html';
-
-          }
-        );
-
-
-        accountNav.appendChild(
-          profileLink
-        );
-
-        accountNav.appendChild(
-          logoutLink
-        );
-
-
-      } else {
-
-        const joinLink =
-          document.createElement('a');
-
-        joinLink.href =
-          'signup.html';
-
-        joinLink.textContent =
-          'Join STLNC';
-
-
-        const loginLink =
-          document.createElement('a');
-
-        loginLink.href =
-          'login.html';
-
-        loginLink.textContent =
-          'Log In';
-
-
-        accountNav.appendChild(
-          joinLink
-        );
-
-        accountNav.appendChild(
-          loginLink
-        );
-
-      }
-
-    }
-
-
-    /* LOAD PROFILE */
-
-    async function loadMyProfile(session) {
-
-      const status =
-        document.getElementById(
-          'profile-status'
-        );
-
-      const form =
-        document.getElementById(
-          'profile-form'
-        );
-
-
-      if (!session || !session.user) {
-
-        status.textContent =
-          'You are not currently logged in.';
-
-        form.hidden = true;
-
-        return;
-      }
-
-
-      const {
-        data,
-        error
-      } =
-        await supabaseClient.rpc(
-          'get_my_profile'
-        );
-
-
-      if (error) {
-
-        console.error(
-          'Profile error:',
-          error
-        );
-
-        status.textContent =
-          'Unable to load your profile.';
-
-        return;
-      }
-
-
-      if (!data || data.length === 0) {
-
-        status.textContent =
-          'No profile was found.';
-
-        return;
-      }
-
-
-      const profile =
-        data[0];
-
-
-      document.getElementById(
-        'directory-visible'
-      ).checked =
-        profile.directory_visible === true;
-
-
-      document.getElementById(
-        'display-name'
-      ).value =
-        profile.display_name || '';
-
-
-      document.getElementById(
-        'bio'
-      ).value =
-        profile.bio || '';
-
-
-      document.getElementById(
-        'bio-visibility'
-      ).value =
-        profile.bio_visibility || 'public';
-
-
-      document.getElementById(
-        'creative-disciplines'
-      ).value =
-        profile.creative_disciplines || '';
-
-
-      document.getElementById(
-        'creative-disciplines-visibility'
-      ).value =
-        profile.creative_disciplines_visibility || 'public';
-
-
-      document.getElementById(
-        'pronouns'
-      ).value =
-        profile.pronouns || '';
-
-
-      document.getElementById(
-        'pronouns-visibility'
-      ).value =
-        profile.pronouns_visibility || 'private';
-
-
-      document.getElementById(
-        'portfolio-url'
-      ).value =
-        profile.portfolio_url || '';
-
-
-      document.getElementById(
-        'portfolio-visibility'
-      ).value =
-        profile.portfolio_visibility || 'public';
-
-
-      document.getElementById(
-        'social-links'
-      ).value =
-        profile.social_links || '';
-
-
-      document.getElementById(
-        'social-links-visibility'
-      ).value =
-        profile.social_links_visibility || 'public';
-
-
-      document.getElementById(
-        'profile-image-url'
-      ).value =
-        profile.profile_image_url || '';
-
-
-      document.getElementById(
-        'profile-image-visibility'
-      ).value =
-        profile.profile_image_visibility || 'public';
-
-
-      document.getElementById(
-        'location'
-      ).value =
-        profile.location || '';
-
-
-      document.getElementById(
-        'location-visibility'
-      ).value =
-        profile.location_visibility || 'members';
-
-
-      document.getElementById(
-        'looking-for'
-      ).value =
-        profile.looking_for || '';
-
-
-      document.getElementById(
-        'looking-for-visibility'
-      ).value =
-        profile.looking_for_visibility || 'members';
-
-
-      document.getElementById(
-        'creative-statement'
-      ).value =
-        profile.creative_statement || '';
-
-
-      document.getElementById(
-        'creative-statement-visibility'
-      ).value =
-        profile.creative_statement_visibility || 'public';
-
-
-      document.getElementById(
-        'communication-preferences'
-      ).value =
-        profile.communication_preferences || '';
-
-
-      document.getElementById(
-        'communication-preferences-visibility'
-      ).value =
-        profile.communication_preferences_visibility || 'private';
-
-
-      status.textContent =
-        '';
-
-      form.hidden =
-        false;
-
-    }
-
-
-    /* SAVE PROFILE */
-
-    document
-      .getElementById('profile-form')
-      .addEventListener(
-        'submit',
-        async (event) => {
-
-          event.preventDefault();
-
-
-          const saveStatus =
-            document.getElementById(
-              'save-status'
-            );
-
-
-          saveStatus.textContent =
-            'Saving...';
-
-
-          const {
-            data: {
-              user
-            }
-          } =
-            await supabaseClient.auth.getUser();
-
-
-          if (!user) {
-
-            saveStatus.textContent =
-              'Please log in first.';
-
-            return;
-          }
-
-
-          const directoryVisible =
-            document.getElementById(
-              'directory-visible'
-            ).checked;
-
-
-          const displayName =
-            document.getElementById(
-              'display-name'
-            ).value.trim();
-
-
-          const bio =
-            document.getElementById(
-              'bio'
-            ).value.trim();
-
-
-          const bioVisibility =
-            document.getElementById(
-              'bio-visibility'
-            ).value;
-
-
-          const creativeDisciplines =
-            document.getElementById(
-              'creative-disciplines'
-            ).value.trim();
-
-
-          const creativeDisciplinesVisibility =
-            document.getElementById(
-              'creative-disciplines-visibility'
-            ).value;
-
-
-          const pronouns =
-            document.getElementById(
-              'pronouns'
-            ).value.trim();
-
-
-          const pronounsVisibility =
-            document.getElementById(
-              'pronouns-visibility'
-            ).value;
-
-
-          const portfolioUrl =
-            document.getElementById(
-              'portfolio-url'
-            ).value.trim();
-
-
-          const portfolioVisibility =
-            document.getElementById(
-              'portfolio-visibility'
-            ).value;
-
-
-          const socialLinks =
-            document.getElementById(
-              'social-links'
-            ).value.trim();
-
-
-          const socialLinksVisibility =
-            document.getElementById(
-              'social-links-visibility'
-            ).value;
-
-
-          const profileImageUrl =
-            document.getElementById(
-              'profile-image-url'
-            ).value.trim();
-
-
-          const profileImageVisibility =
-            document.getElementById(
-              'profile-image-visibility'
-            ).value;
-
-
-          const location =
-            document.getElementById(
-              'location'
-            ).value.trim();
-
-
-          const locationVisibility =
-            document.getElementById(
-              'location-visibility'
-            ).value;
-
-
-          const lookingFor =
-            document.getElementById(
-              'looking-for'
-            ).value.trim();
-
-
-          const lookingForVisibility =
-            document.getElementById(
-              'looking-for-visibility'
-            ).value;
-
-
-          const creativeStatement =
-            document.getElementById(
-              'creative-statement'
-            ).value.trim();
-
-
-          const creativeStatementVisibility =
-            document.getElementById(
-              'creative-statement-visibility'
-            ).value;
-
-
-          const communicationPreferences =
-            document.getElementById(
-              'communication-preferences'
-            ).value.trim();
-
-
-          const communicationPreferencesVisibility =
-            document.getElementById(
-              'communication-preferences-visibility'
-            ).value;
-
-
-          const {
-            error
-          } =
-            await supabaseClient
-              .from('profiles')
-              .update({
-
-                directory_visible:
-                  directoryVisible,
-
-                display_name:
-                  displayName,
-
-                bio:
-                  bio,
-
-                bio_visibility:
-                  bioVisibility,
-
-                creative_disciplines:
-                  creativeDisciplines,
-
-                creative_disciplines_visibility:
-                  creativeDisciplinesVisibility,
-
-                pronouns:
-                  pronouns,
-
-                pronouns_visibility:
-                  pronounsVisibility,
-
-                portfolio_url:
-                  portfolioUrl,
-
-                portfolio_visibility:
-                  portfolioVisibility,
-
-                social_links:
-                  socialLinks,
-
-                social_links_visibility:
-                  socialLinksVisibility,
-
-                profile_image_url:
-                  profileImageUrl,
-
-                profile_image_visibility:
-                  profileImageVisibility,
-
-                location:
-                  location,
-
-                location_visibility:
-                  locationVisibility,
-
-                looking_for:
-                  lookingFor,
-
-                looking_for_visibility:
-                  lookingForVisibility,
-
-                creative_statement:
-                  creativeStatement,
-
-                creative_statement_visibility:
-                  creativeStatementVisibility,
-
-                communication_preferences:
-                  communicationPreferences,
-
-                communication_preferences_visibility:
-                  communicationPreferencesVisibility
-
-              })
-              .eq(
-                'user_id',
-                user.id
-              );
-
-
-          if (error) {
-
-            console.error(
-              'Save profile error:',
-              error
-            );
-
-            saveStatus.textContent =
-              'Unable to save your profile.';
-
-            return;
-          }
-
-
-          saveStatus.textContent =
-            'Profile saved successfully.';
-
-        }
-      );
-
-
-    /* LOG OUT */
-
-    document
-      .getElementById('logout-button')
-      .addEventListener(
-        'click',
-        async () => {
-
-          const {
-            error
-          } =
-            await supabaseClient.auth.signOut({
-              scope: 'local'
-            });
-
-
-          if (error) {
-
-            console.error(
-              'Logout error:',
-              error
-            );
-
-            return;
-          }
-
-
-          window.location.href =
-            'login.html';
-
-        }
-      );
-
-
-    /* AUTH STATE */
-
-    updateAccountNav();
-
-
-    supabaseClient.auth.onAuthStateChange(
-      (event, session) => {
-
-        if (
-          event === 'INITIAL_SESSION' ||
-          event === 'SIGNED_IN'
-        ) {
-
-          if (session) {
-
-            setTimeout(
-              () => {
-                loadMyProfile(session);
-              },
-              0
-            );
-
-          }
-
-        }
-
-        if (
-          event === 'SIGNED_OUT'
-        ) {
-
-          document.getElementById(
-            'profile-form'
-          ).hidden = true;
-
-          document.getElementById(
-            'profile-status'
-          ).textContent =
-            'You are not currently logged in.';
-
-          updateAccountNav();
-
-        }
-
-      }
-    );
-
-  </script>
 
 </body>
 </html>
