@@ -1,220 +1,180 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Our mission and where STL Neurodiverse Creatives is headed: accessibility, community-led ideas, career development, and outreach.">
+  <title>About | STLNC</title>
 
-  <title>About Us | STLNC</title>
+  <link rel="icon" type="image/png" href="images/favicon.png">
 
-  <!-- Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Applies saved display settings before first paint -->
+  <script src="theme-init.js"></script>
 
-  <script>
-    const SUPABASE_URL =
-      'https://nwmnamevyasyruygapeb.supabase.co';
-
-    const SUPABASE_ANON_KEY =
-      'sb_publishable_OWaZPpZTVGK6FYETNa0VLQ_-1gAz1qQ';
-
-    window.supabaseClient =
-      window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
-      );
-  </script>
-
-  <!-- Shared CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap">
   <link rel="stylesheet" href="css/style.css">
 
-  <!-- Shared JavaScript -->
+  <!-- Supabase library, shared script, then this page's script (order matters) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
   <script src="script.js" defer></script>
-
 </head>
-
 <body>
 
-  <!-- ACCOUNT / THEME NAVIGATION -->
+<a class="skip-link" href="#main">Skip to main content</a>
 
-  <div
-    class="account-nav"
-    aria-label="Account navigation"
-  >
+<div class="spectrum" aria-hidden="true"></div>
+<header class="site-header">
+  <div class="container">
 
-    <button
-      id="theme-toggle"
-      type="button"
-      aria-label="Toggle dark mode"
-    >
-      🌙 Dark Mode
-    </button>
+    <div class="utility-bar">
+      <div class="display-settings">
+        <button type="button" class="btn btn-small" id="display-toggle" aria-expanded="false" aria-controls="display-panel">
+          Display settings
+        </button>
+        <div class="display-panel" id="display-panel" role="group" aria-label="Display settings" hidden>
+          <fieldset>
+            <legend>Color theme</legend>
+            <label class="choice"><input type="radio" name="theme" value="auto" checked> Match my device</label>
+            <label class="choice"><input type="radio" name="theme" value="light"> Light</label>
+            <label class="choice"><input type="radio" name="theme" value="dark"> Dark</label>
+          </fieldset>
+          <fieldset>
+            <legend>Text size</legend>
+            <label class="choice"><input type="radio" name="textsize" value="default" checked> Standard</label>
+            <label class="choice"><input type="radio" name="textsize" value="large"> Large</label>
+            <label class="choice"><input type="radio" name="textsize" value="xl"> Extra large</label>
+          </fieldset>
+          <label class="choice"><input type="checkbox" id="spacing-toggle"> More space between letters and lines</label>
+          <button type="button" class="btn btn-small" id="display-reset">Reset to defaults</button>
+        </div>
+      </div>
 
-    <div
-      class="account-links"
-      id="account-links"
-    >
-      <a href="signup.html">Join STLNC</a>
-      <a href="login.html">Log In</a>
+      <div class="account-links" id="account-links">
+        <a class="btn btn-small btn-sun" href="signup.html">Join STLNC</a>
+        <a class="btn btn-small" href="login.html">Log In</a>
+      </div>
+    </div>
+
+    <div class="header-main">
+      <a class="brand" href="index.html">
+        <img src="images/longlogo-transparent.png" width="1370" height="145" alt="STL Neurodiverse Creatives, home">
+      </a>
+      <nav aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html" aria-current="page">About</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="directory.html">Directory</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
     </div>
 
   </div>
+</header>
 
+<main id="main" tabindex="-1">
+  <div class="container">
 
-  <!-- MAIN SITE NAVIGATION -->
-
-  <nav
-    class="main-nav"
-    aria-label="Main navigation"
-  >
-
-    <div class="main-nav-inner">
-
-    <a class="site-name" href="index.html">
-  <img src="images/longlogo.jpg" alt="STLNC">
-</a>
-
-      <div class="main-nav-links">
-
-        <a href="index.html">
-          Home
-        </a>
-
-        <a
-          href="about.html"
-          class="current"
-          aria-current="page"
-        >
-          About
-        </a>
-
-        <a href="gallery.html">
-          Gallery
-        </a>
-
-        <a href="directory.html">
-          Directory
-        </a>
-
-        <a href="events.html">
-          Events
-        </a>
-
-        <a href="contact.html">
-          Contact
-        </a>
-
-      </div>
-
+    <div class="page-head">
+      <h1>About STLNC</h1>
     </div>
 
-  </nav>
+    <section class="section card" aria-labelledby="mission-title">
+      <h2 id="mission-title">Our mission</h2>
+      <p class="section-intro">STLNC is a network for neurodivergent, alternative, and unconventional creatives from St. Louis to connect, collaborate, and build community together.</p>
+      <p>STLNC is rooted in mutual respect, radical inclusion, and mindful support, with the belief that creative communities are strongest when people have space to be themselves, share their perspectives, and grow alongside one another.</p>
+    </section>
 
+    <section class="section" aria-labelledby="future-title">
+      <h2 id="future-title">Our future</h2>
+      <div class="grid">
+        <div class="card tint-sun">
+          <h3>Accessibility</h3>
+          <p>Hosting and providing the resources to host inclusive, accessible creative events, exhibitions, workshops, gatherings, and other community experiences.</p>
+        </div>
+        <div class="card tint-coral">
+          <h3>Community-Led Ideas</h3>
+          <p>Creating opportunities for members to suggest, develop, and lead projects based on what the creative community actually needs and wants.</p>
+        </div>
+        <div class="card tint-mint">
+          <h3>Career and Professional Development</h3>
+          <p>Connecting creatives with resources, opportunities, mentorship, collaboration, professional development, and pathways toward sustainable creative careers.</p>
+        </div>
+        <div class="card tint-sky">
+          <h3>Outreach and Education</h3>
+          <p>Empowering the community to understand individual support needs, neurodiversity, disability, and alternative lifestyles while promoting the importance of inclusion and accountability.</p>
+        </div>
+        <div class="card tint-lilac">
+          <h3>And More!</h3>
+          <p>STLNC is intended to grow alongside St. Louis. Our future will continue to be shaped by the ideas and needs of the people.</p>
+        </div>
+      </div>
+    </section>
 
-  <!-- PAGE CONTENT -->
+    <section class="section card tint-lilac" aria-labelledby="join-title">
+      <h2 id="join-title">Join the directory</h2>
+      <p>Sign up to be included in the directory, get access to members-only information about other creatives in town, and receive monthly news and updates from STLNC by email.</p>
+      <div class="actions"><a class="btn btn-primary" href="signup.html">Sign up</a></div>
+    </section>
 
-  <main>
+    <section class="section" aria-labelledby="insta-title">
+      <h2 id="insta-title">Follow along on Instagram</h2>
+      <div class="widget-frame">
+        <!-- Elfsight Instagram Feed | STLNC Instagram Feed -->
+        <script src="https://elfsightcdn.com/platform.js" async></script>
+        <div class="elfsight-app-56d0b744-d47a-404b-8541-ac806ec10bc1" data-elfsight-app-lazy></div>
+        <noscript><p class="widget-note">The Instagram feed needs JavaScript. You can visit us at <a href="https://www.instagram.com/stlneurodiversecreatives/">instagram.com/stlneurodiversecreatives</a>.</p></noscript>
+      </div>
+    </section>
 
-    <h1 style="text-align: center;">
-      About STLNC
-    </h1>
+  </div>
+</main>
 
- <div class="text-box">
-  <p>
-    <h2 style="text-align: center;">
- Our Mission
-   </h2> 
-     STLNC is a network for neurodivergent, alternative, and unconventional creatives from St. Louis to connect, collaborate, and build community together.STLNC is rooted in mutual respect, radical inclusion, and mindful support, with the belief that creative communities are strongest when people have space to be themselves, share their perspectives, and grow alongside one another.
-  </p>
-</div>
-    <div class="text-box">
-    <h2 style="text-align: center;">
- Our Future
-   </h2> 
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img class="footer-logo" src="images/stlnc-logo-transparent.png" width="768" height="596" alt="">
+        <p class="footer-blurb">A network for neurodivergent, alternative, and unconventional creatives in St. Louis.</p>
+      </div>
+      <div>
+        <h2>Explore</h2>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="directory.html">Directory</a></li>
+          <li><a href="events.html">Events</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Connect</h2>
+        <ul>
+          <li><a href="https://www.instagram.com/stlneurodiversecreatives/" target="_blank" rel="noopener noreferrer">Instagram<span class="sr-only"> (opens in a new tab)</span></a></li>
+          <li><a href="https://discord.com/invite/Z4AyvyJqw" target="_blank" rel="noopener noreferrer">Discord<span class="sr-only"> (opens in a new tab)</span></a></li>
+          <li><a href="https://forms.gle/uLSqWdj6ZThNny8v9" target="_blank" rel="noopener noreferrer">Google Form<span class="sr-only"> (opens in a new tab)</span></a></li>
+          <li><a href="mailto:contact@stlneurodiversecreatives.org">contact@stlneurodiversecreatives.org</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Members</h2>
+        <ul>
+          <li><a href="signup.html">Join STLNC</a></li>
+          <li><a href="login.html">Log in</a></li>
+          <li><a href="contact.html">Get in touch</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer-legal">&copy; STL Neurodiverse Creatives. Made with and for St. Louis creatives.</p>
+  </div>
+</footer>
 
-<h3 style="text-align: center;">
- Accessibility
-   </h3>
-Hosting and providing the resources to host inclusive, accessible creative events, exhibitions, workshops, gatherings, and other community experiences.
-
-<h3 style="text-align: center;">
- Community Lead Ideas
-   </h3>  
-Creating opportunities for members to suggest, develop, and lead projects based on what the the creative community actually needs and wants.
-
-<h3 style="text-align: center;">
-Career and Professional Development
-   </h3> -  
-Connecting creatives with resources, opportunities, mentorship, collaboration, professional development, and pathways toward sustainable creative careers.
-
-<h3 style="text-align: center;">
-Outreach and Education
-   </h3> 
-Empowering the community to understand individual support needs, neurodiversity, disability, and alternative lifestyles while promoting the importance of inclusion and accountability.
-.
-<h3 style="text-align: center;">
-And More!
-   </h3> 
- STLNC is intended to grow alongside St. Louis. Our future will continue to be shaped by the ideas and needs of the people.
-</div> 
-
-    <div class="text-box">
-
-    Sign up now to be included in the directory, and have access to member's only information on other creatives in town, and recieve monthly news and updates to your email on STLNC.
-    
-  <div class="button-center">
- <a href="signup.html" class="get-involved-button">
- Sign Up
-</a>
-</div> 
-  </p>
-</div>
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instagram Feed</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<!-- Elfsight Instagram Feed | STLNC Instagram Feed -->
-<script src="https://elfsightcdn.com/platform.js" async></script>
-<div class="elfsight-app-56d0b744-d47a-404b-8541-ac806ec10bc1" data-elfsight-app-lazy></div>
-</html>
-    <img
-      src="images/stlcall.jpg"
-      width="400"
-      alt="STLNC community"
-    >
 <!-- Elfsight Accessibility | Untitled Accessibility -->
 <script src="https://elfsightcdn.com/platform.js" async></script>
 <div class="elfsight-app-50f97a0c-b0fc-4388-8663-5e5d6c8759b4" data-elfsight-app-lazy></div>
-  </main>
-
-
 </body>
- 
-</body>
-   <footer>
-    <p>
-    <div class="framed-image">
-  <img src="images/longlogo.jpg" alt="STL CALL">
-</div>
-    </div>
-       <div class="parent-container">
-  <div class="child-element">
-  </div>
-   <a href="https://www.instagram.com/stlneurodiversecreatives/" target="_blank">
-    <img src="images/icons8-instagram-48.png" width="30px" alt="Instagram">
-       </a>
-       <a href="https://discord.com/invite/Z4AyvyJqw" target="_blank">
-    <img src="images/icons8-discord-50.png" width="30px" alt="Discord">
-</a>
-    <a href="https://forms.gle/uLSqWdj6ZThNny8v9" target="_blank">
-    <img src="images/icons8-form-50.png" width="30px" alt="GoogleForm">     
-</a>
-    </div>
-</div>
-  </footer>
 </html>

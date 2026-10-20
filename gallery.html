@@ -1,380 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Art, music, and moving image from STL Neurodiverse Creatives members.">
   <title>Gallery | STLNC</title>
 
-  <!-- Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="icon" type="image/png" href="images/favicon.png">
 
-  <script>
-    const SUPABASE_URL =
-      'https://nwmnamevyasyruygapeb.supabase.co';
+  <!-- Applies saved display settings before first paint -->
+  <script src="theme-init.js"></script>
 
-    const SUPABASE_ANON_KEY =
-      'sb_publishable_OWaZPpZTVGK6FYETNa0VLQ_-1gAz1qQ';
-
-    window.supabaseClient =
-      window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
-      );
-  </script>
-
-  <!-- Shared CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap">
   <link rel="stylesheet" href="css/style.css">
 
-  <!-- Shared JavaScript -->
+  <!-- Supabase library, shared script, then this page's script (order matters) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
   <script src="script.js" defer></script>
-
 </head>
-
 <body>
 
-  <!-- ACCOUNT / THEME NAVIGATION -->
+<a class="skip-link" href="#main">Skip to main content</a>
 
-  <div
-    class="account-nav"
-    aria-label="Account navigation"
-  >
+<div class="spectrum" aria-hidden="true"></div>
+<header class="site-header">
+  <div class="container">
 
-    <button
-      id="theme-toggle"
-      type="button"
-      aria-label="Toggle dark mode"
-    >
-      🌙 Dark Mode
-    </button>
+    <div class="utility-bar">
+      <div class="display-settings">
+        <button type="button" class="btn btn-small" id="display-toggle" aria-expanded="false" aria-controls="display-panel">
+          Display settings
+        </button>
+        <div class="display-panel" id="display-panel" role="group" aria-label="Display settings" hidden>
+          <fieldset>
+            <legend>Color theme</legend>
+            <label class="choice"><input type="radio" name="theme" value="auto" checked> Match my device</label>
+            <label class="choice"><input type="radio" name="theme" value="light"> Light</label>
+            <label class="choice"><input type="radio" name="theme" value="dark"> Dark</label>
+          </fieldset>
+          <fieldset>
+            <legend>Text size</legend>
+            <label class="choice"><input type="radio" name="textsize" value="default" checked> Standard</label>
+            <label class="choice"><input type="radio" name="textsize" value="large"> Large</label>
+            <label class="choice"><input type="radio" name="textsize" value="xl"> Extra large</label>
+          </fieldset>
+          <label class="choice"><input type="checkbox" id="spacing-toggle"> More space between letters and lines</label>
+          <button type="button" class="btn btn-small" id="display-reset">Reset to defaults</button>
+        </div>
+      </div>
 
-    <div
-      class="account-links"
-      id="account-links"
-    >
-      <a href="signup.html">Join STLNC</a>
-      <a href="login.html">Log In</a>
+      <div class="account-links" id="account-links">
+        <a class="btn btn-small btn-sun" href="signup.html">Join STLNC</a>
+        <a class="btn btn-small" href="login.html">Log In</a>
+      </div>
+    </div>
+
+    <div class="header-main">
+      <a class="brand" href="index.html">
+        <img src="images/longlogo-transparent.png" width="1370" height="145" alt="STL Neurodiverse Creatives, home">
+      </a>
+      <nav aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="gallery.html" aria-current="page">Gallery</a></li>
+          <li><a href="directory.html">Directory</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
     </div>
 
   </div>
+</header>
 
-  </div>
+<main id="main" tabindex="-1">
+  <div class="container">
 
-  <!-- MAIN SITE NAVIGATION -->
+    <div class="page-head">
+      <h1>Our Gallery</h1>
+      <p>Work shared by STLNC members.</p>
+    </div>
 
-  <nav
-    class="main-nav"
-    aria-label="Main navigation"
-  >
+    <div class="gallery">
+      <article class="gallery-item">
+        <img src="images/gallery/cowkong.jpg" alt="Digital render of a small teal and brown frog with an onion bulb for a body and green sprouts on its head, sitting on a granite counter beside a striped jar." loading="lazy">
+        <div class="gallery-description">
+          <h2>cowkong</h2>
+          <ul class="link-row">
+            <li><a href="https://www.instagram.com/cowkong/" target="_blank" rel="noopener noreferrer">Instagram<span class="sr-only"> for cowkong (opens in a new tab)</span></a></li>
+            <li><a href="https://www.etsy.com/shop/Cowkong" target="_blank" rel="noopener noreferrer">Etsy<span class="sr-only"> for cowkong (opens in a new tab)</span></a></li>
+          </ul>
+        </div>
+      </article>
 
-<div class="main-nav-inner">
+      <article class="gallery-item">
+        <img src="images/gallery/grant-harris.jpg" alt="Painting of two blue jellyfish with trailing ink drips, floating among pale bubbles on a pink wash, with red drips rising from below and a black circle at the right edge." loading="lazy">
+        <div class="gallery-description">
+          <h2>Grant Harris</h2>
+          <ul class="link-row">
+            <li><a href="https://www.instagram.com/art_and_empathies/" target="_blank" rel="noopener noreferrer">Instagram<span class="sr-only"> for Grant Harris (opens in a new tab)</span></a></li>
+          </ul>
+        </div>
+      </article>
 
-   <a class="site-name" href="index.html">
-  <img src="images/longlogo.jpg" alt="STLNC">
+      <article class="gallery-item">
+        <img src="images/gallery/stasia.jpg" alt="Digital illustration of a person with wavy green hair lounging on a couch with their arms raised, a small purple-haired doll beside them, against a teal background." loading="lazy">
+        <div class="gallery-description">
+          <h2>Stasia</h2>
+          <ul class="link-row">
+            <li><a href="https://www.instagram.com/a_rtistxc/" target="_blank" rel="noopener noreferrer">Instagram<span class="sr-only"> for Stasia (opens in a new tab)</span></a></li>
+            <li><a href="https://linktr.ee/a_rtistxc" target="_blank" rel="noopener noreferrer">Linktree<span class="sr-only"> for Stasia (opens in a new tab)</span></a></li>
+          </ul>
+        </div>
+      </article>
 
-  <div class="main-nav-links">
+      <article class="gallery-item">
+        <img src="images/gallery/egos.jpg" alt="Cover-style image: an orange square with a pink circle reading “Music from The Walleye Project”, set over a photo of a gallery where a dancer in red kicks a leg high while a guitarist plays nearby." loading="lazy">
+        <div class="gallery-description">
+          <h2>e-GoS | Gabriel Vianello</h2>
+          <ul class="link-row">
+            <li><a href="https://www.instagram.com/egos.creative/" target="_blank" rel="noopener noreferrer">Instagram<span class="sr-only"> for e-GoS | Gabriel Vianello (opens in a new tab)</span></a></li>
+            <li><a href="https://linktr.ee/egos.creative" target="_blank" rel="noopener noreferrer">Linktree<span class="sr-only"> for e-GoS | Gabriel Vianello (opens in a new tab)</span></a></li>
+          </ul>
+        </div>
+      </article>
 
-    <a href="index.html">
-      Home
-    </a>
+      <article class="gallery-item">
+        <video controls preload="none" poster="images/gallery/adrian-poster.jpg" aria-describedby="video-desc">
+          <source src="images/icymi (720p).mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="gallery-description">
+          <h2>Adrian Petrosian</h2>
+          <p id="video-desc" class="hint">Video, about 70 seconds. Black-and-white footage of rippling, zebra-striped light moving across a person&rsquo;s face and head in the dark. Has sound.</p>
+          <ul class="link-row">
+            <li><a href="https://www.instagram.com/adrianpetrosian/" target="_blank" rel="noopener noreferrer">Instagram<span class="sr-only"> for Adrian Petrosian (opens in a new tab)</span></a></li>
+          </ul>
+        </div>
+      </article>
 
-    <a href="about.html">
-      About
-    </a>
+      <article class="gallery-item">
+        <img src="images/gallery/hoynoddy.jpg" alt="Photograph at dusk of a red brick building with a green roof and tall windows among trees, with dark cars parked in the foreground." loading="lazy">
+        <div class="gallery-description">
+          <h2>hoynoddy</h2>
+          <ul class="link-row">
+            <li><a href="https://www.instagram.com/hoynoddy/" target="_blank" rel="noopener noreferrer">Instagram<span class="sr-only"> for hoynoddy (opens in a new tab)</span></a></li>
+          </ul>
+        </div>
+      </article>
 
-    <a
-      href="gallery.html"
-      class="current"
-      aria-current="page"
-    >
-      Gallery
-    </a>
+      <article class="gallery-item">
+        <img src="images/gallery/goneferalmo.jpg" alt="Colorful cartoon illustration of a grinning man with curly orange hair and a small open panel in his head, lifting a forkful of noodles above a huge bowl crawling with insects and worms." loading="lazy">
+        <div class="gallery-description">
+          <h2>goneferalmo</h2>
+          <ul class="link-row">
+            <li><a href="https://www.instagram.com/goneferalmo/" target="_blank" rel="noopener noreferrer">Instagram<span class="sr-only"> for goneferalmo (opens in a new tab)</span></a></li>
+            <li><a href="https://goneferalmo.bandcamp.com" target="_blank" rel="noopener noreferrer">Bandcamp<span class="sr-only"> for goneferalmo (opens in a new tab)</span></a></li>
+          </ul>
+        </div>
+      </article>
 
-    <a href="directory.html">
-      Directory
-    </a>
+      <article class="gallery-item">
+        <img src="images/gallery/mitchellaneous.jpg" alt="Collage of glitchy graphics: stickers with a stylized letter M and the text “_mitchellaneous_” next to a tile of rainbow-colored pixel patterns." loading="lazy">
+        <div class="gallery-description">
+          <h2>_mitchellaneous_</h2>
+          <ul class="link-row">
+            <li><a href="https://www.instagram.com/_mitchellaneous_/" target="_blank" rel="noopener noreferrer">Instagram<span class="sr-only"> for _mitchellaneous_ (opens in a new tab)</span></a></li>
+          </ul>
+        </div>
+      </article>
 
-    <a href="events.html">
-      Events
-    </a>
-
-    <a href="contact.html">
-      Contact
-    </a>
-
-  </div>
-
-</div>
-
-
-  </nav>
-
-  <!-- GALLERY -->
-
-  <main>
-
-
-<h1 style="text-align: center;">
-  Our Gallery
-</h1>
-
-<div class="gallery">
-
-
-  <div class="gallery-item">
-
-    <img
-      src="images/FrogRedditpost.png"
-      alt="Artwork by cowkong"
-    >
-
-    <div class="gallery-description">
-
-      <h3>cowkong</h3>
-
-      <p>
-        <a href="https://www.instagram.com/cowkong/">
-          Instagram
-        </a>
-      </p>
-
-      <p>
-        <a href="https://www.etsy.com/shop/Cowkong">
-          Etsy
-        </a>
-      </p>
-
+      <article class="gallery-item">
+        <img src="images/gallery/eliza-qadesh.jpg" alt="Small pink pig painted on a green and brown wash background, signed “PIG” in the corner." loading="lazy">
+        <div class="gallery-description">
+          <h2>Eliza Qadesh</h2>
+          <ul class="link-row">
+            <li><a href="https://www.instagram.com/eliza.qadesh/" target="_blank" rel="noopener noreferrer">Instagram<span class="sr-only"> for Eliza Qadesh (opens in a new tab)</span></a></li>
+          </ul>
+        </div>
+      </article>
     </div>
 
   </div>
+</main>
 
-
-  <div class="gallery-item">
-
-    <img
-      src="images/grant.jpg"
-      alt="Artwork by Grant Harris"
-    >
-
-    <div class="gallery-description">
-
-      <h3>Grant Harris</h3>
-
-      <p>
-        <a href="https://www.instagram.com/art_and_empathies/">
-          Instagram
-        </a>
-      </p>
-
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img class="footer-logo" src="images/stlnc-logo-transparent.png" width="768" height="596" alt="">
+        <p class="footer-blurb">A network for neurodivergent, alternative, and unconventional creatives in St. Louis.</p>
+      </div>
+      <div>
+        <h2>Explore</h2>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="directory.html">Directory</a></li>
+          <li><a href="events.html">Events</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Connect</h2>
+        <ul>
+          <li><a href="https://www.instagram.com/stlneurodiversecreatives/" target="_blank" rel="noopener noreferrer">Instagram<span class="sr-only"> (opens in a new tab)</span></a></li>
+          <li><a href="https://discord.com/invite/Z4AyvyJqw" target="_blank" rel="noopener noreferrer">Discord<span class="sr-only"> (opens in a new tab)</span></a></li>
+          <li><a href="https://forms.gle/uLSqWdj6ZThNny8v9" target="_blank" rel="noopener noreferrer">Google Form<span class="sr-only"> (opens in a new tab)</span></a></li>
+          <li><a href="mailto:contact@stlneurodiversecreatives.org">contact@stlneurodiversecreatives.org</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Members</h2>
+        <ul>
+          <li><a href="signup.html">Join STLNC</a></li>
+          <li><a href="login.html">Log in</a></li>
+          <li><a href="contact.html">Get in touch</a></li>
+        </ul>
+      </div>
     </div>
-
+    <p class="footer-legal">&copy; STL Neurodiverse Creatives. Made with and for St. Louis creatives.</p>
   </div>
+</footer>
 
-
-  <div class="gallery-item">
-
-    <img
-      src="images/stasia.png"
-      alt="Artwork by Stasia"
-    >
-
-    <div class="gallery-description">
-
-      <h3>Stasia</h3>
-
-      <p>
-        <a href="https://www.instagram.com/a_rtistxc/">
-          Instagram
-        </a>
-      </p>
-
-      <p>
-        <a href="https://linktr.ee/a_rtistxc">
-          Linktree
-        </a>
-      </p>
-
-    </div>
-
-  </div>
-
-
-  <div class="gallery-item">
-
-    <img
-      src="images/gabriel.jpg"
-      alt="Artwork by e-GoS | Gabriel Vianello"
-    >
-
-    <div class="gallery-description">
-
-      <h3>e-GoS | Gabriel Vianello</h3>
-
-      <p>
-        <a href="https://www.instagram.com/egos.creative/">
-          Instagram
-        </a>
-      </p>
-
-      <p>
-        <a href="https://linktr.ee/egos.creative">
-          Linktree
-        </a>
-      </p>
-
-    </div>
-
-  </div>
-
-
-  <div class="gallery-item">
-
-    <img
-      src="images/noel.PNG"
-      alt="Artwork by hoynoddy"
-    >
-
-    <div class="gallery-description">
-
-      <h3>hoynoddy</h3>
-
-      <p>
-        <a href="https://www.instagram.com/hoynoddy/">
-          Instagram
-        </a>
-      </p>
-
-    </div>
-
-  </div>
-
-
-  <div class="gallery-item">
-
-    <img
-      src="images/Copy of Weird dinner print.png"
-      alt="Artwork by goneferalmo"
-    >
-
-    <div class="gallery-description">
-
-      <h3>goneferalmo</h3>
-
-      <p>
-        <a href="https://www.instagram.com/goneferalmo/">
-          Instagram
-        </a>
-      </p>
-
-      <p>
-        <a href="https://goneferalmo.bandcamp.com">
-          Bandcamp
-        </a>
-      </p>
-
-    </div>
-
-  </div>
-
-
-  <div class="gallery-item">
-
-    <img
-      src="images/mitchmerge.PNG"
-      alt="Artwork by _mitchellaneous_"
-    >
-
-    <div class="gallery-description">
-
-      <h3>_mitchellaneous_</h3>
-
-      <p>
-        <a href="https://www.instagram.com/_mitchellaneous_/">
-          Instagram
-        </a>
-      </p>
-
-    </div>
-
-  </div>
-
-
-  <div class="gallery-item">
-
-    <img
-      src="images/piggy.jpg"
-      alt="Artwork by Eliza Qadesh"
-    >
-
-    <div class="gallery-description">
-
-      <h3>Eliza Qadesh</h3>
-
-      <p>
-        <a href="https://www.instagram.com/eliza.qadesh/">
-          Instagram
-        </a>
-      </p>
-
-    </div>
-
-  </div>
-
-
-  <div class="gallery-item">
-
-    <video controls>
-
-      <source
-        src="images/icymi (720p).mp4"
-        type="video/mp4"
-      >
-
-      Your browser does not support the video tag.
-
-    </video>
-
-    <div class="gallery-description">
-
-      <h3>Adrian Petrosian</h3>
-
-      <p>
-        <a href="https://www.instagram.com/adrianpetrosian/">
-          Instagram
-        </a>
-      </p>
-
-    </div>
-
-  </div>
-
-
-  <div class="gallery-item">
-
-    <img
-      src="images/art4.jpg"
-      alt="Fourth Piece"
-    >
-
-    <div class="gallery-description">
-
-      <h3>Hi/h3>
-
-      <p>
-      
-      </p>
-
-    </div>
-
-  </div>
-
-
-</div>
-
-  </main>
 
 </body>
-
 </html>

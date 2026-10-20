@@ -1,145 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Upcoming events from STL Neurodiverse Creatives.">
   <title>Events | STLNC</title>
 
-  <!-- Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="icon" type="image/png" href="images/favicon.png">
 
-  <script>
-    const SUPABASE_URL =
-      'https://nwmnamevyasyruygapeb.supabase.co';
+  <!-- Applies saved display settings before first paint -->
+  <script src="theme-init.js"></script>
 
-    const SUPABASE_ANON_KEY =
-      'sb_publishable_OWaZPpZTVGK6FYETNa0VLQ_-1gAz1qQ';
-
-    window.supabaseClient =
-      window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
-      );
-  </script>
-
-  <!-- Shared CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap">
   <link rel="stylesheet" href="css/style.css">
 
-  <!-- Shared JavaScript -->
+  <!-- Supabase library, shared script, then this page's script (order matters) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
   <script src="script.js" defer></script>
-
 </head>
-
 <body>
 
-  <!-- ACCOUNT / THEME NAVIGATION -->
+<a class="skip-link" href="#main">Skip to main content</a>
 
-  <div
-    class="account-nav"
-    aria-label="Account navigation"
-  >
+<div class="spectrum" aria-hidden="true"></div>
+<header class="site-header">
+  <div class="container">
 
-    <button
-      id="theme-toggle"
-      type="button"
-      aria-label="Toggle dark mode"
-    >
-      🌙 Dark Mode
-    </button>
+    <div class="utility-bar">
+      <div class="display-settings">
+        <button type="button" class="btn btn-small" id="display-toggle" aria-expanded="false" aria-controls="display-panel">
+          Display settings
+        </button>
+        <div class="display-panel" id="display-panel" role="group" aria-label="Display settings" hidden>
+          <fieldset>
+            <legend>Color theme</legend>
+            <label class="choice"><input type="radio" name="theme" value="auto" checked> Match my device</label>
+            <label class="choice"><input type="radio" name="theme" value="light"> Light</label>
+            <label class="choice"><input type="radio" name="theme" value="dark"> Dark</label>
+          </fieldset>
+          <fieldset>
+            <legend>Text size</legend>
+            <label class="choice"><input type="radio" name="textsize" value="default" checked> Standard</label>
+            <label class="choice"><input type="radio" name="textsize" value="large"> Large</label>
+            <label class="choice"><input type="radio" name="textsize" value="xl"> Extra large</label>
+          </fieldset>
+          <label class="choice"><input type="checkbox" id="spacing-toggle"> More space between letters and lines</label>
+          <button type="button" class="btn btn-small" id="display-reset">Reset to defaults</button>
+        </div>
+      </div>
 
-    <div
-      class="account-links"
-      id="account-links"
-    >
-      <a href="signup.html">Join STLNC</a>
-      <a href="login.html">Log In</a>
+      <div class="account-links" id="account-links">
+        <a class="btn btn-small btn-sun" href="signup.html">Join STLNC</a>
+        <a class="btn btn-small" href="login.html">Log In</a>
+      </div>
+    </div>
+
+    <div class="header-main">
+      <a class="brand" href="index.html">
+        <img src="images/longlogo-transparent.png" width="1370" height="145" alt="STL Neurodiverse Creatives, home">
+      </a>
+      <nav aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="directory.html">Directory</a></li>
+          <li><a href="events.html" aria-current="page">Events</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
     </div>
 
   </div>
-  <!-- MAIN SITE NAVIGATION -->
+</header>
 
-  <nav
-    class="main-nav"
-    aria-label="Main navigation"
-  >
+<main id="main" tabindex="-1">
+  <div class="container">
 
+    <div class="page-head">
+      <h1>Upcoming Events</h1>
+    </div>
 
-<div class="main-nav-inner">
+    <section class="widget-frame event" aria-label="Events calendar">
+      <!-- Elfsight Event Calendar | Untitled Event Calendar -->
+      <script src="https://elfsightcdn.com/platform.js" async></script>
+      <div class="elfsight-app-f94ddf91-82a2-44b2-91a0-475f5d0461aa" data-elfsight-app-lazy></div>
+      <noscript><p class="widget-note">The events calendar needs JavaScript. For the latest events, see <a href="https://www.instagram.com/stlneurodiversecreatives/">our Instagram</a> or <a href="https://discord.com/invite/Z4AyvyJqw">our Discord</a>.</p></noscript>
+    </section>
 
-   <a class="site-name" href="index.html">
-  <img src="images/longlogo.jpg" alt="STLNC">
-</a>
-
-
-  <div class="main-nav-links">
-
-    <a href="index.html">
-      Home
-    </a>
-
-    <a href="about.html">
-      About
-    </a>
-
-    <a href="gallery.html">
-      Gallery
-    </a>
-
-    <a href="directory.html">
-      Directory
-    </a>
-
-    <a
-      href="events.html"
-      class="current"
-      aria-current="page"
-    >
-      Events
-    </a>
-
-    <a href="contact.html">
-      Contact
-    </a>
+    <p class="widget-note" style="margin-top:1.25rem">Calendar not showing? Find the latest on
+      <a href="https://www.instagram.com/stlneurodiversecreatives/" target="_blank" rel="noopener noreferrer">Instagram<span class="sr-only"> (opens in a new tab)</span></a> or
+      <a href="https://discord.com/invite/Z4AyvyJqw" target="_blank" rel="noopener noreferrer">Discord<span class="sr-only"> (opens in a new tab)</span></a>.</p>
 
   </div>
+</main>
 
-</div>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img class="footer-logo" src="images/stlnc-logo-transparent.png" width="768" height="596" alt="">
+        <p class="footer-blurb">A network for neurodivergent, alternative, and unconventional creatives in St. Louis.</p>
+      </div>
+      <div>
+        <h2>Explore</h2>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="directory.html">Directory</a></li>
+          <li><a href="events.html">Events</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Connect</h2>
+        <ul>
+          <li><a href="https://www.instagram.com/stlneurodiversecreatives/" target="_blank" rel="noopener noreferrer">Instagram<span class="sr-only"> (opens in a new tab)</span></a></li>
+          <li><a href="https://discord.com/invite/Z4AyvyJqw" target="_blank" rel="noopener noreferrer">Discord<span class="sr-only"> (opens in a new tab)</span></a></li>
+          <li><a href="https://forms.gle/uLSqWdj6ZThNny8v9" target="_blank" rel="noopener noreferrer">Google Form<span class="sr-only"> (opens in a new tab)</span></a></li>
+          <li><a href="mailto:contact@stlneurodiversecreatives.org">contact@stlneurodiversecreatives.org</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Members</h2>
+        <ul>
+          <li><a href="signup.html">Join STLNC</a></li>
+          <li><a href="login.html">Log in</a></li>
+          <li><a href="contact.html">Get in touch</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer-legal">&copy; STL Neurodiverse Creatives. Made with and for St. Louis creatives.</p>
+  </div>
+</footer>
 
-
-  </nav>
-
-  <!-- EVENTS -->
-
-  <main>
-
-
-<h1 style="text-align: center;">
-  Upcoming Events
-</h1>
-
-
-
-
-
-
-    
-<section class="event">
-
-
-
-<!-- Elfsight Event Calendar | Untitled Event Calendar -->
-<script src="https://elfsightcdn.com/platform.js" async></script>
-<div class="elfsight-app-f94ddf91-82a2-44b2-91a0-475f5d0461aa" data-elfsight-app-lazy></div>
-
-
-</section>
-
-
-  </main>
 
 </body>
-
 </html>
